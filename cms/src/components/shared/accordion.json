@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_shared_accordions",
+  "info": {
+    "displayName": "accordion",
+    "icon": "archive"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,49 @@
+{
+  "collectionName": "components_shared_facilities",
+  "info": {
+    "displayName": "facilities"
+  },
+  "options": {},
+  "attributes": {
+    "description": {
+      "type": "text"
+    },
+    "wheelchair_access": {
+      "type": "boolean"
+    },
+    "close_to_local_shops": {
+      "type": "boolean"
+    },
+    "near_public_transport": {
+      "type": "boolean"
+    },
+    "lift": {
+      "type": "boolean"
+    },
+    "residents_kitchenette": {
+      "type": "boolean"
+    },
+    "pet_friendly": {
+      "type": "boolean"
+    },
+    "gardens": {
+      "type": "boolean"
+    },
+    "private_hair_salon": {
+      "type": "boolean"
+    },
+    "on_site_parking": {
+      "type": "boolean"
+    },
+    "cafe": {
+      "type": "boolean"
+    },
+    "television_point_in_own_room": {
+      "type": "boolean"
+    },
+    "wifi": {
+      "type": "boolean"
+    }
+  },
+  "config": {}
+}

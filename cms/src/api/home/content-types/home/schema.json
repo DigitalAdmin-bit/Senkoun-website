@@ -1,0 +1,134 @@
+{
+  "kind": "collectionType",
+  "collectionName": "homes",
+  "info": {
+    "singularName": "home",
+    "pluralName": "homes",
+    "displayName": "home"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "address": {
+      "type": "string",
+      "required": true
+    },
+    "cover": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "facebook": {
+      "type": "string"
+    },
+    "carehome_review": {
+      "type": "component",
+      "component": "shared.carehome-widget",
+      "repeatable": false
+    },
+    "cqc_rating": {
+      "type": "component",
+      "component": "shared.cqc-widget",
+      "repeatable": false
+    },
+    "tagline": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "video": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "videos"
+      ]
+    },
+    "location": {
+      "type": "component",
+      "component": "shared.location",
+      "repeatable": false
+    },
+    "why_choose_us": {
+      "type": "component",
+      "component": "shared.cards",
+      "repeatable": true
+    },
+    "what_we_offer": {
+      "type": "component",
+      "component": "shared.what-we-offer",
+      "repeatable": false
+    },
+    "spaces": {
+      "type": "component",
+      "component": "shared.spaces",
+      "repeatable": true
+    },
+    "facilities": {
+      "type": "component",
+      "component": "shared.facilities",
+      "repeatable": false
+    },
+    "reviews": {
+      "type": "component",
+      "component": "shared.reviews",
+      "repeatable": true
+    },
+    "teams": {
+      "type": "component",
+      "component": "shared.team",
+      "repeatable": true
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "thumbnails": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "brochure": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "type": {
+      "type": "enumeration",
+      "required": true,
+      "default": "care-home",
+      "enum": [
+        "care-home",
+        "supported-home"
+      ]
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_shared_cqc_widgets",
+  "info": {
+    "displayName": "cqc_widget"
+  },
+  "options": {},
+  "attributes": {
+    "rating": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

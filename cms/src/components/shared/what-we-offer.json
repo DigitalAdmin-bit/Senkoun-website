@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_shared_what_we_offers",
+  "info": {
+    "displayName": "what_we_offer"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "What We Will Offer"
+    },
+    "description": {
+      "type": "text"
+    },
+    "accordions": {
+      "type": "component",
+      "component": "shared.accordion",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}
