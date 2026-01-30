@@ -430,6 +430,74 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBookACallBookACall extends Struct.CollectionTypeSchema {
+  collectionName: 'book_a_calls';
+  info: {
+    displayName: 'book-a-call';
+    pluralName: 'book-a-calls';
+    singularName: 'book-a-call';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email;
+    first_name: Schema.Attribute.String;
+    home: Schema.Attribute.Relation<'oneToOne', 'api::home.home'>;
+    last_name: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::book-a-call.book-a-call'
+    > &
+      Schema.Attribute.Private;
+    phone: Schema.Attribute.String;
+    preferred_date: Schema.Attribute.Date;
+    preferred_time: Schema.Attribute.Time;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiBookATourBookATour extends Struct.CollectionTypeSchema {
+  collectionName: 'book_a_tours';
+  info: {
+    displayName: 'book-a-tour';
+    pluralName: 'book-a-tours';
+    singularName: 'book-a-tour';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.String;
+    first_name: Schema.Attribute.String;
+    home: Schema.Attribute.Relation<'oneToOne', 'api::home.home'>;
+    last_name: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::book-a-tour.book-a-tour'
+    > &
+      Schema.Attribute.Private;
+    phone: Schema.Attribute.String;
+    preferred_date: Schema.Attribute.Date;
+    preferred_time: Schema.Attribute.Time;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiBrochureDownloadBrochureDownload
   extends Struct.CollectionTypeSchema {
   collectionName: 'brochure_downloads';
@@ -457,46 +525,6 @@ export interface ApiBrochureDownloadBrochureDownload
       Schema.Attribute.Private;
     phone: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiCareHomeCareHome extends Struct.CollectionTypeSchema {
-  collectionName: 'care_homes';
-  info: {
-    displayName: 'supported living';
-    pluralName: 'care-homes';
-    singularName: 'care-home';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    address: Schema.Attribute.Text;
-    brochure: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.String;
-    email: Schema.Attribute.Email;
-    facilities: Schema.Attribute.Component<'shared.facilities', false>;
-    landing_text: Schema.Attribute.String;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::care-home.care-home'
-    > &
-      Schema.Attribute.Private;
-    location: Schema.Attribute.Component<'shared.location', false>;
-    name: Schema.Attribute.String;
-    phone: Schema.Attribute.String;
-    publishedAt: Schema.Attribute.DateTime;
-    reviews: Schema.Attribute.Component<'shared.reviews', true>;
-    slug: Schema.Attribute.UID<'name'>;
-    spaces: Schema.Attribute.Component<'shared.spaces', true>;
-    teams: Schema.Attribute.Component<'shared.team', true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1099,8 +1127,9 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::book-a-call.book-a-call': ApiBookACallBookACall;
+      'api::book-a-tour.book-a-tour': ApiBookATourBookATour;
       'api::brochure-download.brochure-download': ApiBrochureDownloadBrochureDownload;
-      'api::care-home.care-home': ApiCareHomeCareHome;
       'api::esquire.esquire': ApiEsquireEsquire;
       'api::home.home': ApiHomeHome;
       'plugin::content-releases.release': PluginContentReleasesRelease;

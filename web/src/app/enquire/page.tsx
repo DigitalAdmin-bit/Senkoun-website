@@ -24,8 +24,9 @@ export default async function EnquirePage() {
                 }
                 description="Senkoun  Healthcare Wakering Ltd presents a visionary plan to establish Joseph Lodge in Little Wakering Southend-on-Sea, With a strong focus on delivering high-quality healthcare services and addressing the pressing needs of the ageing population"
             />
-
-            <EnquiryForm homes={data.data}/>
+            <section className="main-container">
+                <EnquiryForm homes={data.data}/>
+            </section>
         </>
     );
 }

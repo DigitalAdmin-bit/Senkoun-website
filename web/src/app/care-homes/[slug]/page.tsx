@@ -15,6 +15,8 @@ import SpaceCarousel from "@/components/spaces-carousel";
 import Facilities from "@/components/facilities";
 import TestimonialCarousel from "@/components/testimonial-carousel";
 import MeetTheTeam from "@/components/meet-the-team";
+import BrochureDownload from "@/components/brochure-download";
+import CareHomeQuickBtns from "@/components/care-homes-quick/care-home-quick-btns";
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -23,18 +25,39 @@ interface PageProps {
 export async function generateMetadata({
                                            params,
                                        }: PageProps): Promise<Metadata> {
+
+    const {slug} = await params;
+    const responseData = await fetchHomeBySlug(slug);
+
+    if (!responseData || responseData.data.length === 0) {
+        return {
+            title: "Not Found",
+            description: "The content you're looking for isn't found"
+        }
+    }
+
     return {
-        title: "Test",
-        description: "Test description",
+        title: responseData.data[0].name,
+        description: responseData.data[0].description,
     };
 }
 
-const TAB_LINKS = [
+const SUPPORTED_LIVING_TAB_LINKS = [
     {label: "About Us", href: "#about-us"},
     {label: "Location", href: "#location"},
     {label: "Our Facilities", href: "#facilities"},
     {label: "Meet The Team", href: "#meet-the-team"},
-    {label: "Contact Us", href: "#contact-us"},
+    {label: "Contact Us", href: "#location"},
+];
+
+const CARE_HOME_TAB_LINKS = [
+    {label: "Life With Us", href: "#life-with-us"},
+    {label: "Location", href: "#location"},
+    {label: "Why Choose Us", href: "#why-choose-us"},
+    {label: "Our Services", href: "#our-services"},
+    {label: "Our Facilities", href: "#facilities"},
+    {label: "Meet The Team", href: "#meet-the-team"},
+    {label: "Download Brochure", href: "#download-brochure"},
 ];
 
 export default async function CareHomeDetailPage({params}: PageProps) {
@@ -48,17 +71,16 @@ export default async function CareHomeDetailPage({params}: PageProps) {
 
     const data = responseData.data[0];
 
-    // @ts-ignore
     return (
         <>
-            <section>
-                <div>
-                    <div>
-                        <h1>{data.name}</h1>
-                        <div>
+            <section className="bg-white border-t pt-5 text-[#64565A] border-b border-b-[#B8853A]">
+                <div className="flex max-w-[80%] mx-auto justify-between mb-5">
+                    <div className="flex-1">
+                        <h1 className="text-[#B8853A] text-2xl">{data.name}</h1>
+                        <div className="mt-2 text-sm flex gap-2 items-center truncate">
                             <svg
-                                width="19"
-                                height="25"
+                                width="15"
+                                height="20"
                                 viewBox="0 0 19 25"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -78,8 +100,8 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                             <p>{data.address}</p>
                         </div>
                     </div>
-                    <div>
-                        <div>
+                    <div className="flex flex-col justify-between text-sm">
+                        <div className="flex items-center gap-2">
                             <svg
                                 width="17"
                                 height="17"
@@ -94,7 +116,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                             </svg>
                             {data.phone}
                         </div>
-                        <div>
+                        <div className="flex items-center gap-2">
                             <svg
                                 width="16"
                                 height="12"
@@ -112,16 +134,19 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                         </div>
                     </div>
                 </div>
-                <div>
-                    {TAB_LINKS.map((tab) => (
-                        <a key={tab.href} href={tab.href}>
+                <div className="max-w-[80%] mx-auto flex pt-4 text-sm">
+                    {(data.type === "supported-home" ? SUPPORTED_LIVING_TAB_LINKS : CARE_HOME_TAB_LINKS).map((tab) => (
+                        <a key={tab.href} href={tab.href}
+                           className="px-5 py-4 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 hover:after:bg-[#B8853A]">
                             {tab.label}
                         </a>
                     ))}
                 </div>
             </section>
 
-            <HeroSection bg={getStrapiMediaUrl(data.cover.url)}/>
+            <HeroSection bg={getStrapiMediaUrl(data.cover.url)}>
+                <CareHomeQuickBtns homeId={data.documentId}/>
+            </HeroSection>
 
             <br/>
             <br/>
@@ -129,33 +154,46 @@ export default async function CareHomeDetailPage({params}: PageProps) {
 
             {data.type === "care-home" && (
                 <section className="main-container flex gap-2">
-                    <div className="bg-white p-5 flex-1">
-                        <div>{data.carehome_review?.rating}</div>
-                        <img src="" alt="Care home uk"/>
-                        <p>
-                            Read our fantastic reviews on the UK's leading care home review
-                            website
-                        </p>
-                        <a href={data.carehome_review?.review_link}>
-                            Read Reviews <ChevronRight/>
-                        </a>
+                    <div className="bg-white px-10 py-8 flex-1 flex flex-col text-[#64565A]">
+                        <div className="flex-1">
+                            <div
+                                className="mb-5 border-[#145099] border-3 text-white rounded-full size-20 flex items-center justify-center p-1">
+                                <div
+                                    className="bg-[#145099] rounded-full text-2xl font-bold size-full flex items-center justify-center">
+                                    {data.carehome_review?.rating}
+                                </div>
+                            </div>
+                            <img src="/carehome-co-uk-logo.png" alt="Care home uk" className="h-[30px]"/>
+                            <p className="max-w-[70%] mt-3 text-sm">
+                                Read our fantastic reviews on the UK's leading care home review
+                                website
+                            </p>
+                        </div>
+                        <div>
+                            <a href={data.carehome_review?.review_link} className="flex gap-2 items-center text-sm">
+                                Read Reviews <ChevronRight size={18}/>
+                            </a>
+                        </div>
                     </div>
-                    <div className="flex-1 bg-white p-5">
-                        <div>CQC Rating</div>
-                        <div>{data.cqc_rating?.rating}</div>
-                        <img src="" alt="CareQuality Commision"/>
-                        <p>
-                            {data.name} has a CQC rating of {data?.cqc_rating?.rating}. Click
-                            below to view the full report.
-                        </p>
-                        <a href={data.cqc_rating?.report_link}>
-                            Read The Report
-                            <ChevronRight/>
-                        </a>
+                    <div className="bg-white px-10 py-8 flex-1 flex flex-col text-[#64565A]">
+                        <div className="flex-1">
+                            <div>CQC Rating</div>
+                            <div className="mt-3 mb-5 rounded-lg bg-[#589245] text-white px-4 py-1 w-fit capitalize text-xl">{data.cqc_rating?.rating}</div>
+                            <img src="/cqc.png" alt="Care Quality Commision Logo" className="h-[30px]"/>
+                            <p className="max-w-[70%] mt-3 text-sm">
+                                {data.name} has a CQC rating of {data?.cqc_rating?.rating}. Click
+                                below to view the full report.
+                            </p>
+                        </div>
+                        <div>
+                            <a href={data.cqc_rating?.report_link} className="flex gap-2 items-center text-sm">
+                                Read The Report <ChevronRight size={18}/>
+                            </a>
+                        </div>
                     </div>
-                    <div className="flex-1 from-[#83A1F7] to-[#5D7EF5] bg-linear-to-r p-5 text-white">
-                        <img src="/follow-on-fb.webp" alt="Follow us on Facebook"/>
-                        <a href={data.facebook}>Follow</a>
+                    <div className="flex-1 from-[#83A1F7] to-[#5D7EF5] bg-linear-to-b p-5 text-white text-center flex flex-col items-center justify-center gap-5">
+                        <img src="/follow-on-fb.webp" alt="Follow us on Facebook" className="w-50" draggable={false}/>
+                        <a href={data.facebook} className="w-fit mx-auto px-5 py-2 border-white border uppercase text-center">Follow</a>
                     </div>
                 </section>
             )}
@@ -163,6 +201,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
             <br/>
             <br/>
             <SectionContent
+                id="about-us"
                 subtitle=""
                 title={data.tagline}
                 description={
@@ -182,7 +221,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
             />
 
             {data.type === "care-home" && (
-                <section className="main-container mb-20">
+                <section className="main-container mb-20" id="life-with-us">
                     <video
                         className="w-full"
                         src={getStrapiMediaUrl(data.video?.url!)}
@@ -196,7 +235,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
             <br/>
 
             <section className="main-container">
-                <SectionHeader title="Location" subtitle="Location"/>
+                <SectionHeader title="Location" subtitle="Location" id="location"/>
                 <hr className="bg-[#CEC5C5] h-0.5 my-10"/>
                 <div className="flex">
                     <div className="flex gap-10 justify-between w-full text-[#64565A] text-sm">
@@ -260,7 +299,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                                 <path
                                     d="M16.8409 0.520996H2.20109C1.2732 0.520996 0.520996 1.2732 0.520996 2.20109V11.4416C0.520996 12.3695 1.2732 13.1217 2.2011 13.1217H3.401H16.8409C17.7688 13.1217 18.521 12.3695 18.521 11.4416V2.20109C18.521 1.2732 17.7688 0.520996 16.8409 0.520996Z"
                                     stroke="#C79C6E"
-                                    stroke-width="1.04211"
+                                    strokeWidth="1.04211"
                                 />
                             </svg>
                             {data.email}
@@ -325,7 +364,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
 
             {data.type === "care-home" && (
                 <section className="main-container">
-                    <h2 className="font-heading font-normal text-[#b8853a] text-6xl">
+                    <h2 className="font-heading font-normal text-[#b8853a] text-6xl" id="why-choose-us">
                         Why Choose Us?
                     </h2>
 
@@ -352,7 +391,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
             {data.type === "care-home" && (
                 <section className="mt-30 flex main-container gap-5">
                     <div className="flex-1">
-                        <SectionHeader title="What we will Offer" subtitle="HOW WE CARE"/>
+                        <SectionHeader title="What we will Offer" subtitle="HOW WE CARE" id="our-services"/>
                         <p className="text-[#64565A] text-sm mt-10 max-w-[80%] leading-relaxed tracking-wide">
                             Senkoun Healthcare Wakering Ltd presents a visionary plan to
                             establish Joseph Lodge in Little Wakering Southend-on-Sea, With a
@@ -396,6 +435,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                                 Facilities
                             </>
                         }
+                        id="facilities"
                         subtitle=""
                     />
                     <p className="mt-10 text-[#64565A] text-sm">
@@ -421,13 +461,10 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                 }))}
             />
 
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
+            <br/><br/><br/><br/><br/>
 
             <MeetTheTeam
+                id="meet-the-team"
                 data={data.teams.map((i) => ({
                     ...i!,
                     image: {
@@ -437,17 +474,19 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                 }))}
             />
 
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
+            <br/><br/><br/><br/><br/>
 
             <WantToExploreMore/>
 
-            <br/>
-            <br/>
-            <br/>
+            <br/><br/><br/><br/><br/>
+
+            <section className="main-container">
+                <SectionHeader title={`${data.name} Brochure`} subtitle="Download Brochure" id="download-brochure"/>
+                <br/><br/>
+                <BrochureDownload homeID={data.documentId} url={getStrapiMediaUrl(data.brochure.url)}/>
+            </section>
+
+            <br/><br/><br/>
         </>
     );
 }

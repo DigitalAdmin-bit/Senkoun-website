@@ -144,7 +144,37 @@
 
 body {
     font-family: var(--font-buenos-aires), "Montserrat", system-ui, sans-serif;
+    color: #64565A;
 }
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #B8853A transparent;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background-color: #a3722f; /* slightly darker on hover */
+}
+
+*::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+*::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #B8853A;
+    border-radius: 0;
+}
+
 
 /* Heading styles */
 h1,
@@ -480,4 +510,8 @@ html {
     ) calc(100% - 36px) / 144px calc(51% - 36px) repeat-x;
     -webkit-mask: var(--mask);
     mask: var(--mask);
+}
+
+.care-home-quick-btns {
+    @apply cursor-pointer hover:scale-105 text-[10px] gap-1 size-20 p-2 shadow rounded-[5px_0px_0px_5px] bg-[#B8853A] flex items-center justify-center flex-col
 }
