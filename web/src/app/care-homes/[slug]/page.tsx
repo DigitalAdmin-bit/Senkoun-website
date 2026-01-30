@@ -1,236 +1,453 @@
-import Image from "next/image";
+import {notFound} from "next/navigation";
+import {Metadata} from "next";
+import {fetchHomeBySlug} from "@/lib/apis/homes";
+import HeroSection from "@/components/hero-section";
+import {getStrapiMediaUrl} from "@/lib/utils";
+import {ChevronRight, MapPin} from "lucide-react";
+import SectionContent from "@/components/section-content";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-
-// Placeholder data - will be replaced with Strapi API calls
-const careHomesData: Record<string, {
-    name: string;
-    location: string;
-    address: string;
-    phone: string;
-    email: string;
-    tagline: string;
-    description: string;
-    features: string[];
-    services: string[];
-    images: string[];
-}> = {
-    "emerald-lodge": {
-        name: "Emerald Lodge",
-        location: "London, SE1",
-        address: "123 Care Lane, London, SE1 2AB",
-        phone: "020 1234 5678",
-        email: "emerald@senkoun.com",
-        tagline: "A peaceful haven with stunning garden views",
-        description: `Emerald Lodge is a beautiful care home nestled in the heart of South East London. With stunning gardens and modern facilities, we provide exceptional nursing and residential care in a warm, welcoming environment.
-
-Our dedicated team of experienced carers and nurses work around the clock to ensure every resident receives personalized attention and the highest standard of care. We believe in creating a home-from-home atmosphere where residents can maintain their independence whilst receiving the support they need.`,
-        features: [
-            "24-hour nursing care",
-            "Beautiful landscaped gardens",
-            "En-suite bedrooms",
-            "Activity coordinators",
-            "Restaurant-quality dining",
-            "Family visiting rooms",
-            "On-site hairdressing salon",
-            "Regular entertainment",
-        ],
-        services: ["Nursing Care", "Residential Care", "Respite Care"],
-        images: ["/images/emerald-1.jpg", "/images/emerald-2.jpg"],
-    },
-    "joseph-lodge": {
-        name: "Joseph Lodge",
-        location: "London, SW3",
-        address: "456 Wellness Road, London, SW3 4CD",
-        phone: "020 2345 6789",
-        email: "joseph@senkoun.com",
-        tagline: "Modern comfort in a historic setting",
-        description: `Joseph Lodge combines the charm of a period building with modern care facilities. Located in the prestigious Chelsea area, our home specializes in dementia and nursing care, providing a secure and stimulating environment for residents.
-
-Our award-winning dementia care program focuses on maintaining cognitive function and quality of life through music therapy, reminiscence activities, and personalized care plans developed in partnership with families.`,
-        features: [
-            "Specialized dementia care unit",
-            "Secure garden courtyards",
-            "Memory boxes outside each room",
-            "Sensory stimulation rooms",
-            "Music therapy sessions",
-            "Regular family events",
-            "Cinema room",
-            "Café-style dining",
-        ],
-        services: ["Dementia Care", "Nursing Care", "Palliative Care"],
-        images: ["/images/joseph-1.jpg", "/images/joseph-2.jpg"],
-    },
-};
+import AccordionComponent from "@/components/group-accordions";
+import SectionHeader from "@/components/section-header";
+import WantToExploreMore from "@/components/want-to-explore-more";
+import {Map, MapMarker, MarkerContent} from "@/components/ui/map";
+import WeatherAsync from "@/components/weather-async";
+import SpaceCarousel from "@/components/spaces-carousel";
+import Facilities from "@/components/facilities";
+import TestimonialCarousel from "@/components/testimonial-carousel";
+import MeetTheTeam from "@/components/meet-the-team";
 
 interface PageProps {
     params: Promise<{ slug: string }>;
 }
 
-export async function generateStaticParams() {
-    return Object.keys(careHomesData).map((slug) => ({ slug }));
-}
-
-export async function generateMetadata({ params }: PageProps) {
-    const { slug } = await params;
-    const home = careHomesData[slug];
-    if (!home) return { title: "Care Home Not Found" };
-
+export async function generateMetadata({
+                                           params,
+                                       }: PageProps): Promise<Metadata> {
     return {
-        title: `${home.name} | Senkoun Care Homes`,
-        description: home.tagline,
+        title: "Test",
+        description: "Test description",
     };
 }
 
-export default async function CareHomeDetailPage({ params }: PageProps) {
-    const { slug } = await params;
-    const home = careHomesData[slug];
+const TAB_LINKS = [
+    {label: "About Us", href: "#about-us"},
+    {label: "Location", href: "#location"},
+    {label: "Our Facilities", href: "#facilities"},
+    {label: "Meet The Team", href: "#meet-the-team"},
+    {label: "Contact Us", href: "#contact-us"},
+];
 
-    if (!home) {
+export default async function CareHomeDetailPage({params}: PageProps) {
+    const {slug} = await params;
+
+    const responseData = await fetchHomeBySlug(slug);
+
+    if ((responseData?.data || []).length === 0) {
         notFound();
     }
 
+    const data = responseData.data[0];
+
+    // @ts-ignore
     return (
         <>
-            {/* Hero Section */}
-            <section className="relative min-h-[50vh] flex items-end overflow-hidden bg-primary">
-                <div className="absolute inset-0">
-                    <Image
-                        src={home.images[0] || "/images/care-home-placeholder.jpg"}
-                        alt={home.name}
-                        fill
-                        priority
-                        className="object-cover opacity-40"
-                    />
-                </div>
-                <div className="container relative z-10 py-16">
-                    <div className="max-w-3xl">
-                        <p className="text-accent font-medium">{home.location}</p>
-                        <h1 className="mt-2 font-heading text-4xl font-bold text-white sm:text-5xl md:text-6xl">
-                            {home.name}
-                        </h1>
-                        <p className="mt-4 text-xl text-white/80">{home.tagline}</p>
-                    </div>
-                </div>
-            </section>
-
-            {/* Quick Info Bar */}
-            <section className="bg-white border-b border-gray-200 py-6">
-                <div className="container">
-                    <div className="flex flex-wrap gap-6 text-sm">
-                        <div className="flex items-center gap-2">
-                            <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-                            </svg>
-                            <span>{home.address}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-                            </svg>
-                            <a href={`tel:${home.phone.replace(/\s/g, "")}`} className="hover:text-primary">
-                                {home.phone}
-                            </a>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-                            </svg>
-                            <a href={`mailto:${home.email}`} className="hover:text-primary">
-                                {home.email}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Main Content */}
-            <section className="section bg-white">
-                <div className="container">
-                    <div className="grid gap-12 lg:grid-cols-3">
-                        {/* Description */}
-                        <div className="lg:col-span-2">
-                            <h2 className="font-heading text-2xl font-bold text-gray-900 sm:text-3xl">
-                                About {home.name}
-                            </h2>
-                            <div className="mt-6 prose prose-lg text-gray-600 whitespace-pre-line">
-                                {home.description}
-                            </div>
-
-                            {/* Features */}
-                            <h3 className="mt-12 font-heading text-xl font-bold text-gray-900">
-                                Facilities & Features
-                            </h3>
-                            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-                                {home.features.map((feature, index) => (
-                                    <li key={index} className="flex items-center gap-3">
-                                        <svg className="h-5 w-5 flex-shrink-0 text-primary" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                                        </svg>
-                                        <span className="text-gray-600">{feature}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        {/* Sidebar */}
+            <section>
+                <div>
+                    <div>
+                        <h1>{data.name}</h1>
                         <div>
-                            <div className="sticky top-24 rounded-2xl bg-off-white p-6">
-                                <h3 className="font-heading text-lg font-bold text-gray-900">
-                                    Care Services
-                                </h3>
-                                <ul className="mt-4 space-y-2">
-                                    {home.services.map((service, index) => (
-                                        <li key={index} className="flex items-center gap-2 text-gray-600">
-                                            <span className="h-2 w-2 rounded-full bg-primary"></span>
-                                            {service}
-                                        </li>
-                                    ))}
-                                </ul>
+                            <svg
+                                width="19"
+                                height="25"
+                                viewBox="0 0 19 25"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <circle
+                                    cx="9.08749"
+                                    cy="9.08642"
+                                    r="5.11117"
+                                    stroke="#D8971D"
+                                    strokeWidth="1.13793"
+                                />
+                                <path
+                                    d="M9.0874 0.56897V4.23193e-06H9.0874L9.0874 0.56897ZM17.606 9.08752H18.1749V9.08752L17.606 9.08752ZM15.9028 14.1979L15.4478 13.8562L15.4427 13.8632L15.9028 14.1979ZM9.0874 23.568L8.62726 23.9026L9.08738 24.5353L9.54753 23.9027L9.0874 23.568ZM2.28467 14.2145L2.74488 13.8798L2.73879 13.8717L2.28467 14.2145ZM0.568848 9.08752L-0.000117838 9.08752V9.08752H0.568848ZM9.0874 0.56897V1.13794C13.4778 1.13794 17.037 4.69708 17.037 9.08753L17.606 9.08752L18.1749 9.08752C18.1749 4.06862 14.1063 4.23193e-06 9.0874 4.23193e-06V0.56897ZM17.606 9.08752H17.037C17.037 10.8775 16.4457 12.5276 15.4479 13.8562L15.9028 14.1979L16.3578 14.5396C17.4984 13.0208 18.1749 11.1325 18.1749 9.08752H17.606ZM15.9028 14.1979L15.4427 13.8632L8.62728 23.2333L9.0874 23.568L9.54753 23.9027L16.363 14.5326L15.9028 14.1979ZM9.0874 23.568L9.54754 23.2333L2.74481 13.8798L2.28467 14.2145L1.82453 14.5491L8.62726 23.9026L9.0874 23.568ZM2.28467 14.2145L2.73879 13.8717C1.73389 12.5404 1.13781 10.8844 1.13781 9.08752H0.568848H-0.000117838C-0.000117838 11.1406 0.681931 13.0356 1.83055 14.5573L2.28467 14.2145ZM0.568848 9.08752L1.13781 9.08753C1.13785 4.69711 4.69698 1.13797 9.08741 1.13794L9.0874 0.56897L9.0874 4.23193e-06C4.06852 4.43459e-05 -7.77245e-05 4.06864 -0.000117838 9.08752L0.568848 9.08752Z"
+                                    fill="#D8971D"
+                                />
+                            </svg>
+                            <p>{data.address}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <svg
+                                width="17"
+                                height="17"
+                                viewBox="0 0 17 17"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M3.22282 0.327922L5.3999 2.505C6.05574 3.16084 6.05574 4.22417 5.3999 4.88C4.74406 5.53584 4.74406 6.59917 5.3999 7.25501L8.9624 10.8175C9.61824 11.4733 10.6816 11.4733 11.3374 10.8175C11.9932 10.1617 13.0566 10.1617 13.7124 10.8175L15.8895 12.9946C16.3267 13.4318 16.3267 14.1407 15.8895 14.5779C13.7034 16.764 10.1589 16.764 7.97282 14.5779L1.63949 8.24459C-0.546641 6.05846 -0.546641 2.51405 1.63949 0.327922C2.07671 -0.109304 2.78559 -0.109303 3.22282 0.327922Z"
+                                    fill="#B8853A"
+                                />
+                            </svg>
+                            {data.phone}
+                        </div>
+                        <div>
+                            <svg
+                                width="16"
+                                height="12"
+                                viewBox="0 0 16 12"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M6.13384 5.12181C7.26015 5.88526 8.73754 5.88719 9.86605 5.12701L15.9287 1.04155C15.9739 1.18396 15.999 1.33553 15.999 1.49288V9.70635C15.9989 10.5309 15.3299 11.1992 14.5053 11.1992H1.49375C0.669129 11.1992 0.000123176 10.5309 0 9.70635V1.49288C3.98429e-05 1.32646 0.0287063 1.16673 0.0789839 1.01724L6.13384 5.12181ZM14.5053 0C14.6697 0 14.8278 0.0272887 14.9757 0.0763801L9.12134 4.02124C8.44418 4.47745 7.55785 4.47594 6.88202 4.01777L1.05196 0.0650967C1.19145 0.0220027 1.34011 0 1.49375 0H14.5053Z"
+                                    fill="#B8853A"
+                                />
+                            </svg>
 
-                                <hr className="my-6 border-gray-200" />
-
-                                <h3 className="font-heading text-lg font-bold text-gray-900">
-                                    Book a Visit
-                                </h3>
-                                <p className="mt-2 text-sm text-gray-600">
-                                    See for yourself what makes {home.name} special. Book a tour with our friendly team.
-                                </p>
-                                <Link href="/enquire" className="btn btn-primary mt-4 w-full">
-                                    Enquire Now
-                                </Link>
-                                <a
-                                    href={`tel:${home.phone.replace(/\s/g, "")}`}
-                                    className="btn btn-outline mt-3 w-full"
-                                >
-                                    Call {home.phone}
-                                </a>
-                            </div>
+                            {data.email}
                         </div>
                     </div>
                 </div>
+                <div>
+                    {TAB_LINKS.map((tab) => (
+                        <a key={tab.href} href={tab.href}>
+                            {tab.label}
+                        </a>
+                    ))}
+                </div>
             </section>
 
-            {/* CTA Section */}
-            <section className="section bg-primary">
-                <div className="container text-center">
-                    <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
-                        Interested in {home.name}?
-                    </h2>
-                    <p className="mt-4 text-white/80 max-w-2xl mx-auto">
-                        Get in touch with our team to learn more or arrange a visit. We're here to help you find the right care for your loved one.
-                    </p>
-                    <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
-                        <Link href="/enquire" className="btn bg-accent hover:bg-accent-dark text-white">
-                            Make an Enquiry
+            <HeroSection bg={getStrapiMediaUrl(data.cover.url)}/>
+
+            <br/>
+            <br/>
+            <br/>
+
+            {data.type === "care-home" && (
+                <section className="main-container flex gap-2">
+                    <div className="bg-white p-5 flex-1">
+                        <div>{data.carehome_review?.rating}</div>
+                        <img src="" alt="Care home uk"/>
+                        <p>
+                            Read our fantastic reviews on the UK's leading care home review
+                            website
+                        </p>
+                        <a href={data.carehome_review?.review_link}>
+                            Read Reviews <ChevronRight/>
+                        </a>
+                    </div>
+                    <div className="flex-1 bg-white p-5">
+                        <div>CQC Rating</div>
+                        <div>{data.cqc_rating?.rating}</div>
+                        <img src="" alt="CareQuality Commision"/>
+                        <p>
+                            {data.name} has a CQC rating of {data?.cqc_rating?.rating}. Click
+                            below to view the full report.
+                        </p>
+                        <a href={data.cqc_rating?.report_link}>
+                            Read The Report
+                            <ChevronRight/>
+                        </a>
+                    </div>
+                    <div className="flex-1 from-[#83A1F7] to-[#5D7EF5] bg-linear-to-r p-5 text-white">
+                        <img src="/follow-on-fb.webp" alt="Follow us on Facebook"/>
+                        <a href={data.facebook}>Follow</a>
+                    </div>
+                </section>
+            )}
+            <br/>
+            <br/>
+            <br/>
+            <SectionContent
+                subtitle=""
+                title={data.tagline}
+                description={
+                    <>
+                        {data.description}
+                        <br/>
+                        <br/>
+                        <br/>
+                        <Link
+                            href="#"
+                            className="border-[#64565A] border px-5 py-3 text-[#64565A]"
+                        >
+                            BOOK A TOUR
                         </Link>
-                        <Link href="/care-homes" className="btn bg-white text-primary hover:bg-gray-100">
-                            View All Homes
-                        </Link>
+                    </>
+                }
+            />
+
+            {data.type === "care-home" && (
+                <section className="main-container mb-20">
+                    <video
+                        className="w-full"
+                        src={getStrapiMediaUrl(data.video?.url!)}
+                        controls={true}
+                    />
+                </section>
+            )}
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+            <section className="main-container">
+                <SectionHeader title="Location" subtitle="Location"/>
+                <hr className="bg-[#CEC5C5] h-0.5 my-10"/>
+                <div className="flex">
+                    <div className="flex gap-10 justify-between w-full text-[#64565A] text-sm">
+                        <div className="flex-1 flex gap-2">
+                            <svg
+                                width="17"
+                                height="17"
+                                viewBox="0 0 17 17"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M3.60327 0.860596L5.66577 2.9231C6.28709 3.54442 6.28709 4.55177 5.66577 5.1731C5.04445 5.79442 5.04445 6.80177 5.66577 7.4231L9.04077 10.7981C9.66209 11.4194 10.6695 11.4194 11.2908 10.7981C11.9121 10.1768 12.9195 10.1768 13.5408 10.7981L15.6033 12.8606C16.0175 13.2748 16.0175 13.9464 15.6033 14.3606C13.5322 16.4317 10.1743 16.4317 8.10327 14.3606L2.10327 8.3606C0.0322044 6.28953 0.0322031 2.93166 2.10327 0.860596C2.51749 0.446382 3.18906 0.446382 3.60327 0.860596Z"
+                                    stroke="#C79C6E"
+                                    strokeWidth="1.1"
+                                />
+                            </svg>
+                            {data.phone}
+                        </div>
+                        <div className="w-0.5 h-full bg-[#CEC5C5]"/>
+
+                        <div className="flex-1 flex gap-2">
+                            <svg
+                                width="19"
+                                height="25"
+                                viewBox="0 0 19 25"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <circle
+                                    cx="9.08749"
+                                    cy="9.08627"
+                                    r="5.11117"
+                                    stroke="#C79C6E"
+                                    strokeWidth="1.13793"
+                                />
+                                <path
+                                    d="M9.0874 0.568848V-0.000117838H9.0874L9.0874 0.568848ZM17.606 9.0874H18.1749V9.0874L17.606 9.0874ZM15.9028 14.1978L15.4478 13.856L15.4427 13.8631L15.9028 14.1978ZM9.0874 23.5679L8.62726 23.9025L9.08738 24.5352L9.54753 23.9025L9.0874 23.5679ZM2.28467 14.2144L2.74488 13.8796L2.73879 13.8716L2.28467 14.2144ZM0.568848 9.0874L-0.000117838 9.0874V9.0874H0.568848ZM9.0874 0.568848V1.13781C13.4778 1.13781 17.037 4.69696 17.037 9.08741L17.606 9.0874L18.1749 9.0874C18.1749 4.0685 14.1063 -0.000117838 9.0874 -0.000117838V0.568848ZM17.606 9.0874H17.037C17.037 10.8774 16.4457 12.5275 15.4479 13.8561L15.9028 14.1978L16.3578 14.5394C17.4984 13.0207 18.1749 11.1324 18.1749 9.0874H17.606ZM15.9028 14.1978L15.4427 13.8631L8.62728 23.2332L9.0874 23.5679L9.54753 23.9025L16.363 14.5324L15.9028 14.1978ZM9.0874 23.5679L9.54754 23.2332L2.74481 13.8797L2.28467 14.2144L1.82453 14.549L8.62726 23.9025L9.0874 23.5679ZM2.28467 14.2144L2.73879 13.8716C1.73389 12.5403 1.13781 10.8843 1.13781 9.0874H0.568848H-0.000117838C-0.000117838 11.1404 0.681931 13.0354 1.83055 14.5571L2.28467 14.2144ZM0.568848 9.0874L1.13781 9.08741C1.13785 4.69698 4.69698 1.13785 9.08741 1.13781L9.0874 0.568848L9.0874 -0.000117838C4.06852 -7.77245e-05 -7.77245e-05 4.06852 -0.000117838 9.0874L0.568848 9.0874Z"
+                                    fill="#C79C6E"
+                                />
+                            </svg>
+
+                            <p>{data.address}</p>
+                        </div>
+
+                        <div className="w-0.5 h-full bg-[#CEC5C5]"/>
+
+                        <div className="flex-1 flex  gap-2">
+                            <svg
+                                width="20"
+                                height="14"
+                                viewBox="0 0 20 14"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M18.1609 0.979033L9.52086 6.80031L0.880859 0.942871"
+                                    stroke="#C79C6E"
+                                    strokeWidth="1.04211"
+                                />
+                                <path
+                                    d="M16.8409 0.520996H2.20109C1.2732 0.520996 0.520996 1.2732 0.520996 2.20109V11.4416C0.520996 12.3695 1.2732 13.1217 2.2011 13.1217H3.401H16.8409C17.7688 13.1217 18.521 12.3695 18.521 11.4416V2.20109C18.521 1.2732 17.7688 0.520996 16.8409 0.520996Z"
+                                    stroke="#C79C6E"
+                                    stroke-width="1.04211"
+                                />
+                            </svg>
+                            {data.email}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="flex h-112.5 mt-10">
+                    <div className="flex-2 ">
+                        <Map
+                            theme="light"
+                            styles={{
+                                light: {
+                                    version: 8,
+                                    sources: {
+                                        "raster-tiles": {
+                                            type: "raster",
+                                            tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+                                            tileSize: 256,
+                                        },
+                                    },
+                                    layers: [
+                                        {
+                                            id: "simple-tiles",
+                                            type: "raster",
+                                            source: "raster-tiles",
+                                            minzoom: 0,
+                                            maxzoom: 22,
+                                        },
+                                    ],
+                                    // @ts-ignore
+                                    paint: {
+                                        "background-color": "#a8e6a1",
+                                    },
+                                },
+                            }}
+                            center={[Number(data.location.log), Number(data.location.lat)]}
+                            zoom={11}
+                        >
+                            <MapMarker
+                                longitude={Number(data.location.log)}
+                                latitude={Number(data.location.lat)}
+                            >
+                                <MarkerContent>
+                                    <MapPin fill="red" stroke="rgb(150, 0, 0)"/>
+                                </MarkerContent>
+                            </MapMarker>
+                        </Map>
+                    </div>
+                    <div className="flex-1 bg-[#57946c]">
+                        <WeatherAsync
+                            lat={Number(data.location.lat)}
+                            lon={Number(data.location.log)}
+                        />
                     </div>
                 </div>
             </section>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+            {data.type === "care-home" && (
+                <section className="main-container">
+                    <h2 className="font-heading font-normal text-[#b8853a] text-6xl">
+                        Why Choose Us?
+                    </h2>
+
+                    <div className="my-20 text-[#64565A] flex gap-3 justify-center flex-wrap">
+                        {data.why_choose_us.map((item, index) => (
+                            <div className="flex-1 bg-white p-10" key={index}>
+                                <div className="w-full flex flex-col items-center mb-5">
+                                    <img
+                                        src="/home/trust.webp"
+                                        alt={item.title}
+                                        className="h-25"
+                                    />
+                                </div>
+                                <h2 className="text-3xl text-center mb-7">{item.title}</h2>
+                                <p className="text-center text-sm text-pretty">
+                                    {item.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            )}
+
+            {data.type === "care-home" && (
+                <section className="mt-30 flex main-container gap-5">
+                    <div className="flex-1">
+                        <SectionHeader title="What we will Offer" subtitle="HOW WE CARE"/>
+                        <p className="text-[#64565A] text-sm mt-10 max-w-[80%] leading-relaxed tracking-wide">
+                            Senkoun Healthcare Wakering Ltd presents a visionary plan to
+                            establish Joseph Lodge in Little Wakering Southend-on-Sea, With a
+                            strong focus on delivering high-quality healthcare services and
+                            addressing the pressing needs of the ageing population, Joseph
+                            Lodge aims to become a trusted and preferred choice for elderly
+                            care in the region.
+                        </p>
+                    </div>
+                    <div className="flex-1">
+                        <AccordionComponent items={data.what_we_offer.accordions}/>
+                    </div>
+                </section>
+            )}
+
+            <section className="w-full bg-[#B8853A] mt-30">
+                <SpaceCarousel
+                    spaces={data.spaces.map((i) => ({
+                        ...i,
+                        images: i.images.map((image) => ({
+                            ...image,
+                            url: getStrapiMediaUrl(image.url),
+                        })),
+                    }))}
+                />
+            </section>
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+            <section className="main-container flex gap-10">
+                <div className="flex-1">
+                    <SectionHeader
+                        title={
+                            <>
+                                Our
+                                <br/>
+                                Facilities
+                            </>
+                        }
+                        subtitle=""
+                    />
+                    <p className="mt-10 text-[#64565A] text-sm">
+                        {data.facilities.description}
+                    </p>
+                </div>
+                <div className="flex-2 grid grid-cols-4 gap-5 text-[#64565A] text-xs text-center">
+                    <Facilities data={data.facilities}/>
+                </div>
+            </section>
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+            <TestimonialCarousel
+                testimonials={data.reviews.map((i) => ({
+                    quote: i.content,
+                    role: i.by,
+                    author: i.by,
+                }))}
+            />
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+            <MeetTheTeam
+                data={data.teams.map((i) => ({
+                    ...i!,
+                    image: {
+                        ...i.image!,
+                        url: getStrapiMediaUrl(i.image?.url!)!,
+                    },
+                }))}
+            />
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+            <WantToExploreMore/>
+
+            <br/>
+            <br/>
+            <br/>
         </>
     );
 }

@@ -38,7 +38,13 @@ export const metadata: Metadata = {
     title: "Senkoun Care Homes | Quality Care for Your Loved Ones",
     description:
         "Senkoun provides compassionate care homes offering nursing, dementia, and residential care services. Discover our warm, supportive environments for your loved ones.",
-    keywords: ["care homes", "nursing care", "dementia care", "elderly care", "residential care"],
+    keywords: [
+        "care homes",
+        "nursing care",
+        "dementia care",
+        "elderly care",
+        "residential care",
+    ],
 };
 
 export default function RootLayout({

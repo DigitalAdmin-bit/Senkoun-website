@@ -50,6 +50,7 @@ export interface SharedCqcWidget extends Struct.ComponentSchema {
   };
   attributes: {
     rating: Schema.Attribute.String;
+    report_link: Schema.Attribute.String;
   };
 }
 

@@ -5,36 +5,36 @@
 
 :root {
     /* Primary Colors - from Figma */
-    --color-primary: #4A6F52;
-    --color-primary-light: #5D8A67;
-    --color-primary-dark: #3B5942;
+    --color-primary: #4a6f52;
+    --color-primary-light: #5d8a67;
+    --color-primary-dark: #3b5942;
 
     /* Accent Colors */
-    --color-accent: #C89B3C;
-    --color-accent-light: #D4AF5C;
-    --color-accent-dark: #A67F2E;
+    --color-accent: #c89b3c;
+    --color-accent-light: #d4af5c;
+    --color-accent-dark: #a67f2e;
 
     /* Gold/Amber Colors - for hero and CTA sections */
-    --color-gold: #B8860B;
-    --color-gold-light: #D4A84B;
-    --color-gold-dark: #8B6914;
+    --color-gold: #b8860b;
+    --color-gold-light: #d4a84b;
+    --color-gold-dark: #8b6914;
     --color-amber: #996515;
-    --color-amber-light: #C4903A;
-    --color-amber-dark: #6B4710;
+    --color-amber-light: #c4903a;
+    --color-amber-dark: #6b4710;
 
     /* Cream/Beige for alternating sections */
-    --color-cream: #F5F0E6;
-    --color-cream-light: #FAF8F3;
-    --color-cream-dark: #E8E0D0;
+    --color-cream: #f5f0e6;
+    --color-cream-light: #faf8f3;
+    --color-cream-dark: #e8e0d0;
 
     /* Neutral Colors */
-    --color-white: #FFFFFF;
-    --color-off-white: #F8F7F4;
-    --color-light-gray: #E5E5E5;
-    --color-gray: #9CA3AF;
-    --color-dark-gray: #4B5563;
-    --color-text: #1A1A1A;
-    --color-text-muted: #6B7280;
+    --color-white: #ffffff;
+    --color-off-white: #f8f7f4;
+    --color-light-gray: #e5e5e5;
+    --color-gray: #9ca3af;
+    --color-dark-gray: #4b5563;
+    --color-text: #1a1a1a;
+    --color-text-muted: #6b7280;
 
     /* Semantic Colors */
 
@@ -135,15 +135,15 @@
 
 /* Typography Utilities */
 .font-heading {
-    font-family: var(--font-zcool), 'Cormorant Garamond', Georgia, serif;
+    font-family: var(--font-zcool), "Cormorant Garamond", Georgia, serif;
 }
 
 .font-body {
-    font-family: var(--font-buenos-aires), 'Montserrat', system-ui, sans-serif;
+    font-family: var(--font-buenos-aires), "Montserrat", system-ui, sans-serif;
 }
 
 body {
-    font-family: var(--font-buenos-aires), 'Montserrat', system-ui, sans-serif;
+    font-family: var(--font-buenos-aires), "Montserrat", system-ui, sans-serif;
 }
 
 /* Heading styles */
@@ -153,7 +153,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: var(--font-zcool), 'Cormorant Garamond', Georgia, serif;
+    font-family: var(--font-zcool), "Cormorant Garamond", Georgia, serif;
 }
 
 /* Button base styles */
@@ -264,12 +264,21 @@ html {
 
 /* Hero gradient - golden/amber from Figma */
 .hero-gradient {
-    background: linear-gradient(135deg, var(--color-amber) 0%, var(--color-gold) 50%, var(--color-amber-light) 100%);
+    background: linear-gradient(
+            135deg,
+            var(--color-amber) 0%,
+            var(--color-gold) 50%,
+            var(--color-amber-light) 100%
+    );
 }
 
 /* CTA gradient - similar to hero */
 .cta-gradient {
-    background: linear-gradient(135deg, var(--color-amber) 0%, var(--color-gold) 100%);
+    background: linear-gradient(
+            135deg,
+            var(--color-amber) 0%,
+            var(--color-gold) 100%
+    );
 }
 
 /* Cream background utility */
@@ -308,7 +317,8 @@ html {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .news-card:hover {
@@ -323,7 +333,7 @@ html {
 }
 
 .navbar-link::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -4px;
     left: 0;
@@ -408,16 +418,66 @@ html {
     body {
         @apply bg-background text-foreground;
     }
+
+    .maplibregl-popup-content {
+        @apply bg-transparent! shadow-none! p-0! rounded-none!;
+    }
+
+    .maplibregl-popup-tip {
+        @apply hidden!;
+    }
 }
 
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes drawLine {
+    from {
+        width: 0;
+    }
+    to {
+        width: 80px;
+    }
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(2deg);
+    }
+}
 
 .wavy-box {
-    --mask:
-            radial-gradient(80.5px at 50% 108px,#000 99%,#0000 101%) calc(50% - 72px) 0/144px 51% repeat-x,
-            radial-gradient(80.5px at 50% -72px,#0000 99%,#000 101%) 50% 36px/144px calc(51% - 36px) repeat-x,
-            radial-gradient(80.5px at 50% calc(100% - 108px),#000 99%,#0000 101%) 50% 100%/144px 51% repeat-x,
-            radial-gradient(80.5px at 50% calc(100% + 72px),#0000 99%,#000 101%) calc(50% - 72px) calc(100% - 36px)/144px calc(51% - 36px) repeat-x;
+    --mask: radial-gradient(80.5px at 50% 108px, #000 99%, #0000 101%) calc(50% - 72px) 0 / 144px 51% repeat-x,
+    radial-gradient(80.5px at 50% -72px, #0000 99%, #000 101%) 50% 36px / 144px calc(
+            51% -
+            36px
+    ) repeat-x,
+    radial-gradient(80.5px at 50% calc(100% - 108px), #000 99%, #0000 101%) 50% 100% / 144px 51% repeat-x,
+    radial-gradient(80.5px at 50% calc(100% + 72px), #0000 99%, #000 101%) calc(
+            50% -
+            72px
+    ) calc(100% - 36px) / 144px calc(51% - 36px) repeat-x;
     -webkit-mask: var(--mask);
     mask: var(--mask);
 }

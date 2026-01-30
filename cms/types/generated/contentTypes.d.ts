@@ -430,6 +430,39 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBrochureDownloadBrochureDownload
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'brochure_downloads';
+  info: {
+    displayName: 'brochure_download';
+    pluralName: 'brochure-downloads';
+    singularName: 'brochure-download';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email;
+    first_name: Schema.Attribute.String;
+    home: Schema.Attribute.Relation<'oneToOne', 'api::home.home'>;
+    last_name: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::brochure-download.brochure-download'
+    > &
+      Schema.Attribute.Private;
+    phone: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCareHomeCareHome extends Struct.CollectionTypeSchema {
   collectionName: 'care_homes';
   info: {
@@ -464,6 +497,40 @@ export interface ApiCareHomeCareHome extends Struct.CollectionTypeSchema {
     slug: Schema.Attribute.UID<'name'>;
     spaces: Schema.Attribute.Component<'shared.spaces', true>;
     teams: Schema.Attribute.Component<'shared.team', true>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiEsquireEsquire extends Struct.CollectionTypeSchema {
+  collectionName: 'esquires';
+  info: {
+    displayName: 'enquire';
+    pluralName: 'esquires';
+    singularName: 'esquire';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.String;
+    first_name: Schema.Attribute.String;
+    home: Schema.Attribute.Relation<'oneToOne', 'api::home.home'>;
+    last_name: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::esquire.esquire'
+    > &
+      Schema.Attribute.Private;
+    message: Schema.Attribute.Text;
+    phone: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    type: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1032,7 +1099,9 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::brochure-download.brochure-download': ApiBrochureDownloadBrochureDownload;
       'api::care-home.care-home': ApiCareHomeCareHome;
+      'api::esquire.esquire': ApiEsquireEsquire;
       'api::home.home': ApiHomeHome;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

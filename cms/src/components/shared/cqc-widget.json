@@ -7,6 +7,9 @@
   "attributes": {
     "rating": {
       "type": "string"
+    },
+    "report_link": {
+      "type": "string"
     }
   },
   "config": {}

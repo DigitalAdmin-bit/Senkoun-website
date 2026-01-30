@@ -2,7 +2,6 @@ import Link from "next/link";
 import SERVICES from "@/data/services";
 import NewsComponent from "@/components/news-component";
 
-
 function showGreeting() {
     const hours = new Date().getHours();
     if (hours < 12) return "Good Morning!";
@@ -13,22 +12,28 @@ function showGreeting() {
 const FOUR_ABOUT = [
     {
         title: "Trust",
-        description: "We operate with integrity, transparency, and accountability in all our business relationships.",
+        description:
+            "We operate with integrity, transparency, and accountability in all our business relationships.",
         image: "/home/trust.webp",
-    }, {
+    },
+    {
         title: "Empathy",
-        description: "We believe in forming genuine bonds for an enriching, fulfilling experience for all.",
+        description:
+            "We believe in forming genuine bonds for an enriching, fulfilling experience for all.",
         image: "/home/empathy.webp",
-    }, {
+    },
+    {
         title: "Excellence",
-        description: "Achieving excellence is central to our ability for delivering superior results.",
+        description:
+            "Achieving excellence is central to our ability for delivering superior results.",
         image: "/home/excellence.webp",
-    }, {
+    },
+    {
         title: "Community",
         description: "Community support groups specific to disease condition.",
         image: "/home/community.webp",
-    }
-]
+    },
+];
 
 export default function Home() {
     return (
@@ -40,13 +45,13 @@ export default function Home() {
                 <div
                     className="absolute inset-0 z-0 bg-[url('/swan.webp')] bg-repeat bg-size-[44px] mix-blend-overlay"/>
 
-
                 <div className="container z-10">
                     <p className="text-sm tracking-[0.3em] uppercase mb-4 font-body opacity-90">
                         {showGreeting()}
                     </p>
                     <h1 className="uppercase z-10 relative font-heading text-7xl mb-6 leading-tight">
-                        WELCOME TO<br/>
+                        WELCOME TO
+                        <br/>
                         SENKUON
                     </h1>
                 </div>
@@ -70,7 +75,6 @@ export default function Home() {
                 </div>
             </section>
 
-
             <section className="mt-10 w-[40%] mx-auto">
                 <p className="text-[#64565A] text-sm text-center mb-10">
                     ABOUT SENKOUN
@@ -78,8 +82,8 @@ export default function Home() {
                 <p className="text-center text-sm text-[#64565A] leading-relaxed text-pretty">
                     Senkoun is more than a healthcare provider — we&apos;re a team of
                     dedicated people committed to transforming the way care feels for
-                    those who need it most. From our warm and welcoming care homes to
-                    our reliable domiciliary and supported living services, we empower
+                    those who need it most. From our warm and welcoming care homes to our
+                    reliable domiciliary and supported living services, we empower
                     individuals to live safely, confidently, and with dignity, wherever
                     they call home.
                     <br/>
@@ -111,24 +115,20 @@ export default function Home() {
             </section>
 
             <section className="my-20 text-[#64565A] flex gap-3 w-[70%] mx-auto justify-center flex-wrap">
-                {FOUR_ABOUT.map((item, index) =>
+                {FOUR_ABOUT.map((item, index) => (
                     <div className="flex-1 bg-white p-10" key={index}>
                         <div className="w-full flex flex-col items-center mb-5">
                             <img src={item.image} alt={item.title} className="h-25"/>
                         </div>
                         <h2 className="text-3xl text-center mb-7">{item.title}</h2>
-                        <p className="text-center text-pretty">
-                            {item.description}
-                        </p>
+                        <p className="text-center text-pretty">{item.description}</p>
                     </div>
-                )}
+                ))}
             </section>
             <br/>
             <section className="my-20 w-[70%] mx-auto space-y-20">
                 {SERVICES.map((service, index) => (
-                    <div
-                        key={index}
-                    >
+                    <div key={index}>
                         <div
                             className={`gap-[10%] flex ${
                                 service.imagePosition === "right" ? "flex-row-reverse" : ""
@@ -150,8 +150,7 @@ export default function Home() {
                                     {service.description}
                                 </p>
                                 <button
-                                    className="text-[#64565a] text-sm border border-[#64565a] px-8 py-4 hover:bg-gray-200 transition cursor-pointer"
-                                >
+                                    className="text-[#64565a] text-sm border border-[#64565a] px-8 py-4 hover:bg-gray-200 transition cursor-pointer">
                                     GET STARTED
                                 </button>
                             </div>
@@ -162,19 +161,19 @@ export default function Home() {
             <br/>
             {/* Join Our Team CTA Section */}
             <section className="bg-[#b8853a] my-20 py-16 md:py-24 text-center text-white">
-                <div className="text-sm mb-10 opacity-80">
-                    CAREERS
-                </div>
-                <h2 className="font-heading text-5xl mb-6">
-                    JOIN OUR TEAM
-                </h2>
+                <div className="text-sm mb-10 opacity-80">CAREERS</div>
+                <h2 className="font-heading text-5xl mb-6">JOIN OUR TEAM</h2>
                 <p className="text-sm font-normal opacity-80 max-w-xl mx-auto mb-8">
-                    To request a callback, a brochure, or to visit one of our homes, please fill in our enquiry form and
-                    we will be in touch to assist you with your enquiry. Alternatively, please call us on
-                    +44 (0) 20 3535 1923
+                    To request a callback, a brochure, or to visit one of our homes,
+                    please fill in our enquiry form and we will be in touch to assist you
+                    with your enquiry. Alternatively, please call us on +44 (0) 20 3535
+                    1923
                 </p>
                 <br/>
-                <Link href="/careers" className="btn bg-white text-amber hover:bg-gray-100">
+                <Link
+                    href="/careers"
+                    className="btn bg-white text-amber hover:bg-gray-100"
+                >
                     APPLY NOW
                 </Link>
             </section>
