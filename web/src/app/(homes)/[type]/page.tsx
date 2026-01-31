@@ -8,12 +8,52 @@ import Link from "next/link";
 import TestimonialCarousel from "@/components/testimonial-carousel";
 import SectionContent from "@/components/section-content";
 import WantToExploreMore from "@/components/want-to-explore-more";
+import {notFound} from "next/navigation";
 
-export const metadata: Metadata = {
-    title: "Our Supp | Senkoun Care Homes",
-    description:
-        "Discover our beautiful care homes across London. Each offers exceptional nursing, dementia, and residential care in warm, supportive environments.",
-};
+interface PageProps {
+    params: Promise<{ type: string }>;
+}
+
+
+const ALLOWED = ["care-home", "domiciliary-care", "supported-living"] as const;
+
+export async function generateMetadata({
+                                           params,
+                                       }: PageProps): Promise<Metadata> {
+
+    const {type} = await params;
+
+    if (!ALLOWED.includes(type as any)) {
+        return {
+            title: "Not Found",
+            description: "The page you're looking for is not found.",
+        }
+    }
+
+
+    switch (type) {
+        case "care-home":
+            return {
+                title: "Care Homes",
+                description: "",
+            }
+        case "domiciliary-care":
+            return {
+                title: "Domiciliary care",
+                description: "",
+            }
+        case "supported-living":
+            return {
+                title: "Supported Living",
+                description: "",
+            }
+        default:
+            return {
+                title: "Not Found",
+                description: "The page you're looking for is not found.",
+            }
+    }
+}
 
 const testimonials = [
     {
@@ -35,8 +75,16 @@ const testimonials = [
     },
 ];
 
-export default async function CareHomesPage() {
-    const data = await fetchHomes_SHORT({featuredOnly: true, limit: 3});
+export default async function CareHomesPage({
+                                                params,
+                                            }: PageProps) {
+    const {type} = await params;
+
+    if (!ALLOWED.includes(type as any)) {
+        return notFound();
+    }
+
+    const data = await fetchHomes_SHORT({featuredOnly: true, limit: 3, type: type});
 
     return (
         <>

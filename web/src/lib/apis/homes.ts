@@ -23,10 +23,11 @@ export interface IFeaturedHomesShortResponse {
  */
 export async function fetchHomes_SHORT(data: {
     featuredOnly?: boolean;
+    type?: string;
     description?: boolean;
     limit?: number;
 }): Promise<IStrapiResponse<IFeaturedHomesShortResponse[]>> {
-    const filters = {
+    const filters: any = {
         filters: {
             featured: {
                 $eq: true,
@@ -42,6 +43,10 @@ export async function fetchHomes_SHORT(data: {
             limit: data?.limit || 3,
         },
     };
+
+    if(data.type) {
+        filters.filters.type = {$eq: data.type};
+    }
 
     if (data?.description) {
         filters.fields.push("description");

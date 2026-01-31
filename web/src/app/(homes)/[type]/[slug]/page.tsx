@@ -1,6 +1,6 @@
 import {notFound} from "next/navigation";
 import {Metadata} from "next";
-import {fetchHomeBySlug} from "@/lib/apis/homes";
+import {fetchHomeBySlug, getHomesWithOnlyName} from "@/lib/apis/homes";
 import HeroSection from "@/components/hero-section";
 import {getStrapiMediaUrl} from "@/lib/utils";
 import {ChevronRight, MapPin} from "lucide-react";
@@ -20,6 +20,14 @@ import CareHomeQuickBtns from "@/components/care-homes-quick/care-home-quick-btn
 
 interface PageProps {
     params: Promise<{ slug: string }>;
+}
+
+export async function generateStaticParams() {
+    const homes = await getHomesWithOnlyName();
+
+    return homes.data.map((home) => ({
+        slug: home.slug,
+    }));
 }
 
 export async function generateMetadata({
@@ -74,7 +82,8 @@ export default async function CareHomeDetailPage({params}: PageProps) {
     return (
         <>
             <section className="bg-white border-t pt-5 text-[#64565A] border-b border-b-[#B8853A]">
-                <div className="flex max-w-[80%] mx-auto justify-between mb-5 max-sm:flex-col max-sm:max-w-[90%] max-sm:gap-3">
+                <div
+                    className="flex max-w-[80%] mx-auto justify-between mb-5 max-sm:flex-col max-sm:max-w-[90%] max-sm:gap-3">
                     <div className="flex-1">
                         <h1 className="text-[#B8853A] text-2xl">{data.name}</h1>
                         <div className="mt-2 text-sm flex gap-2 items-center max-sm:wrap-break-word sm:truncate">
@@ -134,7 +143,8 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                         </div>
                     </div>
                 </div>
-                <div className="max-w-[80%] mx-auto flex pt-4 text-sm max-sm:flex-wrap max-sm:max-w-[90%] max-sm:gap-x-6">
+                <div
+                    className="max-w-[80%] mx-auto flex pt-4 text-sm max-sm:flex-wrap max-sm:max-w-[90%] max-sm:gap-x-6">
                     {(data.type === "supported-home" ? SUPPORTED_LIVING_TAB_LINKS : CARE_HOME_TAB_LINKS).map((tab) => (
                         <a key={tab.href} href={tab.href}
                            className="px-5 py-4 max-sm:px-0 max-sm:py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 hover:after:bg-[#B8853A]">
@@ -178,7 +188,8 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                     <div className="bg-white px-10 py-8 flex-1 min-w-50 flex flex-col text-[#64565A]">
                         <div className="flex-1">
                             <div>CQC Rating</div>
-                            <div className="mt-3 mb-5 rounded-lg bg-[#589245] text-white px-4 py-1 w-fit capitalize text-xl">{data.cqc_rating?.rating}</div>
+                            <div
+                                className="mt-3 mb-5 rounded-lg bg-[#589245] text-white px-4 py-1 w-fit capitalize text-xl">{data.cqc_rating?.rating}</div>
                             <img src="/cqc.png" alt="Care Quality Commision Logo" className="h-[30px]"/>
                             <p className="max-w-[70%] mt-3 text-sm">
                                 {data.name} has a CQC rating of {data?.cqc_rating?.rating}. Click
@@ -191,9 +202,11 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                             </a>
                         </div>
                     </div>
-                    <div className="flex-1 min-w-50 from-[#83A1F7] to-[#5D7EF5] bg-linear-to-b p-5 text-white text-center flex flex-col items-center justify-center gap-5">
+                    <div
+                        className="flex-1 min-w-50 from-[#83A1F7] to-[#5D7EF5] bg-linear-to-b p-5 text-white text-center flex flex-col items-center justify-center gap-5">
                         <img src="/follow-on-fb.webp" alt="Follow us on Facebook" className="w-50" draggable={false}/>
-                        <a href={data.facebook} className="w-fit mx-auto px-5 py-2 border-white border uppercase text-center">Follow</a>
+                        <a href={data.facebook}
+                           className="w-fit mx-auto px-5 py-2 border-white border uppercase text-center">Follow</a>
                     </div>
                 </section>
             )}
@@ -231,7 +244,8 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                 <SectionHeader title="Location" subtitle="Location" id="location"/>
                 <hr className="bg-[#CEC5C5] h-0.5 my-10"/>
                 <div className="flex ">
-                    <div className="flex gap-10 max-lg:gap-3 justify-between w-full text-[#64565A] text-sm max-lg:flex-col">
+                    <div
+                        className="flex gap-10 max-lg:gap-3 justify-between w-full text-[#64565A] text-sm max-lg:flex-col">
                         <div className="flex-1 flex gap-2">
                             <svg
                                 width="17"
