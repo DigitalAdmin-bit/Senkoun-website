@@ -97,7 +97,7 @@ export default async function CareHomesPage({
                     <>
                         WELCOME TO
                         <br/>
-                        SENKOUN CARE HOMES
+                        SENKOUN {type == "supported-living" ? "SUPPORTED LIVING" : "CARE HOMES"}
                     </>
                 }
                 description={

@@ -45,6 +45,9 @@ export async function fetchHomes_SHORT(data: {
     };
 
     if(data.type) {
+        if (data.type === "supported-living") {
+            data.type = "supported-home"
+        }
         filters.filters.type = {$eq: data.type};
     }
 
