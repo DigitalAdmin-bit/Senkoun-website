@@ -1,10 +1,10 @@
 export default function HeroSection({bg, id, children}: { bg: string, id?: string; children?: React.ReactNode }) {
     return (
-        <section className="relative py-20 md:py-32 text-center text-white h-150 overflow-hidden" id={id}>
+        <section className="relative py-20 md:py-32 text-center text-white h-150 max-sm:h-100 max-sm:w-full overflow-hidden" id={id}>
             <img
                 src={bg}
                 alt="Hero Background"
-                className="absolute top-0 left-0 w-full object-cover object-center"
+                className="absolute top-0 left-0 w-full max-sm:h-full object-cover object-center"
             />
             {children}
             <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-0 z-20">

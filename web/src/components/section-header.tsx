@@ -16,17 +16,17 @@ export default function SectionHeader({
 }) {
     return (
         <div>
-            <p className="font-normal text-[#4b3e39]/70 text-sm tracking-[1.68px] mb-5">
+            <p className="font-normal text-[#4b3e39]/70 text-sm tracking-[1.68px] mb-5 max-sm:mb-1">
                 {subtitle ?? "CARE UPDATES"}
             </p>
-            <div className="flex items-center justify-between">
-                <h2 className="font-heading font-normal text-[#b8853a] text-6xl max-w-125" id={id}>
+            <div className="sm:flex items-center justify-between">
+                <h2 className="font-heading font-normal text-[#b8853a] text-6xl max-w-125 max-sm:text-5xl" id={id}>
                     {title}
                 </h2>
                 {rightTitle && rightLink && (
                     <Link
                         href={rightLink}
-                        className="flex gap-1 font-normal text-[#64565a] text-sm tracking-[1.68px] hover:opacity-80"
+                        className="max-sm:mt-3 flex gap-1 font-normal text-[#64565a] text-sm tracking-[1.68px] hover:opacity-80"
                     >
                         {rightTitle}
                         <ChevronRightIcon className="h-4 w-4"/>

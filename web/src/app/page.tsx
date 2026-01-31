@@ -49,7 +49,7 @@ export default function Home() {
                     <p className="text-sm tracking-[0.3em] uppercase mb-4 font-body opacity-90">
                         {showGreeting()}
                     </p>
-                    <h1 className="uppercase z-10 relative font-heading text-7xl mb-6 leading-tight">
+                    <h1 className="uppercase z-10 relative font-heading text-7xl max-sm:text-5xl mb-6 leading-tight">
                         WELCOME TO
                         <br/>
                         SENKUON
@@ -75,7 +75,7 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="mt-10 w-[40%] mx-auto">
+            <section className="mt-10 w-[40%] max-sm:w-[80%] mx-auto">
                 <p className="text-[#64565A] text-sm text-center mb-10">
                     ABOUT SENKOUN
                 </p>
@@ -97,12 +97,14 @@ export default function Home() {
                     passion for excellence.
                 </p>
 
-                <div className="w-full flex h-fit justify-center items-center mt-10 font-heading text-[#64565A]">
+                <div
+                    className="w-full flex max-sm:flex-col max-sm:gap-5 h-fit justify-center items-center mt-10 font-heading text-[#64565A]">
                     <div className="flex-1 flex flex-col items-center gap-2">
                         <span className="text-5xl">500+</span>
                         <span className="text-nowrap">Happy Customers</span>
                     </div>
-                    <div className="border-r border-l border-[#64565A]/50 flex-1 flex flex-col items-center gap-2">
+                    <div
+                        className="border-r border-l max-sm:border-l-0 max-sm:border-r-0 border-[#64565A]/50 flex-1 flex flex-col items-center gap-2">
                         <span className="text-5xl">100+</span>
                         <span className="text-nowrap">Dedicated Staff Members</span>
                     </div>
@@ -114,7 +116,7 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="my-20 text-[#64565A] flex gap-3 w-[70%] mx-auto justify-center flex-wrap">
+            <section className="my-20 text-[#64565A] flex gap-3 main-container mx-auto justify-center flex-wrap">
                 {FOUR_ABOUT.map((item, index) => (
                     <div className="flex-1 bg-white p-10" key={index}>
                         <div className="w-full flex flex-col items-center mb-5">
@@ -125,28 +127,27 @@ export default function Home() {
                     </div>
                 ))}
             </section>
-            <br/>
-            <section className="my-20 w-[70%] mx-auto space-y-20">
+            <section className="my-20 main-container space-y-20">
                 {SERVICES.map((service, index) => (
                     <div key={index}>
                         <div
-                            className={`gap-[10%] flex ${
+                            className={`gap-[10%] max-sm:gap-1 flex max-sm:flex-col ${
                                 service.imagePosition === "right" ? "flex-row-reverse" : ""
                             }`}
                         >
                             <img
-                                className="w-[45%] object-cover"
+                                className="w-[45%] object-cover max-sm:w-full max-sm:mb-10"
                                 alt={service.category}
                                 src={service.image}
                             />
                             <div className="flex-1 h-full">
-                                <p className="text-[#64565a] text-sm mb-5">
+                                <p className="text-[#64565a] text-sm mb-5 max-sm:mb-1">
                                     {service.category}
                                 </p>
-                                <h2 className="font-heading text-[#b8853a] text-4xl tracking-[0] whitespace-pre-line mb-10 ">
+                                <h2 className="font-heading max-sm:wrap-break-word text-[#b8853a] text-4xl tracking-[0] whitespace-pre-line mb-10 max-sm:mb-4">
                                     {service.title}
                                 </h2>
-                                <p className="text-[#64565a] text-sm tracking-[0] mb-10">
+                                <p className="text-[#64565a] text-sm tracking-[0] mb-10 max-sm:mb-4">
                                     {service.description}
                                 </p>
                                 <button
@@ -161,9 +162,9 @@ export default function Home() {
             <br/>
             {/* Join Our Team CTA Section */}
             <section className="bg-[#b8853a] my-20 py-16 md:py-24 text-center text-white">
-                <div className="text-sm mb-10 opacity-80">CAREERS</div>
+                <div className="text-sm mb-10 opacity-80 max-sm:mb-5">CAREERS</div>
                 <h2 className="font-heading text-5xl mb-6">JOIN OUR TEAM</h2>
-                <p className="text-sm font-normal opacity-80 max-w-xl mx-auto mb-8">
+                <p className="text-sm font-normal opacity-80 max-w-xl mx-auto mb-8 max-sm:mb-1 max-sm:w-[90%]">
                     To request a callback, a brochure, or to visit one of our homes,
                     please fill in our enquiry form and we will be in touch to assist you
                     with your enquiry. Alternatively, please call us on +44 (0) 20 3535

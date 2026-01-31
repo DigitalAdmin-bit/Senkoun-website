@@ -190,7 +190,7 @@ export default function xBrochureDownload({url, homeID}: {
                 <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="hover:text-black/90 cursor-pointer flex gap-2 shrink-0 text-sm items-center font-medium uppercase tracking-wider"
+                    className="max-sm:mx-auto hover:text-black/90 cursor-pointer flex gap-2 shrink-0 text-sm items-center font-medium uppercase tracking-wider"
                 >
                     {isSubmitting ? (
                         "Processing..."

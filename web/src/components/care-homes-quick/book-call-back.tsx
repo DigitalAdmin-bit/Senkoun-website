@@ -8,14 +8,15 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {useState} from "react";
+import {useForm} from "react-hook-form";
+import {z} from "zod";
+import {Input} from "@/components/ui/input";
+import {Checkbox} from "@/components/ui/checkbox";
 import {createBookACall, createBookATour} from "@/lib/apis/enquires";
-import { ChevronRight } from "lucide-react";
+import {ChevronRight} from "lucide-react";
+import Link from "next/link";
 
 function toFullTime(input: string): string {
     const [mm, ss] = input.split(":").map(Number);
@@ -53,7 +54,7 @@ export default function BookCallBack({type, children, homeId}: {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: {errors},
         reset,
     } = useForm<BookCallFormData>({
         resolver: zodResolver(bookCallSchema),
@@ -107,7 +108,7 @@ export default function BookCallBack({type, children, homeId}: {
         <DialogTrigger asChild>
             {children}
         </DialogTrigger>
-        <DialogContent className="text-[#64565A] max-w-[80%] px-10 max-h-[98vh] overflow-y-auto rounded-none">
+        <DialogContent className="text-[#64565A] max-w-[80%] max-sm:max-w-[90%] max-sm:max-h-full px-10 max-h-[98vh] overflow-y-auto rounded-none">
             <DialogHeader className="sr-only">
                 <DialogTitle>Enter your Details to Book a {type === 'call-back' ? 'Call Back' : 'Tour'}</DialogTitle>
                 <DialogDescription>
@@ -141,11 +142,11 @@ export default function BookCallBack({type, children, homeId}: {
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 py-6">
                     <div className="text-center">
                         <h2 className="text-2xl font-medium text-[#D4A574]">
-                            Enter your Details to<br />{type === 'call-back' ? "Book a Call Back" : "Book a Tour"}
+                            Enter your Details to<br/>{type === 'call-back' ? "Book a Call Back" : "Book a Tour"}
                         </h2>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-2 max-sm:grid-cols-1 gap-6">
                         <div className="space-y-2">
                             <label
                                 htmlFor="first_name"
@@ -191,7 +192,7 @@ export default function BookCallBack({type, children, homeId}: {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-2 max-sm:grid-cols-1 gap-6">
                         <div className="space-y-2">
                             <label
                                 htmlFor="phone"
@@ -301,9 +302,9 @@ export default function BookCallBack({type, children, homeId}: {
                                 provide you with the information requested and to contact you through
                                 the method(s) you have chosen, and confirm that you have read and
                                 understood our{" "}
-                                <a href="/privacy-policy" className="text-primary underline">
+                                <Link href="/privacy-policy" className="text-primary underline">
                                     Privacy Policy
-                                </a>
+                                </Link>
                             </label>
                         </div>
                         {errors.consent && (

@@ -87,7 +87,7 @@ export default function EnquiryForm({
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="space-y-12 text-[#64565A] p-8 md:p-12"
+            className="space-y-12 text-[#64565A] p-8 md:p-12 max-sm:p-0"
         >
             <div className="grid gap-6 md:grid-cols-2">
                 <div className="space-y-2">
@@ -283,7 +283,7 @@ export default function EnquiryForm({
                 <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="cursor-pointer flex gap-2 h-12 shrink-0 px-8 text-sm font-medium uppercase tracking-wider"
+                    className="max-sm:mx-auto max-sm:my-10 cursor-pointer flex gap-2 h-12 shrink-0 px-8 text-sm font-medium uppercase tracking-wider"
                 >
                     {isSubmitting ? (
                         "Submitting..."

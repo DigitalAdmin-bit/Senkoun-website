@@ -30,7 +30,7 @@ export default function MeetTheTeam({
             <div className="main-container">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                     <div className="flex justify-center lg:justify-start">
-                        <div className="relative w-full max-w-md">
+                        <div className="relative w-full max-w-md max-md:max-w-full">
                             <div className="bg-gray-300 aspect-3/4 overflow-hidden translate-y-[-100px]">
                                 {currentMember.image?.url ? (
                                     <img
@@ -49,7 +49,7 @@ export default function MeetTheTeam({
                         </div>
                     </div>
 
-                    <div className="text-white space-y-6">
+                    <div className="text-white space-y-6 max-md:-mt-20">
                         <div className="border-b border-white pb-4">
                             <h2 className="text-3xl md:text-4xl font-light tracking-wide" id={id}>
                                 Meet the Team
@@ -70,7 +70,7 @@ export default function MeetTheTeam({
                             </p>
                         </div>
 
-                        <div className="flex items-center gap-4 pt-4">
+                        <div className="flex items-center gap-4 pt-4 max-md:mb-10">
                             <button
                                 onClick={goToPrevious}
                                 disabled={data.length <= 1}

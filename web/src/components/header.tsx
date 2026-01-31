@@ -27,13 +27,10 @@ export default function Header() {
     };
 
     return (
-        // sticky top-0 z-50 shadow-sm
         <header className="bg-white">
-            {/* Top Bar - Desktop Only */}
             <div className="hidden lg:block bg-[#b8853a]">
                 <div className="container mx-auto px-4">
                     <div className="flex items-center justify-between h-11">
-                        {/* Top Navigation */}
                         <nav className="flex items-center">
                             {topBarNavigation.map((item) => (
                                 <Link
@@ -74,7 +71,6 @@ export default function Header() {
                 </div>
             </div>
 
-            {/* Main Navbar */}
             <nav className="max-w-[80%] mx-auto flex items-center justify-between py-5">
                 <div className="flex items-center gap-10">
                     <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
@@ -140,6 +136,7 @@ export default function Header() {
                                     <div className="flex flex-col font-heading text-xl gap-4">
                                         {mobileNavigation.map((item) => (
                                             <Link
+                                                key={item.name}
                                                 onClick={() => {
                                                     setMobileMenuOpen(false);
                                                 }}
@@ -180,7 +177,7 @@ export default function Header() {
                 {/* Desktop Right Section */}
                 <Link
                     href="/enquire"
-                    className="flex gap-2 items-center font-light text-sm"
+                    className="max-sm:hidden flex gap-2 items-center font-light text-sm"
                 >
                     <svg
                         width="19"
@@ -200,108 +197,7 @@ export default function Header() {
                     </svg>
                     Help & Support
                 </Link>
-
-                {/* Mobile Menu Button */}
-                <button
-                    type="button"
-                    className="lg:hidden p-2.5 text-gray-700 hover:text-amber transition-colors hover:bg-gray-100 rounded-md"
-                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    aria-label="Toggle menu"
-                >
-                    <svg
-                        className="h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2}
-                        stroke="currentColor"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                        />
-                    </svg>
-                </button>
             </nav>
-
-            {/* Mobile Sidebar Menu */}
-            {mobileMenuOpen && (
-                <>
-                    {/* Overlay */}
-                    <div
-                        className="fixed inset-0 bg-black/50 z-40 lg:hidden menu-overlay"
-                        onClick={() => setMobileMenuOpen(false)}
-                    />
-
-                    {/* Sidebar */}
-                    <div
-                        className="fixed top-0 left-0 h-full w-80 max-w-[85vw] bg-white z-50 lg:hidden shadow-2xl flex flex-col mobile-menu-sidebar">
-                        {/* Close Button */}
-                        <div className="flex items-center justify-between p-6 border-b border-gray-100">
-              <span className="text-lg font-heading font-semibold text-gray-800 tracking-wider">
-                CLOSE
-              </span>
-                            <button
-                                type="button"
-                                className="p-2 text-gray-500 hover:text-amber transition-colors rounded-full hover:bg-gray-100"
-                                onClick={() => setMobileMenuOpen(false)}
-                                aria-label="Close menu"
-                            >
-                                <svg
-                                    className="h-6 w-6"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={2}
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-
-                        {/* Navigation Links */}
-                        <nav className="flex-1 overflow-y-auto py-6">
-                            {mobileNavigation.map((item) => (
-                                <Link
-                                    key={item.name}
-                                    href={item.href}
-                                    className={`block px-6 py-4 text-base font-medium transition-all duration-200 ${
-                                        isActive(item.href)
-                                            ? "text-amber bg-amber/5 border-l-4 border-amber"
-                                            : "text-gray-700 hover:text-amber hover:bg-gray-50 border-l-4 border-transparent"
-                                    }`}
-                                    onClick={() => setMobileMenuOpen(false)}
-                                >
-                                    {item.name}
-                                </Link>
-                            ))}
-                        </nav>
-
-                        {/* Social Links Footer */}
-                        <div className="border-t border-gray-100 bg-gray-50 py-6 px-6">
-                            <p className="text-xs font-medium text-gray-500 uppercase tracking-wider text-center mb-4">
-                                FOLLOW US
-                            </p>
-                            <div className="flex items-center justify-center gap-6">
-                                {socialLinks.map((social) => (
-                                    <a
-                                        key={social.name}
-                                        href={social.href}
-                                        className="text-amber-700 hover:text-amber transition-colors p-2 rounded-full hover:bg-amber/10"
-                                        aria-label={social.name}
-                                    >
-                                        {social.icon}
-                                    </a>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </>
-            )}
         </header>
     );
 }

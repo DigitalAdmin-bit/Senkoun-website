@@ -150,7 +150,7 @@ body {
 /* Firefox */
 * {
     scrollbar-width: thin;
-    scrollbar-color: #B8853A transparent;
+    scrollbar-color: #B8853A rgba(0, 0, 0, 0.1);
 }
 
 *::-webkit-scrollbar-track {
@@ -233,8 +233,7 @@ h6 {
 }
 
 .main-container {
-    width: 70%;
-    margin: 0 auto;
+    @apply w-[70%] mx-auto max-sm:w-[90%];
 }
 
 /* Container utility */
