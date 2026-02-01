@@ -3,7 +3,7 @@
 import Link from "next/link";
 import {useState} from "react";
 import {usePathname} from "next/navigation";
-import {mobileNavigation, socialLinks, topBarNavigation,} from "@/lib/navigation";
+import {mobileNavigation, topBarNavigation,} from "@/lib/navigation";
 import {
     Sheet,
     SheetClose,

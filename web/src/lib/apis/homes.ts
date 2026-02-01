@@ -28,11 +28,7 @@ export async function fetchHomes_SHORT(data: {
     limit?: number;
 }): Promise<IStrapiResponse<IFeaturedHomesShortResponse[]>> {
     const filters: any = {
-        filters: {
-            featured: {
-                $eq: true,
-            },
-        },
+        filters: {},
         fields: ["name", "address", "slug"],
         populate: {
             thumbnails: {
@@ -44,25 +40,30 @@ export async function fetchHomes_SHORT(data: {
         },
     };
 
+
     if (data.type) {
-        if (data.type === "supported-living") {
-            data.type = "supported-home"
-        }
-        filters.filters.type = {$eq: data.type};
+        const normalizedType = data.type === "supported-living"
+            ? "supported-home"
+            : data.type;
+
+        filters.filters.type = {$eq: normalizedType};
     }
 
     if (data?.description) {
         filters.fields.push("description");
     }
 
-    if (!data?.featuredOnly) {
+    if (data?.featuredOnly) {
         // @ts-ignore
-        filters.filters = undefined;
+        filters.filters.featured = {$eq: true};
     }
 
     const featuredHomesQuery = qs.stringify(filters, {
         encodeValuesOnly: true,
     });
+
+    console.dir(filters, {depth: null});
+    console.log(featuredHomesQuery);
 
     const res = await fetch(
         `${process.env.STRAPI_URL}/api/homes?${featuredHomesQuery}`,

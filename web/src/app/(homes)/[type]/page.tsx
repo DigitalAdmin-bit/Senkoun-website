@@ -3,15 +3,17 @@ import {Metadata} from "next";
 import NewsComponent from "@/components/news-component";
 import SectionHeader from "@/components/section-header";
 import {fetchHomes_SHORT} from "@/lib/apis/homes";
-import {getStrapiMediaUrl} from "@/lib/utils";
+import {getHomesPath, getStrapiMediaUrl} from "@/lib/utils";
 import Link from "next/link";
 import TestimonialCarousel from "@/components/testimonial-carousel";
 import SectionContent from "@/components/section-content";
 import WantToExploreMore from "@/components/want-to-explore-more";
 import ALLOWED from "@/app/(homes)/[type]/allowed";
+import HOMES_LANGS from "@/app/(homes)/[type]/lang";
+import NoHomes from "@/components/no-homes";
 
 interface PageProps {
-    params: Promise<{ type: string }>;
+    params: Promise<{ type: typeof ALLOWED[number] }>;
 }
 
 
@@ -45,29 +47,12 @@ export function generateStaticParams() {
     return ALLOWED.map((item) => ({type: item}));
 }
 
-const testimonials = [
-    {
-        quote:
-            "Joseph Lodge is a very well organised home. Staff are very caring and friendly and make you feel welcome. The activities supplied by Heather are amazing, it's certainly noticed when she is not there. The facilities are very good - there us a hair salon which can be used by the family to wash their relatives hair as well as a hair dresser every two weeks.",
-        author: "DAUGHTER OF RESIDENT",
-    },
-    {
-        quote:
-            "The care and attention my mother receives at Joseph Lodge is exceptional. Every staff member knows her by name and treats her with such dignity and respect. We couldn't have asked for a better home.",
-        author: "FAMILY MEMBER",
-        role: "Son of Resident",
-    },
-    {
-        quote:
-            "I've been living here for three years now and it truly feels like home. The community is warm, the food is delicious, and there's always something interesting happening. I'm so grateful to be here.",
-        author: "RESIDENT",
-        role: "Current Resident",
-    },
-];
-
-export default async function CareHomesPage({params}: PageProps) {
+export default async function HomesPage({params}: PageProps) {
     const {type} = await params;
-    const data = await fetchHomes_SHORT({featuredOnly: true, limit: 3, type: type});
+    const path = getHomesPath(type);
+    const langs = HOMES_LANGS[path.actual];
+    const refLangs = HOMES_LANGS[path.ref];
+    const data = await fetchHomes_SHORT({featuredOnly: true, limit: 3, type: path.ref});
 
     return (
         <>
@@ -75,37 +60,23 @@ export default async function CareHomesPage({params}: PageProps) {
             <HeroSection bg="/pages/care-home-bg.webp"/>
 
             <SectionContent
-                subtitle="ABOUT SENKOUN CARE HOMES"
+                subtitle={`ABOUT SENKOUN ${langs.subtitle}`}
                 title={
                     <>
                         WELCOME TO
                         <br/>
-                        SENKOUN {type == "supported-living" ? "SUPPORTED LIVING" : "CARE HOMES"}
+                        SENKOUN {langs.subtitle}
                     </>
                 }
                 description={
                     <>
-                        Senkoun Healthcare Wakering Ltd presents a visionary plan to
-                        establish Joseph Lodge in Little Wakering Southend-on-Sea, With a
-                        strong focus on delivering high-quality healthcare services and
-                        addressing the pressing needs of the ageing population, Joseph Lodge
-                        aims to become a trusted and preferred choice for elderly care in
-                        the region.
+                        {refLangs.about.para1}
                         <br/>
                         <br/>
-                        Joseph Lodge business plan showcases a strong vision for providing
-                        exceptional residential care in Southend-on-Sea. With a focus on
-                        innovation, compliance, and customer-centric services, we aim to
-                        become a leader in the industry. By strategically acquiring
-                        additional properties in the future, we will expand our reach and
-                        positively impact the lives of more elderly individuals in need of
-                        specialized care.
+                        {refLangs.about.para2}
                         <br/>
                         <br/>
-                        This expansion strategy is driven by the increasing demand for
-                        high-quality residential and or nursing care services and our
-                        commitment to meeting the evolving needs of the ageing population.
-                        We will achieve this through a six-step process
+                        {refLangs.about.para3}
                     </>
                 }
             />
@@ -121,10 +92,10 @@ export default async function CareHomesPage({params}: PageProps) {
                     }
                     subtitle="OUR HOMES"
                     rightTitle="VIEW ALL HOMES"
-                    rightLink="/care-homes/all"
+                    rightLink={path.actual + "/all"}
                 />
-                <div className="flex flex-wrap gap-8 justify-between my-20">
-                    {data.data.map((home) => (
+                <div className="flex flex-wrap gap-10 my-20">
+                    {data.data.length === 0 ? <NoHomes/> : data.data.map((home) => (
                         <div key={home.id} className="max-w-75 flex-1 overflow-hidden">
                             <img
                                 className="w-full h-auto object-cover hover:scale-105 transition-transform duration-300"
@@ -158,7 +129,7 @@ export default async function CareHomesPage({params}: PageProps) {
                             </p>
 
                             <Link
-                                href={`/care-homes/${home.slug}`}
+                                href={`/${path.actual}/${home.slug}`}
                                 className="text-[#64565A] border px-4 py-2 border-[#64565A] tracking-wide text-sm inline-block mt-4 hover:bg-black/10 transition-colors duration-300"
                             >
                                 VIEW DETAILS
@@ -174,16 +145,13 @@ export default async function CareHomesPage({params}: PageProps) {
                         <>
                             DAILY LIFE AT
                             <br/>
-                            SENKOUN CARE HOMES
+                            SENKOUN {langs.subtitle}
                         </>
                     }
                     subtitle="LIFE AT SENKOUN"
                 />
                 <p className="max-w-[40%] text-[#64565A]/80 text-sm leading-relaxed text-balance mt-10 mb-10">
-                    Joseph Lodge is a care home for the elderly providing personal care to
-                    people with age related issues including dementia. The home is set in
-                    a beautiful rural location a short distance from the outskirts of
-                    Southend.
+                    {refLangs.lifeAt}
                 </p>
 
                 <div className="w-full flex gap-1 max-w-7xl">
@@ -242,10 +210,7 @@ export default async function CareHomesPage({params}: PageProps) {
                             CARE
                         </h1>
                         <p className="text-center max-w-[60%] text-sm">
-                            Joseph Lodge is a care home for the elderly providing personal
-                            care to people with age related issues including dementia. The
-                            home is set in a beautiful rural location a short distance from
-                            the outskirts of Southend.
+                            {refLangs.howWeCare}
                         </p>
                     </div>
                     <div className="flex-1 relative h-[400px]"></div>
@@ -257,7 +222,7 @@ export default async function CareHomesPage({params}: PageProps) {
                 />
             </section>
 
-            <TestimonialCarousel testimonials={testimonials}/>
+            <TestimonialCarousel testimonials={refLangs.testimonials}/>
 
             <br/>
             <br/>
@@ -267,15 +232,9 @@ export default async function CareHomesPage({params}: PageProps) {
 
             <NewsComponent/>
 
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
 
             <WantToExploreMore/>
 
-            <br/>
             <br/>
             <br/>
             <br/>

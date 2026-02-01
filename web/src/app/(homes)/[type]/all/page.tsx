@@ -1,13 +1,14 @@
 import SectionContent from "@/components/section-content";
 import WantToExploreMore from "@/components/want-to-explore-more";
 import {fetchHomes_SHORT} from "@/lib/apis/homes";
-import {cn, getStrapiMediaUrl} from "@/lib/utils";
+import {cn, getHomesPath, getStrapiMediaUrl} from "@/lib/utils";
 import Link from "next/link";
 import ImageCarousel from "@/components/image-carousel";
 import {Metadata} from "next";
+import ALLOWED from "@/app/(homes)/[type]/allowed";
 
 interface PageProps {
-    params: Promise<{ type: string }>;
+    params: Promise<{ type: typeof ALLOWED[number] }>;
 }
 
 export async function generateMetadata({params}: PageProps): Promise<Metadata> {
@@ -39,11 +40,12 @@ export async function generateMetadata({params}: PageProps): Promise<Metadata> {
 
 export default async function AllCareHomes({params}: PageProps) {
     const {type} = await params;
+    const path = getHomesPath(type);
 
     const data = await fetchHomes_SHORT({
         featuredOnly: false,
         description: true,
-        type: type,
+        type: path.ref,
         limit: 50,
     });
 
@@ -130,7 +132,7 @@ export default async function AllCareHomes({params}: PageProps) {
                                         {home.description}
                                     </p>
                                     <Link
-                                        href={`/care-homes/${home.slug}`}
+                                        href={`/${path.actual}/${home.slug}`}
                                         className="text-[#64565A] border px-4 py-2 border-[#64565A] tracking-wide text-sm inline-block mt-4 hover:bg-black/10 transition-colors duration-300"
                                     >
                                         VIEW DETAILS

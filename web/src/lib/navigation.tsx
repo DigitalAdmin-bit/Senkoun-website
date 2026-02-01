@@ -6,7 +6,7 @@ export interface NavigationItem {
 
 export const topBarNavigation: NavigationItem[] = [
     {name: "Home", href: "/"},
-    {name: "Care Homes", href: "/care-homes"},
+    {name: "Care Homes", href: "/care-home"},
     {name: "Domiciliary Care", href: "/domiciliary-care"},
     {name: "Supported Living", href: "/supported-living"},
     {name: "Healthcare Agency", href: "/healthcare-agency"},
