@@ -20,7 +20,7 @@ export default function SectionHeader({
                 {subtitle ?? "CARE UPDATES"}
             </p>
             <div className="sm:flex items-center justify-between">
-                <h2 className="font-heading font-normal text-[#b8853a] text-6xl max-w-125 max-sm:text-5xl" id={id}>
+                <h2 className="font-heading font-normal text-[#b8853a] text-6xl max-w-125 max-sm:text-4xl" id={id}>
                     {title}
                 </h2>
                 {rightTitle && rightLink && (
