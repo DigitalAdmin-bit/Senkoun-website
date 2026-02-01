@@ -6,6 +6,7 @@ import Link from "next/link";
 import ImageCarousel from "@/components/image-carousel";
 import {Metadata} from "next";
 import ALLOWED from "@/app/(homes)/[type]/allowed";
+import {notFound} from "next/navigation";
 
 interface PageProps {
     params: Promise<{ type: typeof ALLOWED[number] }>;
@@ -41,6 +42,10 @@ export async function generateMetadata({params}: PageProps): Promise<Metadata> {
 export default async function AllCareHomes({params}: PageProps) {
     const {type} = await params;
     const path = getHomesPath(type);
+
+    if (!path) {
+        return notFound();
+    }
 
     const data = await fetchHomes_SHORT({
         featuredOnly: false,

@@ -11,6 +11,7 @@ import WantToExploreMore from "@/components/want-to-explore-more";
 import ALLOWED from "@/app/(homes)/[type]/allowed";
 import HOMES_LANGS from "@/app/(homes)/[type]/lang";
 import NoHomes from "@/components/no-homes";
+import {notFound} from "next/navigation";
 
 interface PageProps {
     params: Promise<{ type: typeof ALLOWED[number] }>;
@@ -50,6 +51,11 @@ export function generateStaticParams() {
 export default async function HomesPage({params}: PageProps) {
     const {type} = await params;
     const path = getHomesPath(type);
+
+    if (!path) {
+        return notFound();
+    }
+
     const langs = HOMES_LANGS[path.actual];
     const refLangs = HOMES_LANGS[path.ref];
     const data = await fetchHomes_SHORT({featuredOnly: true, limit: 3, type: path.ref});

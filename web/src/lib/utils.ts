@@ -1,6 +1,7 @@
 import {type ClassValue, clsx} from "clsx";
 import {twMerge} from "tailwind-merge";
 import ALLOWED from "@/app/(homes)/[type]/allowed";
+import {networkInterfaces} from "node:os";
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
@@ -30,4 +31,6 @@ export function getHomesPath(type: typeof ALLOWED[number]) {
         case "domiciliary-care":
             return {actual: "domiciliary-care", ref: "care-home"} as const;
     }
+
+    return null;
 }
