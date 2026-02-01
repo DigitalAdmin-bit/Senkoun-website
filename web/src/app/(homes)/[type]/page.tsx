@@ -8,29 +8,15 @@ import Link from "next/link";
 import TestimonialCarousel from "@/components/testimonial-carousel";
 import SectionContent from "@/components/section-content";
 import WantToExploreMore from "@/components/want-to-explore-more";
-import {notFound} from "next/navigation";
+import ALLOWED from "@/app/(homes)/[type]/allowed";
 
 interface PageProps {
     params: Promise<{ type: string }>;
 }
 
 
-const ALLOWED = ["care-home", "domiciliary-care", "supported-living"] as const;
-
-export async function generateMetadata({
-                                           params,
-                                       }: PageProps): Promise<Metadata> {
-
+export async function generateMetadata({params}: PageProps): Promise<Metadata> {
     const {type} = await params;
-
-    if (!ALLOWED.includes(type as any)) {
-        return {
-            title: "Not Found",
-            description: "The page you're looking for is not found.",
-        }
-    }
-
-
     switch (type) {
         case "care-home":
             return {
@@ -55,6 +41,10 @@ export async function generateMetadata({
     }
 }
 
+export function generateStaticParams() {
+    return ALLOWED.map((item) => ({type: item}));
+}
+
 const testimonials = [
     {
         quote:
@@ -75,15 +65,8 @@ const testimonials = [
     },
 ];
 
-export default async function CareHomesPage({
-                                                params,
-                                            }: PageProps) {
+export default async function CareHomesPage({params}: PageProps) {
     const {type} = await params;
-
-    if (!ALLOWED.includes(type as any)) {
-        return notFound();
-    }
-
     const data = await fetchHomes_SHORT({featuredOnly: true, limit: 3, type: type});
 
     return (

@@ -4,11 +4,46 @@ import {fetchHomes_SHORT} from "@/lib/apis/homes";
 import {cn, getStrapiMediaUrl} from "@/lib/utils";
 import Link from "next/link";
 import ImageCarousel from "@/components/image-carousel";
+import {Metadata} from "next";
 
-export default async function AllCareHomes() {
+interface PageProps {
+    params: Promise<{ type: string }>;
+}
+
+export async function generateMetadata({params}: PageProps): Promise<Metadata> {
+    const {type} = await params;
+
+    switch (type) {
+        case "care-home":
+            return {
+                title: "Care Homes",
+                description: "View all the care homes",
+            }
+        case "domiciliary-care":
+            return {
+                title: "Domiciliary care",
+                description: "View all the domiciliary cares",
+            }
+        case "supported-living":
+            return {
+                title: "Supported Living",
+                description: "Show all the supported living",
+            }
+        default:
+            return {
+                title: "Not Found",
+                description: "The page you're looking for is not found.",
+            }
+    }
+}
+
+export default async function AllCareHomes({params}: PageProps) {
+    const {type} = await params;
+
     const data = await fetchHomes_SHORT({
         featuredOnly: false,
         description: true,
+        type: type,
         limit: 50,
     });
 

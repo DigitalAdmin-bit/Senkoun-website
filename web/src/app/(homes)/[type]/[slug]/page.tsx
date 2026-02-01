@@ -27,6 +27,7 @@ export async function generateStaticParams() {
 
     return homes.data.map((home) => ({
         slug: home.slug,
+        type: home.type === 'supported-home' ? 'supported-living' : home.type
     }));
 }
 

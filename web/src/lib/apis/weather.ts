@@ -1,4 +1,3 @@
-
 export async function getWeatherServerSide(lat: number, lon: number) {
     const apiKey = process.env.OPENWEATHER_API_KEY;
 
@@ -13,7 +12,7 @@ export async function getWeatherServerSide(lat: number, lon: number) {
         {
             next: {
                 revalidate: 3600,
-                tags: [cacheKey],
+                tags: [cacheKey, 'homes'],
             },
         },
     );

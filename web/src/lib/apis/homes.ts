@@ -44,7 +44,7 @@ export async function fetchHomes_SHORT(data: {
         },
     };
 
-    if(data.type) {
+    if (data.type) {
         if (data.type === "supported-living") {
             data.type = "supported-home"
         }
@@ -69,7 +69,9 @@ export async function fetchHomes_SHORT(data: {
         {
             next: {
                 revalidate: 100,
+                tags: ['homes']
             },
+
         },
     );
 
@@ -248,6 +250,7 @@ export async function fetchHomeBySlug(
         {
             next: {
                 revalidate: 100,
+                tags: ['homes']
             },
         },
     );
@@ -256,10 +259,16 @@ export async function fetchHomeBySlug(
 }
 
 export async function getHomesWithOnlyName(): Promise<
-    IStrapiResponse<{ id: number; name: string; slug: string; documentId: string }[]>
+    IStrapiResponse<{
+        id: number;
+        name: string;
+        slug: string;
+        documentId: string;
+        type: 'care-home' | 'supported-home'
+    }[]>
 > {
     const filters = {
-        fields: ["name", "slug", "documentId"],
+        fields: ["name", "slug", "documentId", "type"],
         pagination: {
             limit: 100,
         },
@@ -272,6 +281,7 @@ export async function getHomesWithOnlyName(): Promise<
     const res = await fetch(`${process.env.STRAPI_URL}/api/homes?${homesQuery}`, {
         next: {
             revalidate: 600,
+            tags: ['homes']
         },
     });
 
