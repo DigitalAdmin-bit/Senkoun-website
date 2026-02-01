@@ -207,7 +207,7 @@ export default async function HomesPage({params}: PageProps) {
                     alt="Two Swans"
                     className="w-25 absolute top-[-20px] left-[30%]"
                 />
-                <div className="bg-[#B8853A] wavy-box flex w-full pt-20 pb-20 px-20 overflow-visible">
+                <div className="bg-[#B8853A] wavy-box flex w-full pt-20 pb-20 px-20 overflow-visible max-sm:flex-col-reverse">
                     <div className="flex-1 flex flex-col items-center justify-center text-white">
                         <h2 className="font-body text-sm">EXCELLENCE IN CARE</h2>
                         <h1 className="text-5xl text-center my-10">
@@ -215,15 +215,15 @@ export default async function HomesPage({params}: PageProps) {
                             <br/>
                             CARE
                         </h1>
-                        <p className="text-center max-w-[60%] text-sm">
+                        <p className="text-center max-w-[60%] max-sm:max-w-full text-sm">
                             {refLangs.howWeCare}
                         </p>
                     </div>
-                    <div className="flex-1 relative h-[400px]"></div>
+                    <div className="relative h-[270px]"></div>
                 </div>
                 <img
                     src="/pages/care-homes/how-we-care.webp"
-                    className="absolute top-[-50px] left-[50%] h-[500px]"
+                    className="absolute top-[-50px] left-[50%] h-[500px] max-sm:max-h-[400px] max-sm:h-auto max-sm:w-[70%] max-sm:left-[15%]"
                     alt="How we care"
                 />
             </section>
