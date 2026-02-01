@@ -145,6 +145,7 @@
 body {
     font-family: var(--font-buenos-aires), "Montserrat", system-ui, sans-serif;
     color: #64565A;
+    overflow-x: hidden;
 }
 
 /* Firefox */
