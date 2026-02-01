@@ -21,40 +21,6 @@ export default function GlobalError({
                             <h1 className="font-heading text-[150px] sm:text-[200px] leading-none text-[#b8853a]/20 select-none">
                                 500
                             </h1>
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <svg
-                                    width="80"
-                                    height="80"
-                                    viewBox="0 0 100 100"
-                                    className="text-[#b8853a]"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <circle
-                                        cx="50"
-                                        cy="50"
-                                        r="35"
-                                        stroke="currentColor"
-                                        strokeWidth="3"
-                                        fill="none"
-                                        opacity="0.3"
-                                    />
-                                    <path
-                                        d="M50 30 L50 55"
-                                        stroke="currentColor"
-                                        strokeWidth="4"
-                                        strokeLinecap="round"
-                                        opacity="0.5"
-                                    />
-                                    <circle
-                                        cx="50"
-                                        cy="68"
-                                        r="3"
-                                        fill="currentColor"
-                                        opacity="0.5"
-                                    />
-                                </svg>
-                            </div>
                         </div>
 
                         {/* Error Message */}
@@ -85,27 +51,6 @@ export default function GlobalError({
                             </Link>
                         </div>
 
-                        {/* Helpful Links */}
-                        <div className="pt-8 border-t border-[#64565A]/10">
-                            <p className="text-sm text-[#64565A]/60 mb-4">You might be interested in:</p>
-                            <div className="flex flex-wrap gap-4 justify-center text-sm">
-                                <Link href="/care-homes/all" className="text-[#b8853a] hover:underline">
-                                    Our Care Homes
-                                </Link>
-                                <span className="text-[#64565A]/30">•</span>
-                                <Link href="/our-story" className="text-[#b8853a] hover:underline">
-                                    Our Story
-                                </Link>
-                                <span className="text-[#64565A]/30">•</span>
-                                <Link href="/enquire" className="text-[#b8853a] hover:underline">
-                                    Enquire Now
-                                </Link>
-                                <span className="text-[#64565A]/30">•</span>
-                                <Link href="/careers" className="text-[#b8853a] hover:underline">
-                                    Careers
-                                </Link>
-                            </div>
-                        </div>
                         <br/><br/>
                     </div>
                 </div>

@@ -15,9 +15,9 @@ export const topBarNavigation: NavigationItem[] = [
 
 export const mobileNavigation: NavigationItem[] = [
     {name: "Home", href: "/"},
-    {name: "Care Homes", href: "/care-homes"},
+    {name: "Care Homes", href: "/care-home"},
     {name: "Domiciliary Care", href: "/domiciliary-care"},
-    {name: "Home Care", href: "/home-care"},
+    {name: "Supported Living", href: "/supported-living"},
     {name: "Healthcare Agency", href: "/healthcare-agency"},
     {name: "Business Consultation", href: "/business-consultation"},
     {name: "Careers", href: "/careers"},
