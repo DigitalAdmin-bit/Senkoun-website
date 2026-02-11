@@ -62,9 +62,6 @@ export async function fetchHomes_SHORT(data: {
         encodeValuesOnly: true,
     });
 
-    console.dir(filters, {depth: null});
-    console.log(featuredHomesQuery);
-
     const res = await fetch(
         `${process.env.STRAPI_URL}/api/homes?${featuredHomesQuery}`,
         {

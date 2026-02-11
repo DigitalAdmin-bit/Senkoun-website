@@ -65,7 +65,6 @@ export default function BookCallBack({type, children, homeId}: {
         setSubmitError(null);
 
         try {
-            console.log('Submitting data:', data);
             const inputData = {
                 first_name: data.first_name,
                 last_name: data.last_name,

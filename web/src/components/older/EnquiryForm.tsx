@@ -76,8 +76,6 @@ export default function EnquiryForm() {
       });
       setIsSubmitted(true);
     } catch {
-      // For now, simulate success since Strapi might not have the content type yet
-      console.log("Form data:", formData);
       setIsSubmitted(true);
     } finally {
       setIsSubmitting(false);
