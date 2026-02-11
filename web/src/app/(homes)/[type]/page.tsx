@@ -100,9 +100,9 @@ export default async function HomesPage({params}: PageProps) {
                     rightTitle="VIEW ALL HOMES"
                     rightLink={path.actual + "/all"}
                 />
-                <div className="flex flex-wrap gap-10 my-20">
+                <div className="flex flex-wrap gap-20 max-sm:gap-0 my-20 max-sm:mb-0">
                     {data.data.length === 0 ? <NoHomes/> : data.data.map((home) => (
-                        <div key={home.id} className="max-w-75 flex-1 overflow-hidden">
+                        <div key={home.id} className="max-w-75 max-sm:max-w-full min-w-75 flex-1 overflow-hidden max-sm:border-b max-sm:pb-20 max-sm:mb-20 last:max-sm:mb-0 last:max-sm:border-b-0 last:max-sm:pb-0">
                             <img
                                 className="w-full h-auto object-cover hover:scale-105 transition-transform duration-300"
                                 src={getStrapiMediaUrl(home.thumbnails[0].url)}
@@ -145,7 +145,7 @@ export default async function HomesPage({params}: PageProps) {
                 </div>
             </section>
 
-            <section className="main-container">
+            <section className="main-container my-40">
                 <SectionHeader
                     title={
                         <>
@@ -156,7 +156,7 @@ export default async function HomesPage({params}: PageProps) {
                     }
                     subtitle="LIFE AT SENKOUN"
                 />
-                <p className="max-w-[40%] text-[#64565A]/80 text-sm leading-relaxed text-balance mt-10 mb-10">
+                <p className="max-w-[40%] max-sm:max-w-full text-[#64565A]/80 text-sm leading-relaxed text-balance mt-10 mb-10">
                     {refLangs.lifeAt}
                 </p>
 
@@ -201,52 +201,40 @@ export default async function HomesPage({params}: PageProps) {
                 </div>
             </section>
 
-            <section className="relative mt-50 mb-30">
+            <section className="relative mt-60 mb-40">
                 <img
                     src="/two-swan.png"
                     alt="Two Swans"
-                    className="w-25 absolute top-[-20px] left-[30%]"
+                    className="w-25 absolute -top-5 left-[30%]"
                 />
-                <div className="bg-[#B8853A] wavy-box flex w-full pt-20 pb-20 px-20 overflow-visible max-sm:flex-col-reverse">
-                    <div className="flex-1 flex flex-col items-center justify-center text-white">
-                        <h2 className="font-body text-sm">EXCELLENCE IN CARE</h2>
+                <div className="bg-[#B8853A] wavy-box flex w-full pt-20 pb-20 px-20 overflow-visible max-md:flex-col-reverse">
+                    <div className="flex-1 flex flex-col items-center justify-center text-white md:my-20">
+                        <h2 className="font-body text-sm max-md:mt-">EXCELLENCE IN CARE</h2>
                         <h1 className="text-5xl text-center my-10">
                             HOW WE
                             <br/>
                             CARE
                         </h1>
-                        <p className="text-center max-w-[60%] max-sm:max-w-full text-sm">
+                        <p className="text-center max-w-[60%] max-md:max-w-full text-sm">
                             {refLangs.howWeCare}
                         </p>
                     </div>
-                    <div className="relative h-[270px]"></div>
+                    <div className="h-67.5 md:flex-1"></div>
                 </div>
                 <img
                     src="/pages/care-homes/how-we-care.webp"
-                    className="absolute top-[-50px] left-[50%] h-[500px] max-sm:max-h-[400px] max-sm:h-auto max-sm:w-[70%] max-sm:left-[15%]"
+                    className="absolute -top-12.5 left-[50%] h-125 max-md:max-h-100 max-md:h-auto max-md:w-[70%] max-md:left-[15%]"
                     alt="How we care"
                 />
             </section>
+            <br/>
+            <TestimonialCarousel className="mb-60" testimonials={refLangs.testimonials}/>
 
-            <TestimonialCarousel testimonials={refLangs.testimonials}/>
-
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-
-            <NewsComponent/>
-
+            <NewsComponent/><br/>
 
             <WantToExploreMore/>
 
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
+            <br/><br/><br/><br/><br/><br/>
         </>
     );
 }

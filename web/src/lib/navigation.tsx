@@ -19,7 +19,6 @@ export const mobileNavigation: NavigationItem[] = [
     {name: "Domiciliary Care", href: "/domiciliary-care"},
     {name: "Supported Living", href: "/supported-living"},
     {name: "Healthcare Agency", href: "/healthcare-agency"},
-    {name: "Business Consultation", href: "/business-consultation"},
     {name: "Careers", href: "/careers"},
 ];
 

@@ -145,7 +145,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                     </div>
                 </div>
                 <div
-                    className="max-w-[80%] mx-auto flex pt-4 text-sm max-sm:flex-wrap max-sm:max-w-[90%] max-sm:gap-x-6">
+                    className="max-md:hidden max-w-[80%] mx-auto flex pt-4 text-sm max-sm:flex-wrap max-sm:max-w-[90%] max-sm:gap-x-6">
                     {(data.type === "supported-home" ? SUPPORTED_LIVING_TAB_LINKS : CARE_HOME_TAB_LINKS).map((tab) => (
                         <a key={tab.href} href={tab.href}
                            className="px-5 py-4 max-sm:px-0 max-sm:py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 hover:after:bg-[#B8853A]">
@@ -164,7 +164,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
             <br/>
 
             {data.type === "care-home" && (
-                <section className="main-container flex gap-2 flex-wrap">
+                <section className="main-container my-30 flex gap-2 flex-wrap">
                     <div className="bg-white px-10 py-8 flex-1 min-w-50 flex flex-col text-[#64565A]">
                         <div className="flex-1">
                             <div
@@ -211,6 +211,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                     </div>
                 </section>
             )}
+
             <SectionContent
                 id="about-us"
                 subtitle=""
@@ -232,7 +233,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
             />
 
             {data.type === "care-home" && (
-                <section className="main-container mb-20" id="life-with-us">
+                <section className="main-container my-30" id="life-with-us">
                     <video
                         className="w-full"
                         src={getStrapiMediaUrl(data.video?.url!)}
@@ -240,8 +241,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                     />
                 </section>
             )}
-
-            <section className="main-container">
+            <section className="main-container my-30 mt-40">
                 <SectionHeader title="Location" subtitle="Location" id="location"/>
                 <hr className="bg-[#CEC5C5] h-0.5 my-10"/>
                 <div className="flex ">
@@ -365,13 +365,9 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                     </div>
                 </div>
             </section>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
 
             {data.type === "care-home" && (
-                <section className="main-container">
+                <section className="main-container my-40">
                     <h2 className="font-heading font-normal text-[#b8853a] text-6xl max-sm:text-5xl" id="why-choose-us">
                         Why Choose Us?
                     </h2>
@@ -396,7 +392,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
             )}
 
             {data.type === "care-home" && (
-                <section className="mt-30 max-sm:mt-20 flex main-container gap-5 max-sm:flex-col">
+                <section className="my-50 max-sm:mt-20 flex main-container gap-5 max-sm:flex-col">
                     <div className="flex-1">
                         <SectionHeader title="What we will Offer" subtitle="HOW WE CARE" id="our-services"/>
                         <p className="text-[#64565A] text-sm mt-10 max-w-[80%] max-sm:max-w-full leading-relaxed tracking-wide">
@@ -409,7 +405,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                 </section>
             )}
 
-            <section className="w-full bg-[#B8853A] mt-30">
+            <section className="w-full bg-[#B8853A] my-30">
                 <SpaceCarousel
                     spaces={data.spaces.map((i) => ({
                         ...i,
@@ -421,12 +417,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                 />
             </section>
 
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-
-            <section className="main-container flex gap-10 max-sm:flex-col">
+            <section className="main-container my-30 mt-50 flex gap-10 max-sm:flex-col">
                 <div className="flex-1">
                     <SectionHeader
                         title={
@@ -448,12 +439,8 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                 </div>
             </section>
 
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-
             <TestimonialCarousel
+                className="my-30 mt-40"
                 testimonials={data.reviews.map((i) => ({
                     quote: i.content,
                     role: i.by,

@@ -4,7 +4,8 @@ export default function HeroSection({bg, id, children}: { bg: string, id?: strin
             <img
                 src={bg}
                 alt="Hero Background"
-                className="absolute top-0 -translate-y-0.5 left-0 w-full max-sm:h-full object-cover object-center"
+
+                className="absolute top-0 bottom-0 -translate-y-0.5 left-0 w-full h-full inset-0 object-cover"
             />
             {children}
             <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-0 z-20">

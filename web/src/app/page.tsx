@@ -75,7 +75,7 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="mt-10 w-[40%] max-sm:w-[80%] mx-auto">
+            <section className="mt-10 w-[40%] max-sm:w-[80%] mx-auto my-30">
                 <p className="text-[#64565A] text-sm text-center mb-10">
                     ABOUT SENKOUN
                 </p>
@@ -116,7 +116,7 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="my-20 text-[#64565A] flex gap-3 main-container mx-auto justify-center flex-wrap">
+            <section className="my-50 text-[#64565A] flex gap-3 main-container mx-auto justify-center flex-wrap">
                 {FOUR_ABOUT.map((item, index) => (
                     <div className="flex-1 bg-white p-10" key={index}>
                         <div className="w-full flex flex-col items-center mb-5">
@@ -127,7 +127,7 @@ export default function Home() {
                     </div>
                 ))}
             </section>
-            <section className="my-20 main-container space-y-20">
+            <section className="mt-30 main-container space-y-30">
                 {SERVICES.map((service, index) => (
                     <div key={index}>
                         <div
@@ -161,7 +161,7 @@ export default function Home() {
             </section>
             <br/>
             {/* Join Our Team CTA Section */}
-            <section className="bg-[#b8853a] my-20 py-16 md:py-24 text-center text-white">
+            <section className="bg-[#b8853a] my-30 py-16 md:py-24 text-center text-white">
                 <div className="text-sm mb-10 opacity-80 max-sm:mb-5">CAREERS</div>
                 <h2 className="font-heading text-5xl mb-6">JOIN OUR TEAM</h2>
                 <p className="text-sm font-normal opacity-80 max-w-xl mx-auto mb-8 max-sm:mb-1 max-sm:w-[90%]">
