@@ -10,6 +10,7 @@ interface StaggerAnimationProps {
     duration?: number;
     once?: boolean;
     amount?: number | 'some' | 'all';
+    childClassName?: string;
 }
 
 export default function StaggerAnimation({
@@ -19,6 +20,7 @@ export default function StaggerAnimation({
                                              duration = 0.6,
                                              once = true,
                                              amount = 0.2,
+                                             childClassName = '',
                                          }: StaggerAnimationProps) {
     const ref = useRef(null);
     const isInView = useInView(ref, {once, amount});
@@ -51,6 +53,7 @@ export default function StaggerAnimation({
         >
             {children.map((child, index) => (
                 <motion.div
+                    className={childClassName}
                     key={index}
                     variants={itemVariants}
                     transition={{

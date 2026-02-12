@@ -8,6 +8,12 @@ export interface IFeaturedHomesShortResponse {
     address: string;
     slug: string;
     description?: string;
+    phone?: string;
+    cqc_rating?: {
+        id: number;
+        rating: string;
+        report_link: string;
+    };
     thumbnails: {
         id: number;
         documentId: string;
@@ -29,7 +35,7 @@ export async function fetchHomes_SHORT(data: {
 }): Promise<IStrapiResponse<IFeaturedHomesShortResponse[]>> {
     const filters: any = {
         filters: {},
-        fields: ["name", "address", "slug"],
+        fields: ["name", "address", "slug", "phone"],
         populate: {
             thumbnails: {
                 fields: ["url", "width", "height", "alternativeText"],
@@ -47,6 +53,10 @@ export async function fetchHomes_SHORT(data: {
             : data.type;
 
         filters.filters.type = {$eq: normalizedType};
+    }
+
+    if (data.type === "care-home") {
+        filters.populate.cqc_rating = "*";
     }
 
     if (data?.description) {

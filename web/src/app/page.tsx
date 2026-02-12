@@ -105,7 +105,7 @@ export default function Home() {
                         passion for excellence.
                     </p>
                 </ScrollAnimation>
-
+                <br/>
                 <ScrollAnimation animation="slideUp" delay={0.3}>
                     <div
                         className="w-full flex max-sm:flex-col max-sm:gap-5 h-fit justify-center items-center mt-10 font-heading text-[#64565A]">
@@ -167,10 +167,11 @@ export default function Home() {
                                 <p className="text-[#64565a] text-sm tracking-[0] mb-10 max-sm:mb-4">
                                     {service.description}
                                 </p>
-                                <button
+                                <Link
+                                    href={service.link}
                                     className="text-[#64565a] text-sm border border-[#64565a] px-8 py-4 hover:bg-gray-200 transition cursor-pointer">
                                     GET STARTED
-                                </button>
+                                </Link>
                             </div>
                         </div>
                     </ScrollAnimation>
