@@ -146,8 +146,8 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                 </div>
                 <div
                     className="max-md:hidden max-w-[80%] mx-auto flex pt-4 text-sm max-sm:flex-wrap max-sm:max-w-[90%] max-sm:gap-x-6">
-                    {(data.type === "supported-home" ? SUPPORTED_LIVING_TAB_LINKS : CARE_HOME_TAB_LINKS).map((tab) => (
-                        <a key={tab.href} href={tab.href}
+                    {(data.type === "supported-home" ? SUPPORTED_LIVING_TAB_LINKS : CARE_HOME_TAB_LINKS).map((tab, i) => (
+                        <a key={i} href={tab.href}
                            className="px-5 py-4 max-sm:px-0 max-sm:py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 hover:after:bg-[#B8853A]">
                             {tab.label}
                         </a>
@@ -365,7 +365,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                     </div>
                 </div>
             </section>
-
+            <br/>
             {data.type === "care-home" && (
                 <section className="main-container my-40">
                     <h2 className="font-heading font-normal text-[#b8853a] text-6xl max-sm:text-5xl" id="why-choose-us">

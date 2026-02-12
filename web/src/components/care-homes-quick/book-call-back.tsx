@@ -17,6 +17,7 @@ import {Checkbox} from "@/components/ui/checkbox";
 import {createBookACall, createBookATour} from "@/lib/apis/enquires";
 import {ChevronRight} from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from 'next/navigation'
 
 function toFullTime(input: string): string {
     const [mm, ss] = input.split(":").map(Number);
@@ -46,10 +47,13 @@ export default function BookCallBack({type, children, homeId}: {
     homeId: string;
     type: "call-back" | "tour";
 }) {
+    const searchParams = useSearchParams();
+    const bookTour = searchParams.get('bookTour') === 'true';
+
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState<string | null>(null);
     const [isSuccess, setIsSuccess] = useState(false);
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(type === 'tour' && bookTour);
 
     const {
         register,
@@ -65,7 +69,6 @@ export default function BookCallBack({type, children, homeId}: {
         setSubmitError(null);
 
         try {
-            console.log('Submitting data:', data);
             const inputData = {
                 first_name: data.first_name,
                 last_name: data.last_name,
@@ -108,7 +111,8 @@ export default function BookCallBack({type, children, homeId}: {
         <DialogTrigger asChild>
             {children}
         </DialogTrigger>
-        <DialogContent className="text-[#64565A] max-w-[80%] max-sm:max-w-[90%] max-sm:max-h-full px-10 max-h-[98vh] overflow-y-auto rounded-none">
+        <DialogContent
+            className="text-[#64565A] max-w-[80%] max-sm:max-w-[90%] max-sm:max-h-full px-10 max-h-[98vh] overflow-y-auto rounded-none">
             <DialogHeader className="sr-only">
                 <DialogTitle>Enter your Details to Book a {type === 'call-back' ? 'Call Back' : 'Tour'}</DialogTitle>
                 <DialogDescription>

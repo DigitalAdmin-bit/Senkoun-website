@@ -3,6 +3,7 @@
 import {useEffect, useState} from "react";
 import {ChevronLeft, ChevronRight} from "lucide-react";
 import {cn} from "@/lib/utils";
+import {motion, AnimatePresence} from "framer-motion";
 
 interface Testimonial {
     quote: string;
@@ -23,10 +24,12 @@ export default function TestimonialCarousel({
                                             }: TestimonialCarouselProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
+    const [direction, setDirection] = useState<'left' | 'right'>('right');
 
     const goToNext = () => {
         if (isAnimating) return;
         setIsAnimating(true);
+        setDirection('right');
         setCurrentIndex((prev) => (prev + 1) % testimonials.length);
         setTimeout(() => setIsAnimating(false), 600);
     };
@@ -34,6 +37,7 @@ export default function TestimonialCarousel({
     const goToPrevious = () => {
         if (isAnimating) return;
         setIsAnimating(true);
+        setDirection('left');
         setCurrentIndex(
             (prev) => (prev - 1 + testimonials.length) % testimonials.length,
         );
@@ -45,10 +49,34 @@ export default function TestimonialCarousel({
         return () => clearInterval(interval);
     }, [currentIndex, autoPlayInterval]);
 
+    // Animation variants for slide transitions
+    const slideVariants = {
+        enter: (direction: 'left' | 'right') => ({
+            x: direction === 'right' ? 100 : -100,
+            opacity: 0,
+        }),
+        center: {
+            x: 0,
+            opacity: 1,
+        },
+        exit: (direction: 'left' | 'right') => ({
+            x: direction === 'right' ? -100 : 100,
+            opacity: 0,
+        }),
+    };
+
+    const transition = {
+        x: { type: "spring" as const, stiffness: 300, damping: 30 },
+        opacity: { duration: 0.3 },
+    };
+
     return (
         <div className={cn("flex items-center justify-center", className)}>
             <div className="relative main-container">
-                <div
+                <motion.div
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
                     className="absolute -top-8 left-1/2 transform -translate-x-1/2 z-10 bg-[#fbf5f3] border border-[#64565A] quote-mark w-16 h-16 rounded-full flex items-center justify-center">
                     <svg
                         width="27"
@@ -62,57 +90,83 @@ export default function TestimonialCarousel({
                             fill="#CEC5C5"
                         />
                     </svg>
-                </div>
+                </motion.div>
 
                 {/* Main card with border frame */}
-                <div className="relative border border-[#64565A] px-12 py-16 md:px-20 md:py-24">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="relative border border-[#64565A] px-12 py-16 md:px-20 md:py-24"
+                >
                     {/* Title */}
-                    <div className="text-center mb-12">
+                    <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.4 }}
+                        className="text-center mb-12"
+                    >
                         <h2 className="text-4xl text-[#B8853A]">Stories from the Heart</h2>
                         <p className="text-sm tracking-widest text-[#64565A] mt-4 font-light">
                             Hear from Our Residents & Families
                         </p>
-                    </div>
+                    </motion.div>
 
                     {/* Testimonial content */}
-                    <div className="relative flex items-center justify-center">
-                        <div
-                            key={currentIndex}
-                            className={`testimonial-content ${isAnimating ? "fade-out" : ""}`}
-                        >
-                            <blockquote
-                                className="h-40 line-clamp-4 text-center font-heading text-[#64565A] leading-relaxed mb-12 text-lg md:text-xl px-4">
-                                "{testimonials[currentIndex].quote}"
-                            </blockquote>
+                    <div className="relative flex items-center justify-center overflow-hidden">
+                        <AnimatePresence initial={false} custom={direction} mode="wait">
+                            <motion.div
+                                key={currentIndex}
+                                custom={direction}
+                                variants={slideVariants}
+                                initial="enter"
+                                animate="center"
+                                exit="exit"
+                                transition={transition}
+                                className="testimonial-content w-full"
+                            >
+                                <blockquote
+                                    className="h-40 line-clamp-4 text-center font-heading text-[#64565A] leading-relaxed mb-12 text-lg md:text-xl px-4">
+                                    "{testimonials[currentIndex].quote}"
+                                </blockquote>
 
-                            <div className="text-xs tracking-[3px] uppercase text-[#64565A] font-light text-center">
-                                {testimonials[currentIndex].author}
-                            </div>
-                        </div>
+                                <div className="text-xs tracking-[3px] uppercase text-[#64565A] font-light text-center">
+                                    {testimonials[currentIndex].author}
+                                </div>
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
 
                     {/* Navigation */}
-                    <div
-                        className="flex items-center justify-center gap-6 absolute -bottom-5 left-1/2 transform -translate-x-1/2 z-10">
-                        <button
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.6 }}
+                        className="flex items-center justify-center gap-6 absolute -bottom-5 left-1/2 transform -translate-x-1/2 z-10"
+                    >
+                        <motion.button
                             onClick={goToPrevious}
                             disabled={isAnimating}
-                            className="size-10 rounded-full border border-[#64565A] bg-[#fbf5f3] flex items-center justify-center disabled:cursor-not-allowed"
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="size-10 rounded-full border border-[#64565A] bg-[#fbf5f3] flex items-center justify-center disabled:cursor-not-allowed disabled:opacity-50 transition-opacity"
                             aria-label="Previous testimonial"
                         >
                             <ChevronLeft className="stroke-1"/>
-                        </button>
+                        </motion.button>
 
-                        <button
+                        <motion.button
                             onClick={goToNext}
                             disabled={isAnimating}
-                            className="size-10 rounded-full border border-[#64565A] bg-[#fbf5f3] flex items-center justify-center disabled:cursor-not-allowed"
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="size-10 rounded-full border border-[#64565A] bg-[#fbf5f3] flex items-center justify-center disabled:cursor-not-allowed disabled:opacity-50 transition-opacity"
                             aria-label="Next testimonial"
                         >
                             <ChevronRight className="stroke-1"/>
-                        </button>
-                    </div>
-                </div>
+                        </motion.button>
+                    </motion.div>
+                </motion.div>
             </div>
         </div>
     );
