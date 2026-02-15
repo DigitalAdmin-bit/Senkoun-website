@@ -17,6 +17,7 @@ import TestimonialCarousel from "@/components/testimonial-carousel";
 import MeetTheTeam from "@/components/meet-the-team";
 import BrochureDownload from "@/components/brochure-download";
 import CareHomeQuickBtns from "@/components/care-homes-quick/care-home-quick-btns";
+import HomesSubHeader from "@/components/homes-sub-header";
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -82,9 +83,10 @@ export default async function CareHomeDetailPage({params}: PageProps) {
 
     return (
         <>
-            <section className="bg-white border-t pt-5 text-[#64565A] border-b border-b-[#B8853A]">
+            <section className="overflow-visible bg-white border-t pt-5 text-[#64565A]">
                 <div
-                    className="flex max-w-[80%] mx-auto justify-between mb-5 max-sm:flex-col max-sm:max-w-[90%] max-sm:gap-3">
+                    className="flex max-w-[80%] mx-auto justify-between max-sm:flex-col max-sm:max-w-[90%] max-sm:gap-3"
+                >
                     <div className="flex-1">
                         <h1 className="text-[#B8853A] text-2xl">{data.name}</h1>
                         <div className="mt-2 text-sm flex gap-2 items-center max-sm:wrap-break-word sm:truncate">
@@ -144,16 +146,9 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                         </div>
                     </div>
                 </div>
-                <div
-                    className="max-md:hidden max-w-[80%] mx-auto flex pt-4 text-sm max-sm:flex-wrap max-sm:max-w-[90%] max-sm:gap-x-6">
-                    {(data.type === "supported-home" ? SUPPORTED_LIVING_TAB_LINKS : CARE_HOME_TAB_LINKS).map((tab, i) => (
-                        <a key={i} href={tab.href}
-                           className="px-5 py-4 max-sm:px-0 max-sm:py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 hover:after:bg-[#B8853A]">
-                            {tab.label}
-                        </a>
-                    ))}
-                </div>
             </section>
+
+            <HomesSubHeader data={data.type === "care-home" ? CARE_HOME_TAB_LINKS : SUPPORTED_LIVING_TAB_LINKS}/>
 
             <HeroSection bg={getStrapiMediaUrl(data.cover.url)}>
                 <CareHomeQuickBtns homeId={data.documentId}/>
@@ -174,7 +169,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                                     {data.carehome_review?.rating}
                                 </div>
                             </div>
-                            <img src="/carehome-co-uk-logo.png" alt="Care home uk" className="h-[30px]"/>
+                            <img src="/carehome-co-uk-logo.png" alt="Care home uk" className="h-7.5"/>
                             <p className="max-w-[70%] mt-3 text-sm">
                                 Read our fantastic reviews on the UK's leading care home review
                                 website
@@ -191,7 +186,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                             <div>CQC Rating</div>
                             <div
                                 className="mt-3 mb-5 rounded-lg bg-[#589245] text-white px-4 py-1 w-fit capitalize text-xl">{data.cqc_rating?.rating}</div>
-                            <img src="/cqc.png" alt="Care Quality Commision Logo" className="h-[30px]"/>
+                            <img src="/cqc.png" alt="Care Quality Commision Logo" className="h-7.5"/>
                             <p className="max-w-[70%] mt-3 text-sm">
                                 {data.name} has a CQC rating of {data?.cqc_rating?.rating}. Click
                                 below to view the full report.

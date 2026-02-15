@@ -60,7 +60,7 @@ export default function Header() {
     }, [lastScrollY]);
 
     return (
-        <header className={cn("bg-white sticky top-0 z-50 transition-transform duration-300",
+        <header className={cn("bg-white sticky top-0 z-60 transition-transform duration-300",
             !defaultView && isVisible && "shadow-md border-b border-gray-200",
         )} style={{
             transform: isVisible ? 'translateY(0)' : 'translateY(-100%)',

@@ -3,7 +3,7 @@ import BookCallBack from "@/components/care-homes-quick/book-call-back";
 
 export default function CareHomeQuickBtns({homeId}: { homeId: string }) {
     return <>
-        <div className="fixed right-0 w-fit h-fit top-[50%] translate-y-[-50%] flex items-end justify-center gap-2 flex-col">
+        <div className="fixed right-0 w-fit h-fit top-[50%] z-50 translate-y-[-50%] flex items-end justify-center gap-2 flex-col">
             <BookCallBack homeId={homeId} type="call-back">
                 <div className="care-home-quick-btns">
                     <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">

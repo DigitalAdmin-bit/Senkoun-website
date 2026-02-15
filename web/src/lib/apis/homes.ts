@@ -266,6 +266,17 @@ export async function fetchHomeBySlug(
     return res.json();
 }
 
+const homeNamesFilters = {
+    fields: ["name", "slug", "documentId", "type"],
+    pagination: {
+        limit: 100,
+    },
+};
+
+const homesQuery = qs.stringify(homeNamesFilters, {
+    encodeValuesOnly: true,
+});
+
 export async function getHomesWithOnlyName(): Promise<
     IStrapiResponse<{
         id: number;
@@ -275,16 +286,6 @@ export async function getHomesWithOnlyName(): Promise<
         type: 'care-home' | 'supported-home'
     }[]>
 > {
-    const filters = {
-        fields: ["name", "slug", "documentId", "type"],
-        pagination: {
-            limit: 100,
-        },
-    };
-
-    const homesQuery = qs.stringify(filters, {
-        encodeValuesOnly: true,
-    });
 
     const res = await fetch(`${process.env.STRAPI_URL}/api/homes?${homesQuery}`, {
         next: {
