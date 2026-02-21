@@ -12,6 +12,17 @@ export interface SharedAccordion extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedAuthor extends Struct.ComponentSchema {
+  collectionName: 'components_shared_authors';
+  info: {
+    displayName: 'author';
+  };
+  attributes: {
+    name: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SharedCards extends Struct.ComponentSchema {
   collectionName: 'components_shared_cards';
   info: {
@@ -51,6 +62,29 @@ export interface SharedCqcWidget extends Struct.ComponentSchema {
   attributes: {
     rating: Schema.Attribute.String;
     report_link: Schema.Attribute.String;
+  };
+}
+
+export interface SharedDateRange extends Struct.ComponentSchema {
+  collectionName: 'components_shared_date_ranges';
+  info: {
+    displayName: 'date-range';
+  };
+  attributes: {
+    end_date: Schema.Attribute.Date;
+    end_time: Schema.Attribute.Time;
+    start_date: Schema.Attribute.Date;
+    start_time: Schema.Attribute.Time;
+  };
+}
+
+export interface SharedEvent extends Struct.ComponentSchema {
+  collectionName: 'components_shared_events';
+  info: {
+    displayName: 'event';
+  };
+  attributes: {
+    home: Schema.Attribute.Relation<'oneToOne', 'api::home.home'>;
   };
 }
 
@@ -143,6 +177,17 @@ export interface SharedRichText extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedSalary extends Struct.ComponentSchema {
+  collectionName: 'components_shared_salaries';
+  info: {
+    displayName: 'salary';
+  };
+  attributes: {
+    amount: Schema.Attribute.Decimal;
+    period: Schema.Attribute.Enumeration<['hour', 'yearly', 'monthly']>;
+  };
+}
+
 export interface SharedSeo extends Struct.ComponentSchema {
   collectionName: 'components_shared_seos';
   info: {
@@ -183,6 +228,16 @@ export interface SharedSpaces extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedTags extends Struct.ComponentSchema {
+  collectionName: 'components_shared_tags';
+  info: {
+    displayName: 'tags';
+  };
+  attributes: {
+    text: Schema.Attribute.String;
+  };
+}
+
 export interface SharedTeam extends Struct.ComponentSchema {
   collectionName: 'components_shared_teams';
   info: {
@@ -213,18 +268,23 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'shared.accordion': SharedAccordion;
+      'shared.author': SharedAuthor;
       'shared.cards': SharedCards;
       'shared.carehome-widget': SharedCarehomeWidget;
       'shared.cqc-widget': SharedCqcWidget;
+      'shared.date-range': SharedDateRange;
+      'shared.event': SharedEvent;
       'shared.facilities': SharedFacilities;
       'shared.location': SharedLocation;
       'shared.media': SharedMedia;
       'shared.quote': SharedQuote;
       'shared.reviews': SharedReviews;
       'shared.rich-text': SharedRichText;
+      'shared.salary': SharedSalary;
       'shared.seo': SharedSeo;
       'shared.slider': SharedSlider;
       'shared.spaces': SharedSpaces;
+      'shared.tags': SharedTags;
       'shared.team': SharedTeam;
       'shared.what-we-offer': SharedWhatWeOffer;
     }

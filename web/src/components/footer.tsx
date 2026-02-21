@@ -6,13 +6,13 @@ import Link from "next/link";
 import {SOCIAL_LINKS} from "@/data/socials";
 
 const footerLinks = [
-    {href: "#", title: "Home"},
-    {href: "#", title: "About Senkoun"},
-    {href: "#", title: "Our Homes"},
-    {href: "#", title: "Life at Senkoun"},
-    {href: "#", title: "Gallery"},
-    {href: "#", title: "News and Events"},
-    {href: "#", title: "Careers"},
+    {href: "/", title: "Home"},
+    {href: "/#about-senkoun", title: "About Senkoun"},
+    {href: "/#our-services", title: "Our Homes"},
+    {href: "/", title: "Life at Senkoun"},
+    {href: "/gallery", title: "Gallery"},
+    {href: "/news", title: "News and Events"},
+    {href: "/careers", title: "Careers"},
 ];
 
 const companies = [

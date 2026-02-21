@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "book_a_tours",
+  "info": {
+    "singularName": "book-a-tour",
+    "pluralName": "book-a-tours",
+    "displayName": "book-a-tour"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "preferred_date": {
+      "type": "date"
+    },
+    "preferred_time": {
+      "type": "time"
+    },
+    "home": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::home.home"
+    }
+  }
+}

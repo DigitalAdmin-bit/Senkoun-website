@@ -91,9 +91,9 @@ export default async function HomesPage({params}: PageProps) {
                 <SectionHeader
                     title={
                         <>
-                            COMPASSIONATE
+                            OUR
                             <br/>
-                            LIVING
+                            HOMES
                         </>
                     }
                     subtitle="OUR HOMES"

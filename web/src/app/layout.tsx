@@ -45,6 +45,9 @@ export const metadata: Metadata = {
         "elderly care",
         "residential care",
     ],
+    appleWebApp: {
+        title: "Senkoun",
+    }
 };
 
 export default function RootLayout({

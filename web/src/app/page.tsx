@@ -1,7 +1,7 @@
 import Link from "next/link";
 import SERVICES from "@/data/services";
 import NewsComponent from "@/components/news-component";
-import { ScrollAnimation, StaggerAnimation } from "@/components/animations";
+import {ScrollAnimation, StaggerAnimation} from "@/components/animations";
 
 function showGreeting() {
     const hours = new Date().getHours();
@@ -56,7 +56,7 @@ export default function Home() {
                         <h1 className="uppercase z-10 relative font-heading text-7xl max-sm:text-5xl mb-6 leading-tight">
                             WELCOME TO
                             <br/>
-                            SENKUON
+                            SENKOUN
                         </h1>
                     </ScrollAnimation>
                 </div>
@@ -80,7 +80,7 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="mt-10 w-[40%] max-sm:w-[80%] mx-auto my-30">
+            <section className="mt-10 w-[40%] max-sm:w-[80%] mx-auto my-30" id="about-senkoun">
                 <ScrollAnimation animation="fadeIn">
                     <p className="text-[#64565A] text-sm text-center mb-10">
                         ABOUT SENKOUN
@@ -140,7 +140,7 @@ export default function Home() {
                     ))}
                 </StaggerAnimation>
             </section>
-            <section className="mt-30 main-container space-y-30">
+            <section className="mt-30 main-container space-y-30" id="our-services">
                 {SERVICES.map((service, index) => (
                     <ScrollAnimation
                         key={index}
@@ -164,7 +164,7 @@ export default function Home() {
                                 <h2 className="font-heading max-sm:wrap-break-word text-[#b8853a] text-4xl tracking-[0] whitespace-pre-line mb-10 max-sm:mb-4">
                                     {service.title}
                                 </h2>
-                                <p className="text-[#64565a] text-sm tracking-[0] mb-10 max-sm:mb-4">
+                                <p className="text-[#64565a] text-sm tracking-[0] line-clamp-10 mb-10 max-sm:mb-4">
                                     {service.description}
                                 </p>
                                 <Link
@@ -188,10 +188,11 @@ export default function Home() {
                 </ScrollAnimation>
                 <ScrollAnimation animation="fadeIn" delay={0.3}>
                     <p className="text-sm font-normal opacity-80 max-w-xl mx-auto mb-8 max-sm:mb-1 max-sm:w-[90%]">
-                        To request a callback, a brochure, or to visit one of our homes,
-                        please fill in our enquiry form and we will be in touch to assist you
-                        with your enquiry. Alternatively, please call us on +44 (0) 20 3535
-                        1923
+                        At Senkoun Group, we believe great care starts with great people. We’re always looking for
+                        compassionate, dedicated individuals to join our growing team across Essex. Whether you’re an
+                        experienced carer, support worker, nurse, or someone new to the care sector, we offer full
+                        training, flexible shifts, career development, and a supportive working environment. Join us and
+                        make a real difference in the lives of those we care for—every day.
                     </p>
                 </ScrollAnimation>
                 <br/>

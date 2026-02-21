@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "brochure_downloads",
+  "info": {
+    "singularName": "brochure-download",
+    "pluralName": "brochure-downloads",
+    "displayName": "brochure_download"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "home": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::home.home"
+    }
+  }
+}

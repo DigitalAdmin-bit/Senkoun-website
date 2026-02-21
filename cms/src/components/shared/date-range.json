@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_shared_date_ranges",
+  "info": {
+    "displayName": "date-range"
+  },
+  "options": {},
+  "attributes": {
+    "start_date": {
+      "type": "date"
+    },
+    "end_date": {
+      "type": "date"
+    },
+    "start_time": {
+      "type": "time"
+    },
+    "end_time": {
+      "type": "time"
+    }
+  },
+  "config": {}
+}

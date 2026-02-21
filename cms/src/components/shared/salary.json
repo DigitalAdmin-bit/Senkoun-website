@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_shared_salaries",
+  "info": {
+    "displayName": "salary"
+  },
+  "options": {},
+  "attributes": {
+    "amount": {
+      "type": "decimal"
+    },
+    "period": {
+      "type": "enumeration",
+      "enum": [
+        "hour",
+        "yearly",
+        "monthly"
+      ]
+    }
+  },
+  "config": {}
+}

@@ -59,10 +59,6 @@ export default function NotFound() {
                             Our Care Homes
                         </Link>
                         <span className="text-[#64565A]/30">•</span>
-                        <Link href="/our-story" className="text-[#b8853a] hover:underline">
-                            Our Story
-                        </Link>
-                        <span className="text-[#64565A]/30">•</span>
                         <Link href="/enquire" className="text-[#b8853a] hover:underline">
                             Enquire Now
                         </Link>

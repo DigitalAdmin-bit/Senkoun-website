@@ -1,0 +1,52 @@
+{
+  "kind": "collectionType",
+  "collectionName": "jobs",
+  "info": {
+    "singularName": "job",
+    "pluralName": "jobs",
+    "displayName": "job"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "salary": {
+      "type": "component",
+      "component": "shared.salary",
+      "repeatable": false
+    },
+    "tags": {
+      "type": "component",
+      "component": "shared.tags",
+      "repeatable": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "full time",
+        "on-site",
+        "part time"
+      ]
+    },
+    "home": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::home.home"
+    },
+    "work_type": {
+      "type": "enumeration",
+      "enum": [
+        "full time",
+        "part time",
+        "remote"
+      ]
+    }
+  }
+}

@@ -6,16 +6,16 @@ export default function SectionContent({
                                            description,
                                            id
                                        }: {
-    subtitle: React.ReactNode;
+    subtitle?: React.ReactNode;
     title: React.ReactNode;
     description: React.ReactNode;
     id?: string;
 }) {
     return (
         <section className="mt-10 w-[40%] mx-auto mb-30 max-sm:w-[90%]">
-            <ScrollAnimation animation="fadeIn">
+            {subtitle && <ScrollAnimation animation="fadeIn">
                 <p className="text-[#64565A] text-sm text-center mb-10">{subtitle}</p>
-            </ScrollAnimation>
+            </ScrollAnimation>}
 
             <ScrollAnimation animation="slideUp" delay={0.2}>
                 <h1 className="text-[#B8853A] text-center text-5xl mb-10 max-sm:text-4xl" id={id}>{title}</h1>

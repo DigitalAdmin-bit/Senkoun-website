@@ -24,21 +24,18 @@ const HOMES_LANGS = {
         howWeCare: "Joseph Lodge is a care home for the elderly providing personal care to people with age related issues including dementia. The home is set in a beautiful rural location a short distance from the outskirts of Southend.",
         testimonials: [
             {
-                quote:
-                    "Joseph Lodge is a very well organised home. Staff are very caring and friendly and make you feel welcome. The activities supplied by Heather are amazing, it's certainly noticed when she is not there. The facilities are very good - there us a hair salon which can be used by the family to wash their relatives hair as well as a hair dresser every two weeks.",
-                author: "DAUGHTER OF RESIDENT",
+                quote: "This home is amazing interaction with the residents is excellent. Always something for them to do. Very well cared for and a pleasure to visit . My Aunt had a few difficulty settling in. But manager was excellent how she handled my aunts difficulties. We as a family know she is safe cared for and we are welcolm when we visit . Thank you staff you are amazing",
+                author: "Niece of Resident",
+            },
+            {
+                quote: "Joseph Lodge is a very well organised home. Staff are very caring and friendly and make you feel welcome. The activities supplied by Heather are amazing, it's certainly noticed when she is not there. The facilities are very good - there us a hair salon which can be used by the family to wash their relatives hair as well as a hair dresser every two weeks.",
+                author: "Daughter of Resident",
             },
             {
                 quote:
-                    "The care and attention my mother receives at Joseph Lodge is exceptional. Every staff member knows her by name and treats her with such dignity and respect. We couldn't have asked for a better home.",
-                author: "FAMILY MEMBER",
-                role: "Son of Resident",
-            },
-            {
-                quote:
-                    "I've been living here for three years now and it truly feels like home. The community is warm, the food is delicious, and there's always something interesting happening. I'm so grateful to be here.",
-                author: "RESIDENT",
-                role: "Current Resident",
+                "My Mum went to Joseph Lodge on 12th August from hospital as unable to care for herself any longer. The staff are brilliant, nothing is too much trouble. They keep me informed and give a comprehensive update whenever myself or family visit. The home has recently opened after refurbishment and is very clean and the decor is pleasing.\n" +
+                    "At present activities, hair salons, etc are yet to be introduced as they are still filling up with residents.\n",
+                author: "Daughter of Resident",
             }
         ]
     },

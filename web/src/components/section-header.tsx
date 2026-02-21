@@ -6,9 +6,11 @@ export default function SectionHeader({
                                           subtitle,
                                           rightTitle,
                                           rightLink,
+                                          description,
                                           id
                                       }: {
     title: React.ReactNode;
+    description?: React.ReactNode;
     subtitle?: string;
     rightTitle?: string;
     rightLink?: string;
@@ -33,6 +35,9 @@ export default function SectionHeader({
                     </Link>
                 )}
             </div>
+            {description && <p className="mt-10 text-sm text-[#64565A] leading-relaxed text-balance">
+                {description}
+            </p>}
         </div>
     );
 }
