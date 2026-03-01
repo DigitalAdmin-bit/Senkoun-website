@@ -1,4 +1,4 @@
-import SectionContent from "@/components/section-content";
+import SectionContent from "@/components/common/section-content";
 import WantToExploreMore from "@/components/want-to-explore-more";
 import {fetchHomes_SHORT} from "@/lib/apis/homes";
 import {cn, getHomesPath, getStrapiMediaUrl} from "@/lib/utils";

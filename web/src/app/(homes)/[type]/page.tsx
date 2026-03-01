@@ -1,12 +1,12 @@
 import HeroSection from "@/components/hero-section";
 import {Metadata} from "next";
-import NewsComponent from "@/components/news-component";
-import SectionHeader from "@/components/section-header";
+import NewsComponent from "@/components/news/news-component";
+import SectionHeader from "@/components/common/section-header";
 import {fetchHomes_SHORT} from "@/lib/apis/homes";
 import {getHomesPath, getStrapiMediaUrl} from "@/lib/utils";
 import Link from "next/link";
 import TestimonialCarousel from "@/components/testimonial-carousel";
-import SectionContent from "@/components/section-content";
+import SectionContent from "@/components/common/section-content";
 import WantToExploreMore from "@/components/want-to-explore-more";
 import ALLOWED from "@/app/(homes)/[type]/allowed";
 import HOMES_LANGS from "@/app/(homes)/[type]/lang";

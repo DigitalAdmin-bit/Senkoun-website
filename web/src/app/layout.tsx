@@ -1,8 +1,8 @@
 import type {Metadata} from "next";
 import {ZCOOL_XiaoWei} from "next/font/google";
 import "./globals.css";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+import Header from "@/components/common/header";
+import Footer from "@/components/common/footer";
 import localFont from "next/font/local";
 
 const zcoolFont = ZCOOL_XiaoWei({

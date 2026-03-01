@@ -1,7 +1,6 @@
 import {type ClassValue, clsx} from "clsx";
 import {twMerge} from "tailwind-merge";
 import ALLOWED from "@/app/(homes)/[type]/allowed";
-import {networkInterfaces} from "node:os";
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
@@ -33,4 +32,25 @@ export function getHomesPath(type: typeof ALLOWED[number]) {
     }
 
     return null;
+}
+
+
+type Block = {
+    type: string;
+    children?: Block[];
+    text?: string;
+};
+
+/**
+ * Convert strapi blocks to plain text
+ * @param blocks
+ */
+export function blocksToPlainText(blocks: Block[]): string {
+    const extractText = (node: Block): string => {
+        if (node.text) return node.text;
+        if (node.children) return node.children.map(extractText).join("");
+        return "";
+    };
+
+    return blocks.map(extractText).join("\n").trim();
 }

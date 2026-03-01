@@ -24,6 +24,10 @@
     },
     "date": {
       "type": "datetime"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
     }
   }
 }

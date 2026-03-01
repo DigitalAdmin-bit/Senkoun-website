@@ -1,15 +1,15 @@
 "use client";
 
-import type {IHomeBySlugResponse} from "@/lib/apis/homes";
 import {useState} from "react";
 import {ChevronLeft, ChevronRight} from "lucide-react";
+import {HomeSlugResponse} from "@/types/home-slug-response";
 
 export default function MeetTheTeam({
                                         data,
                                         id
                                     }: {
     id?: string;
-    data: IHomeBySlugResponse["teams"];
+    data: HomeSlugResponse["teams"];
 }) {
     const [currentIndex, setCurrentIndex] = useState(0);
 

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import SERVICES from "@/data/services";
-import NewsComponent from "@/components/news-component";
+import NewsComponent from "@/components/news/news-component";
 import {ScrollAnimation, StaggerAnimation} from "@/components/animations";
 
 function showGreeting() {

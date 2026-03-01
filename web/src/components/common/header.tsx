@@ -206,7 +206,7 @@ export default function Header() {
                     </Sheet>
 
                     {/* Logo */}
-                    <Link href="/" className="flex items-center cursor-pointer">
+                    <Link href="/web/public" className="flex items-center cursor-pointer">
                         <img src="/logo.webp" alt="Senkoun Logo" className="h-12"/>
                     </Link>
                 </div>

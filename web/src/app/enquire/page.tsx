@@ -1,5 +1,5 @@
 import {Metadata} from "next";
-import SectionContent from "@/components/section-content";
+import SectionContent from "@/components/common/section-content";
 import {getHomesWithOnlyName} from "@/lib/apis/homes";
 import EnquiryForm from "@/components/enquiry-form";
 

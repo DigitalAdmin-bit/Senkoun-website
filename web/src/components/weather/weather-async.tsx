@@ -1,5 +1,5 @@
 import {Suspense} from "react";
-import {WeatherDisplay} from "@/components/weather-display";
+import {WeatherDisplay} from "@/components/weather/weather-display";
 import {getWeatherServerSide} from "@/lib/apis/weather";
 
 export default async function WeatherAsync({

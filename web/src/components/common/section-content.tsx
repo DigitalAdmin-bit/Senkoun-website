@@ -1,4 +1,4 @@
-import { ScrollAnimation } from "./animations";
+import { ScrollAnimation } from "../animations";
 
 export default function SectionContent({
                                            subtitle,

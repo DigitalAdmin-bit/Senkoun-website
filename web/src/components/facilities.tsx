@@ -1,9 +1,9 @@
-import type {IHomeBySlugResponse} from "@/lib/apis/homes";
+import {HomeSlugResponse} from "@/types/home-slug-response";
 
 export default function Facilities({
                                        data,
                                    }: {
-    data: IHomeBySlugResponse["facilities"];
+    data: HomeSlugResponse["facilities"];
 }) {
     return (
         <>

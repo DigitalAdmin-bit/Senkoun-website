@@ -35,7 +35,7 @@ export default function SectionHeader({
                     </Link>
                 )}
             </div>
-            {description && <p className="mt-10 text-sm text-[#64565A] leading-relaxed text-balance">
+            {description && <p className="mt-10 text-sm text-[#64565A] leading-relaxed text-balance max-w-200">
                 {description}
             </p>}
         </div>
