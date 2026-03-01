@@ -1,33 +1,67 @@
 import qs from "qs";
 import {IStrapiResponse} from "@/types/types";
+import type {BlocksContent} from "@strapi/blocks-react-renderer";
 
 
-export interface INewsResponse {
+export interface IEventsResponse {
     id: number;
     documentId: string;
+    title: string;
+    body: BlocksContent;
+    phone?: string;
+    email?: string;
+    date: {
+        start_date: string;
+        end_date?: string;
+
+        start_time?: string;
+        end_time?: string;
+    };
+    address?: string;
+    expires_at?: string;
+    cover?: {
+        url: string;
+        width: number;
+        height: number;
+        alternativeText: string;
+    };
+    home?: {
+        name: string;
+        slug: string;
+        type: 'care-home' | 'supported-home';
+    }
 }
 
-export async function getLatestEvents(data?: {
-    limit?: number;
-}): Promise<IStrapiResponse<INewsResponse[]>> {
-    const filters = {
-        pagination: {
-            limit: data?.limit || 3,
+const eventsFilters = {
+    fields: ['id', 'documentId', 'title', 'body', 'phone', 'email', 'address', 'expires_at'],
+    pagination: {
+        limit: 100,
+    },
+    populate: {
+        date: {
+            populate: '*'
         },
-    };
+        home: {
+            fields: ['name', 'slug', 'type'],
+        },
+        cover: {
+            fields: ["url", "width", "height", "alternativeText"],
+        }
+    },
+    sort: ["expires_at:asc"],
+}
 
-    const query = qs.stringify(filters, {
-        encodeValuesOnly: true,
-    });
+const eventsQuery = qs.stringify(eventsFilters, {
+    encodeValuesOnly: true,
+});
 
-    const res = await fetch(`${process.env.STRAPI_URL}/api/events?${query}`, {
+export async function getLatestEvents(): Promise<IStrapiResponse<IEventsResponse[]>> {
+    const res = await fetch(`${process.env.STRAPI_URL}/api/events?${eventsQuery}`, {
         next: {
             revalidate: 600,
             tags: ['events']
         }
     });
-
-    console.log("Fetched events with query:", res, "Response status:", res.status);
 
     return res.json();
 }
