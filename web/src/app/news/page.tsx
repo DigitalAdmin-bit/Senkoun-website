@@ -7,10 +7,14 @@ import EventBox from "@/components/events/event-box";
 
 
 export default async function News() {
-    const [news, events] = await Promise.all([
+    const [newsRes, eventsRes] = await Promise.all([
         getNews(),
         getLatestEvents()
     ]);
+
+    const news = newsRes.data || [];
+    const events = eventsRes.data || [];
+
 
     return <>
         <br/><br/>
@@ -24,8 +28,8 @@ export default async function News() {
                            description="We’ve got some exciting things lined up! Take a look at our upcoming events and join us for opportunities to learn, connect, and be part of something meaningful."/>
 
             <div className="mt-20">
-                {events.data.length > 0 ? <div className="flex overflow-x-auto gap-10">
-                        {events.data.map((event) => <EventBox key={event.id} {...event}/>)}
+                {events.length > 0 ? <div className="flex overflow-x-auto gap-10">
+                        {events.map((event) => <EventBox key={event.id} {...event}/>)}
                     </div> :
                     <p className="text-center text-gray-500">No events available at the moment. Please check back
                         later.</p>
@@ -38,9 +42,9 @@ export default async function News() {
                            description="Catch up on the latest news and explore fresh viewpoints all in one place. We share updates, stories, and opinions designed to keep you informed and inspired."/>
 
             <div className="mt-20">
-                {news.data.length > 0 ? <div className="grid grid-cols-3 gap-10 gap-y-20 max-sm:grid-cols-1">
+                {news.length > 0 ? <div className="grid grid-cols-3 gap-10 gap-y-20 max-sm:grid-cols-1">
                         {
-                            news.data.map((article) => <NewsBox key={article.id} {...article}/>)
+                            news.map((article) => <NewsBox key={article.id} {...article}/>)
                         }
                     </div> :
                     <p className="text-center text-gray-500">No news articles available at the moment. Please check back
