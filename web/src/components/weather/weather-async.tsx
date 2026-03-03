@@ -21,7 +21,7 @@ async function WeatherPage({lat, lon}: { lat: number; lon: number }) {
         const weatherData = await getWeatherServerSide(lat, lon);
         return <WeatherDisplay data={weatherData}/>;
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return <div>Hhaha</div>;
     }
 }

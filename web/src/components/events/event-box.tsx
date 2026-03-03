@@ -5,13 +5,10 @@ import EventDialog from "@/components/events/event-dialog";
 
 
 export default function EventBox(data: IEventsResponse) {
-
     const start_time = data.date.start_time && parse(data.date.start_time, "HH:mm:ss.SSS", new Date());
     const end_time = data.date.end_time && parse(data.date.end_time, "HH:mm:ss.SSS", new Date());
 
-    // const formatted = ;
-
-    return <div className="max-sm:min-w-full border-0 shadow-none bg-transparent">
+    return <div className="w-87.5 max-sm:min-w-full border-0 shadow-none bg-transparent">
         <img src={getStrapiMediaUrl(data.cover?.url!)} alt={data.cover?.alternativeText}
              className="w-full aspect-square object-cover mb-4"/>
         <h3

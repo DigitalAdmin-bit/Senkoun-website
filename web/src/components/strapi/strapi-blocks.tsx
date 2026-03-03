@@ -12,23 +12,23 @@ export default function StrapiBlocks({ content }: { content: any }) {
                 heading: ({ children, level }) => {
                     switch (level) {
                         case 1:
-                            return <h1 className="text-4xl font-bold my-6">{children}</h1>
+                            return <h1 className="font-body text-4xl">{children}</h1>
                         case 2:
-                            return <h2 className="text-3xl font-semibold my-5">{children}</h2>
+                            return <h2 className="font-body text-3xl">{children}</h2>
                         case 3:
-                            return <h3 className="text-2xl font-semibold my-4">{children}</h3>
+                            return <h3 className="font-body text-2xl">{children}</h3>
                         case 4:
-                            return <h4 className="text-xl font-semibold my-3">{children}</h4>
+                            return <h4 className="font-body text-xl">{children}</h4>
                         case 5:
-                            return <h5 className="text-lg font-semibold my-2">{children}</h5>
+                            return <h5 className="font-body text-lg">{children}</h5>
                         case 6:
-                            return <h6 className="text-base font-semibold my-2">{children}</h6>
+                            return <h6 className="font-body text-base">{children}</h6>
                         default:
-                            return <h3 className="text-2xl font-normal my-4">{children}</h3>
+                            return <h3 className="font-body text-2xl">{children}</h3>
                     }
                 },
                 paragraph: ({ children }) => (
-                    <p className="text-gray-700 my-4 leading-relaxed">{children}</p>
+                    <p className="text-gray-700 leading-relaxed">{children}</p>
                 ),
                 list: ({ children, format }) => {
                     if (format === "ordered") {
