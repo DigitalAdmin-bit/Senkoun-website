@@ -60,6 +60,8 @@ export default async function HomesPage({params}: PageProps) {
     const refLangs = HOMES_LANGS[path.ref];
     const data = await fetchHomes_SHORT({featuredOnly: true, limit: 3, type: path.ref});
 
+    const homes = data?.data || [];
+
     return (
         <>
             {/* Hero Section */}
@@ -101,7 +103,7 @@ export default async function HomesPage({params}: PageProps) {
                     rightLink={path.actual + "/all"}
                 />
                 <div className="flex flex-wrap gap-20 max-sm:gap-0 my-20 max-sm:mb-0">
-                    {(data?.data || []).length === 0 ? <NoHomes/> : (data?.data || []).map((home) => (
+                    {homes.length === 0 ? <NoHomes/> : homes.map((home) => (
                         <div key={home.id}
                              className="relative max-w-75 max-sm:max-w-full min-w-75 flex-1 overflow-hidden max-sm:border-b max-sm:pb-20 max-sm:mb-20 last:max-sm:mb-0 last:max-sm:border-b-0 last:max-sm:pb-0">
                             <div className="relative group">
@@ -110,30 +112,38 @@ export default async function HomesPage({params}: PageProps) {
                                     src={getStrapiMediaUrl(home.thumbnails[0].url)}
                                     alt={home.thumbnails[0].alternativeText}
                                 />
-                                <div className="bg-[#b8853a]/80 text-white absolute inset-0 z-10 group-hover:opacity-100 opacity-0 transition-opacity flex flex-col">
+                                <div
+                                    className="bg-[#b8853a]/80 text-white absolute inset-0 z-10 group-hover:opacity-100 opacity-0 transition-opacity flex flex-col">
                                     <div className="flex-1 flex items-center justify-center flex-col gap-4">
-                                        <a href={`tel:${home.phone}`} className="flex items-center gap-2 px-4 py-2 justify-center border-2 border-white w-43">
-                                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M3.60327 0.860596L5.66577 2.9231C6.28709 3.54442 6.28709 4.55177 5.66577 5.1731C5.04445 5.79442 5.04445 6.80177 5.66577 7.4231L9.04077 10.7981C9.66209 11.4194 10.6695 11.4194 11.2908 10.7981C11.9121 10.1768 12.9195 10.1768 13.5408 10.7981L15.6033 12.8606C16.0175 13.2748 16.0175 13.9464 15.6033 14.3606C13.5322 16.4317 10.1743 16.4317 8.10327 14.3606L2.10327 8.3606C0.0322044 6.28953 0.0322031 2.93166 2.10327 0.860596C2.51749 0.446382 3.18906 0.446382 3.60327 0.860596Z" stroke="white" strokeWidth="1.1"/>
+                                        <a href={`tel:${home.phone}`}
+                                           className="flex items-center gap-2 px-4 py-2 justify-center border-2 border-white w-43">
+                                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M3.60327 0.860596L5.66577 2.9231C6.28709 3.54442 6.28709 4.55177 5.66577 5.1731C5.04445 5.79442 5.04445 6.80177 5.66577 7.4231L9.04077 10.7981C9.66209 11.4194 10.6695 11.4194 11.2908 10.7981C11.9121 10.1768 12.9195 10.1768 13.5408 10.7981L15.6033 12.8606C16.0175 13.2748 16.0175 13.9464 15.6033 14.3606C13.5322 16.4317 10.1743 16.4317 8.10327 14.3606L2.10327 8.3606C0.0322044 6.28953 0.0322031 2.93166 2.10327 0.860596C2.51749 0.446382 3.18906 0.446382 3.60327 0.860596Z"
+                                                    stroke="white" strokeWidth="1.1"/>
                                             </svg>
                                             {home.phone}
                                         </a>
                                         <Link
                                             href={`/${path.actual}/${home.slug}?bookTour=true`}
                                             className="flex items-center gap-2 px-4 py-2 justify-center border-2 border-white w-43 text-nowrap">
-                                            <svg width="22" height="19" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <svg width="22" height="19" viewBox="0 0 22 19" fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M3.31665 10H7.31665" stroke="white" strokeWidth="1.3"/>
                                                 <path d="M3.31665 14H7.31665" stroke="white" strokeWidth="1.3"/>
                                                 <path d="M9.9834 10H13.9834" stroke="white" strokeWidth="1.3"/>
                                                 <path d="M5.9834 0V4.66667" stroke="white" strokeWidth="1.3"/>
                                                 <path d="M15.3167 0V4.66667" stroke="white" strokeWidth="1.3"/>
-                                                <rect x="0.650024" y="2" width="20" height="16" rx="2.66667" stroke="white" strokeWidth="1.3"/>
+                                                <rect x="0.650024" y="2" width="20" height="16" rx="2.66667"
+                                                      stroke="white" strokeWidth="1.3"/>
                                                 <path d="M0.650024 6H20.65" stroke="white" strokeWidth="1.3"/>
                                             </svg>
                                             BOOK A TOUR
                                         </Link>
                                     </div>
-                                    {type === "care-home" && <div className="flex items-center border-t-2 border-white/30 w-full justify-center py-3">
+                                    {type === "care-home" && <div
+                                        className="flex items-center border-t-2 border-white/30 w-full justify-center py-3">
                                         CQC RATING: {home?.cqc_rating?.rating.toUpperCase()}
                                     </div>}
                                 </div>

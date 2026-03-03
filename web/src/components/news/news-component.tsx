@@ -8,6 +8,11 @@ import NewsSkeleton from "@/components/news/news-skeleton";
 
 async function SuspenseNewsCards() {
     const news = await getLatestNews();
+
+    if (!news.data || news.data.length === 0) {
+        return <p className="my-5 text-center text-gray-500">No news articles available at the moment. Please check back later.</p>;
+    }
+
     return news.data.map((item) =>
         <NewsBox date={item.date} title={item.title} body={item.body} key={item.documentId} slug={item.slug} />);
 }
