@@ -251,6 +251,16 @@ export interface SharedTeam extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedText extends Struct.ComponentSchema {
+  collectionName: 'components_shared_texts';
+  info: {
+    displayName: 'text';
+  };
+  attributes: {
+    Text: Schema.Attribute.String;
+  };
+}
+
 export interface SharedWhatWeOffer extends Struct.ComponentSchema {
   collectionName: 'components_shared_what_we_offers';
   info: {
@@ -286,6 +296,7 @@ declare module '@strapi/strapi' {
       'shared.spaces': SharedSpaces;
       'shared.tags': SharedTags;
       'shared.team': SharedTeam;
+      'shared.text': SharedText;
       'shared.what-we-offer': SharedWhatWeOffer;
     }
   }

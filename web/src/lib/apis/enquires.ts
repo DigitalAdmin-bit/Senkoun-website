@@ -72,3 +72,48 @@ export async function createBookATour(data: {
         }
     });
 }
+
+export async function createCareerEnquiry(data: {
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone: string;
+    message: string;
+    resume: File;
+    cover_letter: File;
+}) {
+    // Step 1: Upload resume file
+    const resumeFormData = new FormData();
+    resumeFormData.append('files', data.resume);
+
+    const resumeUploadResponse = await axiosApi.post("/upload", resumeFormData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+    const uploadedResume = resumeUploadResponse.data[0];
+
+    // Step 2: Upload cover letter file
+    const coverLetterFormData = new FormData();
+    coverLetterFormData.append('files', data.cover_letter);
+
+    const coverLetterUploadResponse = await axiosApi.post("/upload", coverLetterFormData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+    const uploadedCoverLetter = coverLetterUploadResponse.data[0];
+
+    // Step 3: Create the career enquiry with file IDs
+    await axiosApi.post("/career-enquiries", {
+        data: {
+            first_name: data.first_name,
+            last_name: data.last_name,
+            email: data.email,
+            phone: data.phone,
+            message: data.message,
+            resume: uploadedResume.id,
+            cover_letter: uploadedCoverLetter.id,
+        }
+    });
+}

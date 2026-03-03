@@ -28,7 +28,7 @@ export default async function News() {
                            description="We’ve got some exciting things lined up! Take a look at our upcoming events and join us for opportunities to learn, connect, and be part of something meaningful."/>
 
             <div className="mt-20">
-                {events.length > 0 ? <div className="flex overflow-x-auto gap-10">
+                {events.length > 0 ? <div className="flex flex-nowrap overflow-x-auto gap-10">
                         {events.map((event) => <EventBox key={event.id} {...event}/>)}
                     </div> :
                     <p className="text-center text-gray-500">No events available at the moment. Please check back

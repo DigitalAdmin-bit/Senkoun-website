@@ -1,6 +1,5 @@
 "use client";
 
-import {ChevronRightIcon} from "lucide-react";
 import {Separator} from "@/components/ui/separator";
 import Link from "next/link";
 import {SOCIAL_LINKS} from "@/data/socials";
@@ -33,32 +32,6 @@ export default function Footer() {
     return (
         <footer className="bg-[#57946C] pb-10">
             <div className="main-container pt-10">
-                <h3 className="font-light text-white text-[28px] font-body">
-                    Subscribe to our newsletter
-                </h3>
-                <div className="flex justify-between my-8 max-sm:flex-col max-sm:gap-5">
-                    <div className="space-x-5 space-y-5">
-                        <input
-                            placeholder="First Name"
-                            className="max-sm:w-full bg-white/10 placeholder-white/60 border-[#FFFFFF4D] border-2 text-[#FFFFFF]/70 px-4 py-2 "
-                        />
-                        <input
-                            placeholder="Last Name"
-                            className="max-sm:w-full bg-white/10 placeholder-white/60 border-[#FFFFFF4D] border-2 text-[#FFFFFF]/70 px-4 py-2 "
-                        />
-                        <input
-                            placeholder="Email Address"
-                            className="max-sm:w-full bg-white/10 placeholder-white/60 border-[#FFFFFF4D] border-2 text-[#FFFFFF]/70 px-4 py-2 "
-                        />
-                    </div>
-                    <button className="font-normal text-white max-sm:self-end max-sm:mt-5 cursor-pointer text-sm hover:opacity-80 flex items-center opacity-80">
-                        SUBSCRIBE
-                        <ChevronRightIcon className="h-4 w-4"/>
-                    </button>
-                </div>
-
-                <Separator className="bg-white/20 mb-14"/>
-
                 <div className="flex max-sm:flex-col sm:justify-between gap-5 mb-10">
                     <div className="flex mx-10 flex-col justify-between items-center max-sm:gap-5">
                         <img className="w-41.5" alt="Senkoun logo" src="/logo-white.webp" draggable="false"/>

@@ -531,6 +531,41 @@ export interface ApiBrochureDownloadBrochureDownload
   };
 }
 
+export interface ApiCareerEnquiryCareerEnquiry
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'career_enquiries';
+  info: {
+    displayName: 'career-enquiry';
+    pluralName: 'career-enquiries';
+    singularName: 'career-enquiry';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cover_letter: Schema.Attribute.Media<'files'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.String;
+    first_name: Schema.Attribute.String;
+    last_name: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::career-enquiry.career-enquiry'
+    > &
+      Schema.Attribute.Private;
+    message: Schema.Attribute.Text;
+    phone: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    resume: Schema.Attribute.Media<'files'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiEsquireEsquire extends Struct.CollectionTypeSchema {
   collectionName: 'esquires';
   info: {
@@ -1228,6 +1263,7 @@ declare module '@strapi/strapi' {
       'api::book-a-call.book-a-call': ApiBookACallBookACall;
       'api::book-a-tour.book-a-tour': ApiBookATourBookATour;
       'api::brochure-download.brochure-download': ApiBrochureDownloadBrochureDownload;
+      'api::career-enquiry.career-enquiry': ApiCareerEnquiryCareerEnquiry;
       'api::esquire.esquire': ApiEsquireEsquire;
       'api::event.event': ApiEventEvent;
       'api::home.home': ApiHomeHome;
