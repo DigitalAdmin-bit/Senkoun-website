@@ -101,7 +101,7 @@ export default async function HomesPage({params}: PageProps) {
                     rightLink={path.actual + "/all"}
                 />
                 <div className="flex flex-wrap gap-20 max-sm:gap-0 my-20 max-sm:mb-0">
-                    {(data?.data || []).length === 0 ? <NoHomes/> : data.data.map((home) => (
+                    {(data?.data || []).length === 0 ? <NoHomes/> : (data?.data || []).map((home) => (
                         <div key={home.id}
                              className="relative max-w-75 max-sm:max-w-full min-w-75 flex-1 overflow-hidden max-sm:border-b max-sm:pb-20 max-sm:mb-20 last:max-sm:mb-0 last:max-sm:border-b-0 last:max-sm:pb-0">
                             <div className="relative group">
