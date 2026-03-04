@@ -1,7 +1,7 @@
 "use client";
 
 import {useState} from "react";
-import {cn} from "@/lib/utils";
+import {cn, getStrapiMediaUrl} from "@/lib/utils";
 
 export default function TeamCard({name, position, image, text}: {
     name: string,
@@ -12,11 +12,11 @@ export default function TeamCard({name, position, image, text}: {
     const [descVisible, setDescVisible] = useState(false);
 
     return <div className="flex-1 flex flex-col gap-0">
-        <div className="flex-1 w-full h-full relative">
-            <img alt={name} className="w-full object-cover" src={image}/>
+        <div className="flex-1 w-full h-full relative overflow-hidden">
+            <img alt={name} className="w-full aspect-square object-cover" src={getStrapiMediaUrl(image)}/>
 
-            <div className={cn("absolute inset-0 line-clamp-10 bg-black/50 text-white p-4 cursor-pointer scale-0 transition-all opacity-0",
-                    descVisible && "opacity-100 scale-100",
+            <div className={cn("absolute inset-0 line-clamp-10 bg-black/70 text-white p-4 cursor-pointer translate-y-[-100%] transition-all opacity-0",
+                    descVisible && "opacity-100 translate-y-0",
                 )}>
                 {text}
             </div>

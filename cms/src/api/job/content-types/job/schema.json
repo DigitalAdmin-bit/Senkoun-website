@@ -4,7 +4,7 @@
   "info": {
     "singularName": "job",
     "pluralName": "jobs",
-    "displayName": "job"
+    "displayName": "Job"
   },
   "options": {
     "draftAndPublish": true
@@ -27,12 +27,23 @@
       "component": "shared.tags",
       "repeatable": true
     },
-    "type": {
+    "job_type": {
       "type": "enumeration",
       "enum": [
         "full time",
-        "on-site",
-        "part time"
+        "part time",
+        "internship",
+        "contract",
+        "freelance",
+        "temporary"
+      ]
+    },
+    "work_type": {
+      "type": "enumeration",
+      "enum": [
+        "on site",
+        "remote",
+        "hybrid"
       ]
     },
     "home": {
@@ -40,13 +51,15 @@
       "relation": "oneToOne",
       "target": "api::home.home"
     },
-    "work_type": {
-      "type": "enumeration",
-      "enum": [
-        "full time",
-        "part time",
-        "remote"
-      ]
+    "questions": {
+      "type": "component",
+      "component": "shared.questions",
+      "repeatable": true
+    },
+    "open": {
+      "type": "boolean",
+      "required": true,
+      "default": true
     }
   }
 }

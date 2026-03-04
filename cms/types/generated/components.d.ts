@@ -133,6 +133,37 @@ export interface SharedMedia extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedMeetOurTeam extends Struct.ComponentSchema {
+  collectionName: 'components_shared_meet_our_teams';
+  info: {
+    displayName: 'meet-our-team';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images'>;
+  };
+}
+
+export interface SharedQuestions extends Struct.ComponentSchema {
+  collectionName: 'components_shared_questions';
+  info: {
+    displayName: 'questions';
+    icon: 'question';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    options: Schema.Attribute.Text;
+    question_type: Schema.Attribute.Enumeration<
+      ['short_text', 'long_text', 'select', 'checkbox', 'date']
+    > &
+      Schema.Attribute.Required;
+    required: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedQuote extends Struct.ComponentSchema {
   collectionName: 'components_shared_quotes';
   info: {
@@ -142,6 +173,20 @@ export interface SharedQuote extends Struct.ComponentSchema {
   attributes: {
     body: Schema.Attribute.Text;
     title: Schema.Attribute.String;
+  };
+}
+
+export interface SharedResponses extends Struct.ComponentSchema {
+  collectionName: 'components_shared_responses';
+  info: {
+    displayName: 'responses';
+  };
+  attributes: {
+    answer: Schema.Attribute.Text & Schema.Attribute.Required;
+    question: Schema.Attribute.Text & Schema.Attribute.Required;
+    type: Schema.Attribute.Enumeration<
+      ['short_text', 'long_text', 'select', 'checkbox', 'date']
+    >;
   };
 }
 
@@ -184,7 +229,9 @@ export interface SharedSalary extends Struct.ComponentSchema {
   };
   attributes: {
     amount: Schema.Attribute.Decimal;
-    period: Schema.Attribute.Enumeration<['hour', 'yearly', 'monthly']>;
+    period: Schema.Attribute.Enumeration<
+      ['hour', 'weekly', 'yearly', 'monthly']
+    >;
   };
 }
 
@@ -251,6 +298,20 @@ export interface SharedTeam extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedTeamCard extends Struct.ComponentSchema {
+  collectionName: 'components_shared_team_cards';
+  info: {
+    displayName: 'team-card';
+    icon: 'lightbulb';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    name: Schema.Attribute.String;
+    role: Schema.Attribute.String;
+  };
+}
+
 export interface SharedText extends Struct.ComponentSchema {
   collectionName: 'components_shared_texts';
   info: {
@@ -287,7 +348,10 @@ declare module '@strapi/strapi' {
       'shared.facilities': SharedFacilities;
       'shared.location': SharedLocation;
       'shared.media': SharedMedia;
+      'shared.meet-our-team': SharedMeetOurTeam;
+      'shared.questions': SharedQuestions;
       'shared.quote': SharedQuote;
+      'shared.responses': SharedResponses;
       'shared.reviews': SharedReviews;
       'shared.rich-text': SharedRichText;
       'shared.salary': SharedSalary;
@@ -296,6 +360,7 @@ declare module '@strapi/strapi' {
       'shared.spaces': SharedSpaces;
       'shared.tags': SharedTags;
       'shared.team': SharedTeam;
+      'shared.team-card': SharedTeamCard;
       'shared.text': SharedText;
       'shared.what-we-offer': SharedWhatWeOffer;
     }

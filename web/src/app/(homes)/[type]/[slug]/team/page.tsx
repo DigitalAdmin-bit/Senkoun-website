@@ -1,23 +1,32 @@
 import SectionHeader from "@/components/common/section-header";
 import TeamCard from "@/components/team-card";
+import {getTeamsForHomeBySlug} from "@/lib/apis/teams";
+import {notFound} from "next/navigation";
+
+interface PageProps {
+    params: Promise<{ slug: string }>;
+}
+
+export default async function TeamPage({params}: PageProps) {
+    const {slug} = await params;
+
+    const teamsRes = await getTeamsForHomeBySlug(slug);
+
+    console.log(teamsRes);
 
 
-const Data = [
-    {
-        name: "John Doe",
-        position: "Founder & CEO",
-        image: "/person.webp",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel sapien eget nunc gravida tincidunt."
+    if (!teamsRes.data) {
+        return notFound();
     }
-]
 
-export default async function TeamPage() {
     return <section className="main-container my-30">
-        <SectionHeader title="The Joseph Lodge Team" subtitle="MEET OUR TEAM"
-                       description="At Joseph Lodge, care comes from the heart and we never compromise our high standards. When selecting colleagues to join our dedicated, multi-disciplinary team, the requisite expertise, sincerity, and empathy are a must."/>
+        <SectionHeader title={`The ${teamsRes.data.home.name} Team`} subtitle="MEET OUR TEAM"
+                       description={teamsRes.data.description}/>
 
         <div className="w-full grid grid-cols-3 gap-10 my-20 max-lg:grid-cols-1">
-            {Data.map((item, index) => <TeamCard {...item}/>)}
+            {teamsRes.data.teams.length === 0 ? <p className="col-span-3 text-center text-[#64565A]">No team members found.</p> :
+                teamsRes.data.teams.map(team => <TeamCard name={team.name} position={team.role} image={team.image.url} text={team.description}/>)
+            }
         </div>
     </section>
 }

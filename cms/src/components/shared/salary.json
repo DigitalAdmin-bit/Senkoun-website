@@ -12,6 +12,7 @@
       "type": "enumeration",
       "enum": [
         "hour",
+        "weekly",
         "yearly",
         "monthly"
       ]

@@ -4,7 +4,7 @@
   "info": {
     "singularName": "home",
     "pluralName": "homes",
-    "displayName": "home"
+    "displayName": "Home"
   },
   "options": {
     "draftAndPublish": true
@@ -95,11 +95,6 @@
       "component": "shared.reviews",
       "repeatable": true
     },
-    "teams": {
-      "type": "component",
-      "component": "shared.team",
-      "repeatable": true
-    },
     "featured": {
       "type": "boolean",
       "default": false
@@ -129,6 +124,17 @@
         "care-home",
         "supported-home"
       ]
+    },
+    "team": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::team.team",
+      "mappedBy": "home"
+    },
+    "meet_our_team": {
+      "type": "component",
+      "component": "shared.meet-our-team",
+      "repeatable": false
     }
   }
 }

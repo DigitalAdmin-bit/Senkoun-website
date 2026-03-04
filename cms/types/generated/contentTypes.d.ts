@@ -636,7 +636,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
 export interface ApiHomeHome extends Struct.CollectionTypeSchema {
   collectionName: 'homes';
   info: {
-    displayName: 'home';
+    displayName: 'Home';
     pluralName: 'homes';
     singularName: 'home';
   };
@@ -664,6 +664,7 @@ export interface ApiHomeHome extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::home.home'> &
       Schema.Attribute.Private;
     location: Schema.Attribute.Component<'shared.location', false>;
+    meet_our_team: Schema.Attribute.Component<'shared.meet-our-team', false>;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     phone: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
@@ -671,7 +672,7 @@ export interface ApiHomeHome extends Struct.CollectionTypeSchema {
     slug: Schema.Attribute.UID<'name'>;
     spaces: Schema.Attribute.Component<'shared.spaces', true>;
     tagline: Schema.Attribute.String;
-    teams: Schema.Attribute.Component<'shared.team', true>;
+    team: Schema.Attribute.Relation<'oneToOne', 'api::team.team'>;
     thumbnails: Schema.Attribute.Media<'images', true>;
     type: Schema.Attribute.Enumeration<['care-home', 'supported-home']> &
       Schema.Attribute.Required &
@@ -685,10 +686,56 @@ export interface ApiHomeHome extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiJobApplicationJobApplication
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'job_applications';
+  info: {
+    displayName: 'Job Application';
+    pluralName: 'job-applications';
+    singularName: 'job-application';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cover_letter: Schema.Attribute.Media<'files'> & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    first_name: Schema.Attribute.String & Schema.Attribute.Required;
+    hear_about_vacancy: Schema.Attribute.Enumeration<
+      [
+        'SENKOUN Employe Referral',
+        'Social Media',
+        'LinkedIn',
+        'News Articles',
+        'Blogs',
+        'Websites',
+        'Friend Suggested',
+        'Other',
+      ]
+    > &
+      Schema.Attribute.Required;
+    job: Schema.Attribute.Relation<'oneToOne', 'api::job.job'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::job-application.job-application'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    responses: Schema.Attribute.Component<'shared.responses', true>;
+    resume: Schema.Attribute.Media<'files'> & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiJobJob extends Struct.CollectionTypeSchema {
   collectionName: 'jobs';
   info: {
-    displayName: 'job';
+    displayName: 'Job';
     pluralName: 'jobs';
     singularName: 'job';
   };
@@ -701,20 +748,31 @@ export interface ApiJobJob extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     description: Schema.Attribute.Blocks;
     home: Schema.Attribute.Relation<'oneToOne', 'api::home.home'>;
+    job_type: Schema.Attribute.Enumeration<
+      [
+        'full time',
+        'part time',
+        'internship',
+        'contract',
+        'freelance',
+        'temporary',
+      ]
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::job.job'> &
       Schema.Attribute.Private;
+    open: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
     publishedAt: Schema.Attribute.DateTime;
+    questions: Schema.Attribute.Component<'shared.questions', true>;
     salary: Schema.Attribute.Component<'shared.salary', false>;
     tags: Schema.Attribute.Component<'shared.tags', true>;
     title: Schema.Attribute.String;
-    type: Schema.Attribute.Enumeration<['full time', 'on-site', 'part time']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    work_type: Schema.Attribute.Enumeration<
-      ['full time', 'part time', 'remote']
-    >;
+    work_type: Schema.Attribute.Enumeration<['on site', 'remote', 'hybrid']>;
   };
 }
 
@@ -744,6 +802,33 @@ export interface ApiNewsArticleNewsArticle extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'title'>;
     title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTeamTeam extends Struct.CollectionTypeSchema {
+  collectionName: 'teams';
+  info: {
+    displayName: 'Team';
+    pluralName: 'teams';
+    singularName: 'team';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    home: Schema.Attribute.Relation<'oneToOne', 'api::home.home'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::team.team'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    teams: Schema.Attribute.Component<'shared.team-card', true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1267,8 +1352,10 @@ declare module '@strapi/strapi' {
       'api::esquire.esquire': ApiEsquireEsquire;
       'api::event.event': ApiEventEvent;
       'api::home.home': ApiHomeHome;
+      'api::job-application.job-application': ApiJobApplicationJobApplication;
       'api::job.job': ApiJobJob;
       'api::news-article.news-article': ApiNewsArticleNewsArticle;
+      'api::team.team': ApiTeamTeam;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
