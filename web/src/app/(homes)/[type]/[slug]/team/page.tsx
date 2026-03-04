@@ -12,9 +12,6 @@ export default async function TeamPage({params}: PageProps) {
 
     const teamsRes = await getTeamsForHomeBySlug(slug);
 
-    console.log(teamsRes);
-
-
     if (!teamsRes.data) {
         return notFound();
     }
@@ -25,7 +22,7 @@ export default async function TeamPage({params}: PageProps) {
 
         <div className="w-full grid grid-cols-3 gap-10 my-20 max-lg:grid-cols-1">
             {teamsRes.data.teams.length === 0 ? <p className="col-span-3 text-center text-[#64565A]">No team members found.</p> :
-                teamsRes.data.teams.map(team => <TeamCard name={team.name} position={team.role} image={team.image.url} text={team.description}/>)
+                teamsRes.data.teams.map((team, i) => <TeamCard key={i} name={team.name} position={team.role} image={team.image.url} text={team.description}/>)
             }
         </div>
     </section>

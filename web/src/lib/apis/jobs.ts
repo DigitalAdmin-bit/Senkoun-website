@@ -3,6 +3,8 @@
 import {IStrapiResponse} from "@/types/types";
 import {BlocksContent} from "@strapi/blocks-react-renderer";
 import qs from "qs";
+import axiosApi from "@/lib/axios-api";
+import {uploadFileToStrapi} from "@/lib/apis/upload";
 
 
 export interface IJobResponse {
@@ -33,7 +35,7 @@ export interface IJobResponse {
         question_type: 'short_text' | 'long_text' | 'select' | 'checkbox' | 'date',
         options?: string, // Text with \n separated options if question_type is select
         required: boolean,
-    }
+    }[]
 
 
     updatedAt: string,
@@ -117,10 +119,61 @@ export async function getOpenJobs({home, job_type, work_type, keyword, limit = 1
         encodeValuesOnly: true,
     });
 
-    console.log("Query: ", query);
 
     const res = await fetch(`${process.env.STRAPI_URL}/api/jobs?${query}`);
     const data = await res.json();
 
     return data
+}
+
+
+export type THearAboutVacancyOption =
+    'SENKOUN Employe Referral'
+    | 'Social Media'
+    | 'LinkedIn'
+    | 'News Articles'
+    | 'Blogs'
+    | 'Websites'
+    | 'Friend Suggested'
+    | 'Other';
+
+export async function applyForJob(jobId: string, data: {
+    first_name: string;
+    last_name: string;
+    hear_about_vacancy: THearAboutVacancyOption;
+    phone: string;
+    email: string;
+    responses: {
+        question: string;
+        answer: string;
+        type?: 'short_text' | 'long_text' | 'select' | 'checkbox' | 'date';
+    }[];
+    resume: File;
+    cover_letter: File;
+}) {
+    "use server";
+    try {
+        const uploadedResume = await uploadFileToStrapi(data.resume);
+
+        const uploadedCoverLetter = await uploadFileToStrapi(data.cover_letter);
+
+        await axiosApi.post("/job-applications", {
+            data: {
+                first_name: data.first_name,
+                last_name: data.last_name,
+                hear_about_vacancy: data.hear_about_vacancy,
+                phone: data.phone,
+                email: data.email,
+                responses: data.responses,
+                resume: uploadedResume.id,
+                cover_letter: uploadedCoverLetter.id,
+                job: {
+                    connect: [jobId]
+                },
+            }
+        });
+    } catch (error) {
+        console.error("Error applying for job:", error);
+        throw error;
+    }
 }

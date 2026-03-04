@@ -22,7 +22,7 @@ export default function Careers() {
                         where compassion is valued, voices are heard, and everyone is encouraged to grow.
                     </p>
                     <div className="flex gap-4 mt-6">
-                        <Link href="#" className="flex-1 justify-center flex main-button text-white border-white">
+                        <Link href="/careers/openings" className="flex-1 justify-center flex main-button text-white border-white">
                             <span className="text-white">LATEST VACANCIES</span>
                         </Link>
                         <Link href="#career-enquiry" className="flex-1 flex justify-center main-button text-white border-white">
@@ -46,7 +46,7 @@ export default function Careers() {
                 care starts with great people, which is why we create a supportive, respectful environment where
                 compassion is valued, voices are heard, and everyone is encouraged to grow.<br/>
 
-                <Link href="#" className="main-button border-[#64565A] mt-6 mx-auto flex">APPLY NOW</Link>
+                <Link href="/careers/openings" className="main-button border-[#64565A] mt-6 mx-auto flex">APPLY NOW</Link>
             </>}
         />
 
@@ -108,7 +108,7 @@ export default function Careers() {
                     future roles, please do email us your CV
                 </p>
 
-                <Link href="#" className="main-button border-white mt-6 flex text-white">APPLY NOW</Link>
+                <Link href="/careers/openings" className="main-button border-white mt-6 flex text-white">APPLY NOW</Link>
             </div>
             <div className="flex-1 relative bg-red-300 h-110">
                 <img src="/pages/curr-vacs.webp" alt="Current Vacancies"

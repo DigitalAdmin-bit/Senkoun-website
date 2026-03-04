@@ -26,7 +26,7 @@ export default function NewsBox(article: {
         <br/>
         <Link
             href={`/news/${article.slug}`}
-            className="mt-8 font-normal text-[#64565a] text-sm border-[#64565A] border px-5 py-3 hover:opacity-80"
+            className="main-button mt-8 font-normal text-[#64565a] text-sm border-[#64565A] border px-5 py-3 hover:opacity-80"
         >
             READ
             MORE

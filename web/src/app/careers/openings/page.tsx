@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect, useState, useCallback} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {getOpenJobs, IJobResponse} from "@/lib/apis/jobs";
 import {Input} from "@/components/ui/input";
 import {Select} from "@/components/ui/select";
@@ -36,7 +36,6 @@ export default function Openings() {
     const [jobTypeFilter, setJobTypeFilter] = useState("");
     const [workTypeFilter, setWorkTypeFilter] = useState("");
 
-    // Fetch jobs
     const fetchJobs = useCallback(async (page: number = 1, searchKeyword?: string) => {
         setLoading(true);
         try {
@@ -71,7 +70,6 @@ export default function Openings() {
         }
     }, [homeFilter, jobTypeFilter, workTypeFilter, selectedJob]);
 
-    // Debounced keyword search
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             fetchJobs(1, keyword);
@@ -85,10 +83,10 @@ export default function Openings() {
         fetchJobs(1, keyword);
     }, [homeFilter, jobTypeFilter, workTypeFilter]);
 
-    // Initial fetch
-    useEffect(() => {
-        fetchJobs(1);
-    }, []);
+    // // Initial fetch
+    // useEffect(() => {
+    //     fetchJobs(1);
+    // }, []);
 
     const handlePageChange = (newPage: number) => {
         fetchJobs(newPage, keyword);
@@ -96,7 +94,6 @@ export default function Openings() {
 
     return (
         <div className="main-container py-10">
-            {/* Search and Filters */}
             <div className="mb-6 space-y-4">
                 <div className="flex gap-4 items-end max-md:flex-col">
                     <Input
@@ -147,7 +144,7 @@ export default function Openings() {
             </div>
 
             {/* Job Listings and Details */}
-            <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-6 h-[calc(100vh-400px)] min-h-150">
+            <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-6 min-h-150">
                 {/* Left Side - Job Listings (Scrollable) */}
                 <LeftSide
                     jobs={jobs}
@@ -159,7 +156,7 @@ export default function Openings() {
                 />
 
                 {/* Right Side - Job Details (Scrollable) */}
-                <RightSide selectedJob={selectedJob} />
+                <RightSide selectedJob={selectedJob}/>
             </div>
         </div>
     );

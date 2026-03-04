@@ -1,5 +1,6 @@
 const HOMES_LANGS = {
     "care-home": {
+        hero: "/home/services/care-homes.webp",
         subtitle: "CARE HOMES",
         about: {
             para1: "Senkoun Healthcare Wakering Ltd presents a visionary plan to\n" +
@@ -40,6 +41,8 @@ const HOMES_LANGS = {
         ]
     },
     "supported-living": {
+        hero: "/home/services/care-homes.webp",
+
         subtitle: "SUPPORTED LIVING",
         about: {
             para1: "",
@@ -60,6 +63,7 @@ const HOMES_LANGS = {
         ]
     },
     "domiciliary-care": {
+        hero: "/home/services/care-homes.webp",
         subtitle: "DOMICILIARY CARE",
     }
 }

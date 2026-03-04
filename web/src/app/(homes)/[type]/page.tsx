@@ -65,7 +65,7 @@ export default async function HomesPage({params}: PageProps) {
     return (
         <>
             {/* Hero Section */}
-            <HeroSection bg="/pages/care-home-bg.webp"/>
+            <HeroSection bg={refLangs.hero}/>
 
             <SectionContent
                 subtitle={`ABOUT SENKOUN ${langs.subtitle}`}

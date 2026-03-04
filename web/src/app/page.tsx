@@ -153,7 +153,7 @@ export default function Home() {
                             }`}
                         >
                             <img
-                                className="w-[45%] object-cover max-sm:w-full max-sm:mb-10"
+                                className="w-[45%] aspect-square object-cover max-sm:w-full max-sm:mb-10"
                                 alt={service.category}
                                 src={service.image}
                             />
@@ -169,7 +169,7 @@ export default function Home() {
                                 </p>
                                 <Link
                                     href={service.link}
-                                    className="text-[#64565a] text-sm border border-[#64565a] px-8 py-4 hover:bg-gray-200 transition cursor-pointer">
+                                    className="main-button text-[#64565a] text-sm border border-[#64565a] px-8 py-4 hover:bg-gray-200 transition cursor-pointer">
                                     GET STARTED
                                 </Link>
                             </div>
@@ -199,7 +199,7 @@ export default function Home() {
                 <ScrollAnimation animation="scaleIn" delay={0.4}>
                     <Link
                         href="/careers"
-                        className="btn bg-white text-amber hover:bg-gray-100"
+                        className="btn bg-white text-amber hover:bg-gray-100 main-button"
                     >
                         APPLY NOW
                     </Link>

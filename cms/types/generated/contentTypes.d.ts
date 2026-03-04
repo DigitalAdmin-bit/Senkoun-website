@@ -702,6 +702,7 @@ export interface ApiJobApplicationJobApplication
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    email: Schema.Attribute.String & Schema.Attribute.Required;
     first_name: Schema.Attribute.String & Schema.Attribute.Required;
     hear_about_vacancy: Schema.Attribute.Enumeration<
       [
@@ -717,12 +718,14 @@ export interface ApiJobApplicationJobApplication
     > &
       Schema.Attribute.Required;
     job: Schema.Attribute.Relation<'oneToOne', 'api::job.job'>;
+    last_name: Schema.Attribute.String & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::job-application.job-application'
     > &
       Schema.Attribute.Private;
+    phone: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     responses: Schema.Attribute.Component<'shared.responses', true>;
     resume: Schema.Attribute.Media<'files'> & Schema.Attribute.Required;

@@ -82,6 +82,7 @@ export async function createCareerEnquiry(data: {
     resume: File;
     cover_letter: File;
 }) {
+
     // Step 1: Upload resume file
     const resumeFormData = new FormData();
     resumeFormData.append('files', data.resume);
