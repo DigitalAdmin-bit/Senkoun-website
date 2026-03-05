@@ -75,6 +75,13 @@ export async function fetchHomeBySlug(
             },
         },
         populate: {
+            meet_our_team: {
+                populate: {
+                    image: {
+                        fields: ["url", "width", "height", "alternativeText"],
+                    }
+                }
+            },
             carehome_review: "*",
             cqc_rating: "*",
             video: {
@@ -87,13 +94,6 @@ export async function fetchHomeBySlug(
             },
             facilities: "*",
             reviews: "*",
-            teams: {
-                populate: {
-                    image: {
-                        fields: ["url", "width", "height", "alternativeText"],
-                    },
-                },
-            },
             spaces: {
                 populate: {
                     images: {

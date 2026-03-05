@@ -113,4 +113,17 @@ export interface HomeSlugResponse {
         documentId: string;
         url: string;
     };
+
+    meet_our_team: {
+        id: number;
+        description: string;
+        image: {
+            id: number;
+            documentId: string;
+            url: string;
+            width: number | null;
+            height: number | null;
+            alternativeText: string | null;
+        }
+    }
 }

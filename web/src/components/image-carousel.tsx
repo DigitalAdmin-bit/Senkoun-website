@@ -75,7 +75,7 @@ export default function ImageCarousel({
                     <button
                         key={index}
                         onClick={() => api?.scrollTo(index)}
-                        className={`size-2 transition-all duration-300 rounded-full ${
+                        className={`size-2 transition-all duration-300 rounded-full cursor-pointer hover:scale-200 ${
                             index === current
                                 ? (activeClassName ?? "bg-[#64565A]")
                                 : (inactiveClassName ?? "bg-[#D9D9D9] hover:bg-gray-400")

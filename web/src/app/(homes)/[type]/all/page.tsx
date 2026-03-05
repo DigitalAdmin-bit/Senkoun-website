@@ -21,11 +21,6 @@ export async function generateMetadata({params}: PageProps): Promise<Metadata> {
                 title: "Care Homes",
                 description: "View all the care homes",
             }
-        case "domiciliary-care":
-            return {
-                title: "Domiciliary care",
-                description: "View all the domiciliary cares",
-            }
         case "supported-living":
             return {
                 title: "Supported Living",

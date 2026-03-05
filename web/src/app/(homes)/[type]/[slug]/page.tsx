@@ -81,6 +81,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
 
     const data = responseData.data[0];
 
+    // @ts-ignore
     return (
         <>
             <section className="overflow-visible bg-white border-t pt-5 text-[#64565A]">
@@ -434,6 +435,61 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                 </div>
             </section>
 
+            {data.type === "supported-home" && <div className="">
+                <section className="bg-[#57946C] mt-30 mb-20 max-sm:mt-20 flex gap-20 max-sm:flex-col text-white">
+                    <div className="flex-1">
+                        <img src="/pages/care-homes/how-we-care.webp"
+                             alt="How we care"
+                             className="w-full h-100 object-cover object-center"/>
+                    </div>
+                    <div className="flex-1 flex flex-col justify-center">
+                        <h1 className="text-4xl">Eligibility for This Service</h1>
+                        <p className="line-clamp-6 w-125 text-sm mt-10 max-w-[80%] max-sm:max-w-full leading-relaxed tracking-wide">
+                            Eligibility for supported living services involves a “social care assistance” needs
+                            assessment conducted by Essex County Council. This assessment will determine whether you
+                            qualify for supported or assisted living services. Typically, adults with physical
+                            disabilities, learning disabilities, sensory impairments, and mental health issues are
+                            considered for supported living. Individuals with long-term health conditions that
+                            affect
+                            their ability to live independently are also eligible for this service.
+                        </p>
+                    </div>
+                </section>
+
+                <section className="main-container">
+                    <h1 className="text-5xl text-[#B8853A] mb-16">Financial Help for This Service</h1>
+                    <div className="text-pretty">
+                        <p>
+                            In Essex, individuals seeking financial help for supported living services can access
+                            various
+                            forms of assistance, such as:
+                        </p>
+                        <br/>
+
+                        <ul className="space-y-4 pl-4">
+                            <li className="list-disc">Local Authority Assistance: If you’re eligible for our services, a
+                                financial assessment
+                                will determine how much the individual can contribute towards the cost of their care.
+                                This assessment considers income, savings, and assets.
+                            </li>
+
+                            <li className="list-disc">Benefits and Allowances: Benefits such as Personal Independence
+                                Payment (PIP) are
+                                available to individuals aged 16-64 with a long-term health condition or disability.
+                                Alternatively, Attendance Allowance is for individuals over 65 who need help with
+                                personal care due to a physical or mental disability.
+                            </li>
+
+                            <li className="list-disc">Charitable Support and Grants: Various charities provide financial
+                                assistance for people
+                                with disabilities or long-term health conditions. Examples include Living Made Easy and
+                                Sense.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </div>}
+
             <TestimonialCarousel
                 className="my-30 mt-40"
                 testimonials={data.reviews.map((i) => ({
@@ -446,14 +502,9 @@ export default async function CareHomeDetailPage({params}: PageProps) {
             <br/><br/><br/><br/><br/>
 
             <MeetTheTeam
+                teamPageUrl={`/${data.type === "care-home" ? "care-homes" : "supported-living"}/${data.slug}/team`}
                 id="meet-the-team"
-                data={data.teams.map((i) => ({
-                    ...i!,
-                    image: {
-                        ...i.image!,
-                        url: getStrapiMediaUrl(i.image?.url!)!,
-                    },
-                }))}
+                data={data.meet_our_team}
             />
 
             <WantToExploreMore/>

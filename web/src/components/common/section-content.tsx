@@ -18,7 +18,7 @@ export default function SectionContent({
             </ScrollAnimation>}
 
             <ScrollAnimation animation="slideUp" delay={0.2}>
-                <h1 className="text-[#B8853A] text-center text-5xl mb-10 max-sm:text-4xl" id={id}>{title}</h1>
+                <h1 className="text-[#B8853A] text-center text-5xl mb-10 max-sm:text-4xl max-w-125 mx-auto" id={id}>{title}</h1>
             </ScrollAnimation>
 
             <ScrollAnimation animation="slideUp" delay={0.3}>

@@ -1,6 +1,7 @@
 "use client";
 
 import {useState} from "react";
+import {motion, AnimatePresence} from "framer-motion";
 import ImageCarousel from "@/components/image-carousel";
 
 interface SpaceImage {
@@ -34,7 +35,7 @@ export default function SpaceCarousel({spaces}: SpaceCarouselProps) {
 
     return (
         <div className="flex main-container h-125 max-md:h-auto max-md:flex-col-reverse">
-            <div className="flex-1 text-white p-12 flex flex-col max-md:px-0 max-md:-mt-10">
+            <div className="flex-1 text-white p-12 px-0 flex flex-col max-md:px-0 max-md:-mt-10">
                 <h1 className="text-5xl mb-8">Our Space</h1>
                 <nav className="space-y-4 font-heading max-md:flex max-md:flex-wrap max-md:space-y-0 max-md:gap-5">
                     {spaces.map((space, index) => (
@@ -56,13 +57,23 @@ export default function SpaceCarousel({spaces}: SpaceCarouselProps) {
             <div className="flex-3 p-12 flex flex-col justify-center -translate-y-12.5 max-md:p-0">
                 {/* Carousel */}
                 <div className="mb-8 max-md:mb-0">
-                    <ImageCarousel
-                        images={currentSpace.images}
-                        description={currentSpace.description}
-                        dotsClassName="justify-start"
-                        activeClassName="bg-white"
-                        inactiveClassName="bg-white/50"
-                    />
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={activeIndex}
+                            initial={{opacity: 0, x: 20}}
+                            animate={{opacity: 1, x: 0}}
+                            exit={{opacity: 0, x: -20}}
+                            transition={{duration: 0.3, ease: "easeInOut"}}
+                        >
+                            <ImageCarousel
+                                images={currentSpace.images}
+                                description={currentSpace.description}
+                                dotsClassName="justify-start"
+                                activeClassName="bg-white"
+                                inactiveClassName="bg-white/50"
+                            />
+                        </motion.div>
+                    </AnimatePresence>
                 </div>
             </div>
         </div>
