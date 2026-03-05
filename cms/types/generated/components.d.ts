@@ -7,8 +7,8 @@ export interface SharedAccordion extends Struct.ComponentSchema {
     icon: 'archive';
   };
   attributes: {
-    description: Schema.Attribute.String;
-    title: Schema.Attribute.String;
+    description: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -29,8 +29,8 @@ export interface SharedCards extends Struct.ComponentSchema {
     displayName: 'cards';
   };
   attributes: {
-    description: Schema.Attribute.String;
-    title: Schema.Attribute.String;
+    description: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -42,6 +42,7 @@ export interface SharedCarehomeWidget extends Struct.ComponentSchema {
   };
   attributes: {
     rating: Schema.Attribute.Decimal &
+      Schema.Attribute.Required &
       Schema.Attribute.SetMinMax<
         {
           max: 10;
@@ -50,7 +51,7 @@ export interface SharedCarehomeWidget extends Struct.ComponentSchema {
         number
       > &
       Schema.Attribute.DefaultTo<10>;
-    review_link: Schema.Attribute.String;
+    review_link: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -110,15 +111,28 @@ export interface SharedFacilities extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedHowItWorks extends Struct.ComponentSchema {
+  collectionName: 'components_shared_how_it_works';
+  info: {
+    displayName: 'how-it-works';
+  };
+  attributes: {
+    cover_image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<"We can work quickly to find a solution that helps you get started on your care journey without delay, but don't worry, the decisions you make now can be adapted as your loved one's needs change. Reach out to learn how our flexible care could help make things easier straight away.">;
+  };
+}
+
 export interface SharedLocation extends Struct.ComponentSchema {
   collectionName: 'components_shared_locations';
   info: {
     displayName: 'location';
   };
   attributes: {
-    description: Schema.Attribute.Text;
-    lat: Schema.Attribute.String;
-    log: Schema.Attribute.String;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    lat: Schema.Attribute.String & Schema.Attribute.Required;
+    log: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -139,8 +153,8 @@ export interface SharedMeetOurTeam extends Struct.ComponentSchema {
     displayName: 'meet-our-team';
   };
   attributes: {
-    description: Schema.Attribute.Text;
-    image: Schema.Attribute.Media<'images'>;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
   };
 }
 
@@ -197,7 +211,7 @@ export interface SharedReviews extends Struct.ComponentSchema {
   };
   attributes: {
     by: Schema.Attribute.String;
-    content: Schema.Attribute.Text;
+    content: Schema.Attribute.Text & Schema.Attribute.Required;
     rating: Schema.Attribute.Integer &
       Schema.Attribute.SetMinMax<
         {
@@ -275,6 +289,33 @@ export interface SharedSpaces extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedSupportCards extends Struct.ComponentSchema {
+  collectionName: 'components_shared_support_cards';
+  info: {
+    displayName: 'support-cards';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface SharedSupports extends Struct.ComponentSchema {
+  collectionName: 'components_shared_supports';
+  info: {
+    displayName: 'supports';
+  };
+  attributes: {
+    cards: Schema.Attribute.Component<'shared.support-cards', true>;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'At SENKOUN Care Home, we offer two types of home care: hourly care, with visits at agreed times, and live-in care, where a dedicated carer stays in your home. Both services are managed by our experienced care management team and delivered by compassionate Care Professionals.  Every care package is carefully tailored, combining the right mix of services to meet your individual needs and preferences.'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Supporting Your Loved Ones'>;
+  };
+}
+
 export interface SharedTags extends Struct.ComponentSchema {
   collectionName: 'components_shared_tags';
   info: {
@@ -328,9 +369,13 @@ export interface SharedWhatWeOffer extends Struct.ComponentSchema {
     displayName: 'what_we_offer';
   };
   attributes: {
-    accordions: Schema.Attribute.Component<'shared.accordion', true>;
-    description: Schema.Attribute.Text;
+    accordions: Schema.Attribute.Component<'shared.accordion', true> &
+      Schema.Attribute.Required;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'At SENKOUN, our domiciliary care visits help your loved one live independently and comfortably at home. We provide personalised support tailored to individual needs \u2014 from companionship and help with household tasks to personal and more complex care.  Our experienced Care Professionals deliver compassionate, reliable care that gives families peace of mind. We work closely with you to create a care plan that fits your routines and preferences, visiting at times that suit you \u2014 because at SENKOUN, it\u2019s always your choice.'>;
     title: Schema.Attribute.String &
+      Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'What We Will Offer'>;
   };
 }
@@ -346,6 +391,7 @@ declare module '@strapi/strapi' {
       'shared.date-range': SharedDateRange;
       'shared.event': SharedEvent;
       'shared.facilities': SharedFacilities;
+      'shared.how-it-works': SharedHowItWorks;
       'shared.location': SharedLocation;
       'shared.media': SharedMedia;
       'shared.meet-our-team': SharedMeetOurTeam;
@@ -358,6 +404,8 @@ declare module '@strapi/strapi' {
       'shared.seo': SharedSeo;
       'shared.slider': SharedSlider;
       'shared.spaces': SharedSpaces;
+      'shared.support-cards': SharedSupportCards;
+      'shared.supports': SharedSupports;
       'shared.tags': SharedTags;
       'shared.team': SharedTeam;
       'shared.team-card': SharedTeamCard;

@@ -15,6 +15,15 @@
       "type": "uid",
       "targetField": "name"
     },
+    "type": {
+      "type": "enumeration",
+      "required": true,
+      "default": "care-home",
+      "enum": [
+        "care-home",
+        "supported-home"
+      ]
+    },
     "name": {
       "type": "string",
       "required": true
@@ -40,23 +49,58 @@
       ]
     },
     "facebook": {
-      "type": "string"
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "care-home"
+          ]
+        }
+      },
+      "required": true
     },
     "carehome_review": {
       "type": "component",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "care-home"
+          ]
+        }
+      },
       "component": "shared.carehome-widget",
-      "repeatable": false
+      "repeatable": false,
+      "required": true
     },
     "cqc_rating": {
       "type": "component",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "care-home"
+          ]
+        }
+      },
       "component": "shared.cqc-widget",
-      "repeatable": false
+      "repeatable": false,
+      "required": true
     },
     "tagline": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "description": {
-      "type": "text"
+      "type": "text",
+      "required": true
     },
     "video": {
       "type": "media",
@@ -68,10 +112,21 @@
     "location": {
       "type": "component",
       "component": "shared.location",
-      "repeatable": false
+      "repeatable": false,
+      "required": true
     },
     "why_choose_us": {
       "type": "component",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "care-home"
+          ]
+        }
+      },
       "component": "shared.cards",
       "repeatable": true
     },
@@ -114,15 +169,6 @@
         "files",
         "videos",
         "audios"
-      ]
-    },
-    "type": {
-      "type": "enumeration",
-      "required": true,
-      "default": "care-home",
-      "enum": [
-        "care-home",
-        "supported-home"
       ]
     },
     "team": {

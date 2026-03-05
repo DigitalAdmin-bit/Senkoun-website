@@ -27,8 +27,6 @@ export function getHomesPath(type: typeof ALLOWED[number]) {
             return {actual: "care-home", ref: "care-home"} as const;
         case "supported-living":
             return {actual: "supported-living", ref: "supported-living"} as const;
-        case "domiciliary-care":
-            return {actual: "domiciliary-care", ref: "care-home"} as const;
     }
 
     return null;

@@ -7,15 +7,19 @@
   "attributes": {
     "title": {
       "type": "string",
-      "default": "What We Will Offer"
+      "default": "What We Will Offer",
+      "required": true
     },
     "description": {
-      "type": "text"
+      "type": "text",
+      "default": "At SENKOUN, our domiciliary care visits help your loved one live independently and comfortably at home. We provide personalised support tailored to individual needs — from companionship and help with household tasks to personal and more complex care.  Our experienced Care Professionals deliver compassionate, reliable care that gives families peace of mind. We work closely with you to create a care plan that fits your routines and preferences, visiting at times that suit you — because at SENKOUN, it’s always your choice.",
+      "required": true
     },
     "accordions": {
       "type": "component",
       "component": "shared.accordion",
-      "repeatable": true
+      "repeatable": true,
+      "required": true
     }
   },
   "config": {}

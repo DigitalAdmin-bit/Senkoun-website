@@ -8,12 +8,14 @@
   "attributes": {
     "rating": {
       "type": "decimal",
+      "required": true,
       "default": 10,
       "min": 0,
       "max": 10
     },
     "review_link": {
-      "type": "string"
+      "type": "string",
+      "required": true
     }
   },
   "config": {}

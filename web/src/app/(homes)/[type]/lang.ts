@@ -62,10 +62,6 @@ const HOMES_LANGS = {
             }
         ]
     },
-    "domiciliary-care": {
-        hero: "/home/services/care-homes.webp",
-        subtitle: "DOMICILIARY CARE",
-    }
 }
 
 

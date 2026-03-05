@@ -566,6 +566,45 @@ export interface ApiCareerEnquiryCareerEnquiry
   };
 }
 
+export interface ApiDomiciliaryCareDomiciliaryCare
+  extends Struct.SingleTypeSchema {
+  collectionName: 'domiciliary_cares';
+  info: {
+    displayName: 'Domiciliary care';
+    pluralName: 'domiciliary-cares';
+    singularName: 'domiciliary-care';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cover: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'At SENKOUN, we understand that there\u2019s no place like home. Our domiciliary care and home visits can help your older loved one retain independence and stay in their familiar surroundings.'>;
+    how_it_works: Schema.Attribute.Component<'shared.how-it-works', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::domiciliary-care.domiciliary-care'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    reviews: Schema.Attribute.Component<'shared.reviews', true>;
+    supports: Schema.Attribute.Component<'shared.supports', false>;
+    tagline: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'DOMICILIARY CARE YOUR WAY'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    what_we_offer: Schema.Attribute.Component<'shared.what-we-offer', false>;
+  };
+}
+
 export interface ApiEsquireEsquire extends Struct.CollectionTypeSchema {
   collectionName: 'esquires';
   info: {
@@ -649,21 +688,24 @@ export interface ApiHomeHome extends Struct.CollectionTypeSchema {
     carehome_review: Schema.Attribute.Component<
       'shared.carehome-widget',
       false
-    >;
+    > &
+      Schema.Attribute.Required;
     cover: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
-    cqc_rating: Schema.Attribute.Component<'shared.cqc-widget', false>;
+    cqc_rating: Schema.Attribute.Component<'shared.cqc-widget', false> &
+      Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
     email: Schema.Attribute.Email & Schema.Attribute.Required;
-    facebook: Schema.Attribute.String;
+    facebook: Schema.Attribute.String & Schema.Attribute.Required;
     facilities: Schema.Attribute.Component<'shared.facilities', false>;
     featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::home.home'> &
       Schema.Attribute.Private;
-    location: Schema.Attribute.Component<'shared.location', false>;
+    location: Schema.Attribute.Component<'shared.location', false> &
+      Schema.Attribute.Required;
     meet_our_team: Schema.Attribute.Component<'shared.meet-our-team', false>;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     phone: Schema.Attribute.String & Schema.Attribute.Required;
@@ -671,7 +713,7 @@ export interface ApiHomeHome extends Struct.CollectionTypeSchema {
     reviews: Schema.Attribute.Component<'shared.reviews', true>;
     slug: Schema.Attribute.UID<'name'>;
     spaces: Schema.Attribute.Component<'shared.spaces', true>;
-    tagline: Schema.Attribute.String;
+    tagline: Schema.Attribute.String & Schema.Attribute.Required;
     team: Schema.Attribute.Relation<'oneToOne', 'api::team.team'>;
     thumbnails: Schema.Attribute.Media<'images', true>;
     type: Schema.Attribute.Enumeration<['care-home', 'supported-home']> &
@@ -1352,6 +1394,7 @@ declare module '@strapi/strapi' {
       'api::book-a-tour.book-a-tour': ApiBookATourBookATour;
       'api::brochure-download.brochure-download': ApiBrochureDownloadBrochureDownload;
       'api::career-enquiry.career-enquiry': ApiCareerEnquiryCareerEnquiry;
+      'api::domiciliary-care.domiciliary-care': ApiDomiciliaryCareDomiciliaryCare;
       'api::esquire.esquire': ApiEsquireEsquire;
       'api::event.event': ApiEventEvent;
       'api::home.home': ApiHomeHome;

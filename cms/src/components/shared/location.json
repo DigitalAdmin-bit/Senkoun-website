@@ -6,13 +6,16 @@
   "options": {},
   "attributes": {
     "lat": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "log": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "description": {
-      "type": "text"
+      "type": "text",
+      "required": true
     }
   },
   "config": {}
