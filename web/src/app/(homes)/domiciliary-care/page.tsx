@@ -38,7 +38,7 @@ export default async function DomiciliaryCare() {
                      alt={data.how_it_works.cover_image.alternativeText || "How it works"}
                      className="h-125"/>
             </div>
-            <div className="flex-1 flex flex-col justify-center">
+            <div className="flex-1 flex flex-col justify-center max-sm:px-5 max-sm:pb-10">
                 <h1 className="text-4xl">How It Works</h1>
                 <p className="line-clamp-6 w-125 text-sm mt-10 max-w-[80%] max-sm:max-w-full leading-relaxed tracking-wide">
                     {data.how_it_works.description}

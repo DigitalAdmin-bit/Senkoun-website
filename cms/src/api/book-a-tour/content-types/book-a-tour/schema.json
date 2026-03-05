@@ -4,7 +4,7 @@
   "info": {
     "singularName": "book-a-tour",
     "pluralName": "book-a-tours",
-    "displayName": "book-a-tour"
+    "displayName": "Book a tour"
   },
   "options": {
     "draftAndPublish": true

@@ -102,13 +102,6 @@
       "type": "text",
       "required": true
     },
-    "video": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": [
-        "videos"
-      ]
-    },
     "location": {
       "type": "component",
       "component": "shared.location",
@@ -181,6 +174,23 @@
       "type": "component",
       "component": "shared.meet-our-team",
       "repeatable": false
+    },
+    "gallery": {
+      "type": "media",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "care-home"
+          ]
+        }
+      },
+      "multiple": true,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

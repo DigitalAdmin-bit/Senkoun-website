@@ -21,11 +21,11 @@ export default function Careers() {
                         great care starts with great people, which is why we create a supportive, respectful environment
                         where compassion is valued, voices are heard, and everyone is encouraged to grow.
                     </p>
-                    <div className="flex gap-4 mt-6">
-                        <Link href="/careers/openings" className="flex-1 justify-center flex main-button text-white border-white">
+                    <div className="flex gap-4 mt-6 max-sm:flex-col w-full">
+                        <Link href="/careers/openings" className="max-sm:min-w-full flex-1 justify-center flex main-button text-white border-white">
                             <span className="text-white">LATEST VACANCIES</span>
                         </Link>
-                        <Link href="#career-enquiry" className="flex-1 flex justify-center main-button text-white border-white">
+                        <Link href="#career-enquiry" className="max-sm:min-w-full flex-1 flex justify-center main-button text-white border-white">
                             CAREER ENQUIRY
                         </Link>
                     </div>
@@ -91,8 +91,8 @@ export default function Careers() {
             </ScrollAnimation>
         </section>
 
-        <section className="bg-[#B8853A] flex items-center overflow-hidden gap-30">
-            <div className="text-white flex-1 pl-60">
+        <section className="bg-[#B8853A] flex items-center overflow-hidden gap-30 max-sm:flex-col">
+            <div className="text-white flex-1 pl-60 max-sm:pl-0 max-sm:p-10 max-sm:m-5">
                 <h1 className="text-5xl mb-7">
                     Current<br/>
                     Vacancies
@@ -110,9 +110,9 @@ export default function Careers() {
 
                 <Link href="/careers/openings" className="main-button border-white mt-6 flex text-white">APPLY NOW</Link>
             </div>
-            <div className="flex-1 relative bg-red-300 h-110">
+            <div className="flex-1 relative h-110 max-sm:hidden">
                 <img src="/pages/curr-vacs.webp" alt="Current Vacancies"
-                     className="absolute object-cover"/>
+                     className="absolute object-cover w-full h-full"/>
             </div>
         </section>
 

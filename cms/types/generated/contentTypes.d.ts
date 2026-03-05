@@ -433,7 +433,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiBookACallBookACall extends Struct.CollectionTypeSchema {
   collectionName: 'book_a_calls';
   info: {
-    displayName: 'book-a-call';
+    displayName: 'Book a call';
     pluralName: 'book-a-calls';
     singularName: 'book-a-call';
   };
@@ -467,7 +467,7 @@ export interface ApiBookACallBookACall extends Struct.CollectionTypeSchema {
 export interface ApiBookATourBookATour extends Struct.CollectionTypeSchema {
   collectionName: 'book_a_tours';
   info: {
-    displayName: 'book-a-tour';
+    displayName: 'Book a tour';
     pluralName: 'book-a-tours';
     singularName: 'book-a-tour';
   };
@@ -502,7 +502,7 @@ export interface ApiBrochureDownloadBrochureDownload
   extends Struct.CollectionTypeSchema {
   collectionName: 'brochure_downloads';
   info: {
-    displayName: 'brochure_download';
+    displayName: 'Brochure download';
     pluralName: 'brochure-downloads';
     singularName: 'brochure-download';
   };
@@ -535,7 +535,7 @@ export interface ApiCareerEnquiryCareerEnquiry
   extends Struct.CollectionTypeSchema {
   collectionName: 'career_enquiries';
   info: {
-    displayName: 'career-enquiry';
+    displayName: 'Career enquiry';
     pluralName: 'career-enquiries';
     singularName: 'career-enquiry';
   };
@@ -608,7 +608,7 @@ export interface ApiDomiciliaryCareDomiciliaryCare
 export interface ApiEsquireEsquire extends Struct.CollectionTypeSchema {
   collectionName: 'esquires';
   info: {
-    displayName: 'enquire';
+    displayName: 'Enquire';
     pluralName: 'esquires';
     singularName: 'esquire';
   };
@@ -642,7 +642,7 @@ export interface ApiEsquireEsquire extends Struct.CollectionTypeSchema {
 export interface ApiEventEvent extends Struct.CollectionTypeSchema {
   collectionName: 'events';
   info: {
-    displayName: 'event';
+    displayName: 'Event';
     pluralName: 'events';
     singularName: 'event';
   };
@@ -701,6 +701,7 @@ export interface ApiHomeHome extends Struct.CollectionTypeSchema {
     facebook: Schema.Attribute.String & Schema.Attribute.Required;
     facilities: Schema.Attribute.Component<'shared.facilities', false>;
     featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    gallery: Schema.Attribute.Media<'images', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::home.home'> &
       Schema.Attribute.Private;
@@ -722,7 +723,6 @@ export interface ApiHomeHome extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    video: Schema.Attribute.Media<'videos'>;
     what_we_offer: Schema.Attribute.Component<'shared.what-we-offer', false>;
     why_choose_us: Schema.Attribute.Component<'shared.cards', true>;
   };
@@ -824,7 +824,7 @@ export interface ApiJobJob extends Struct.CollectionTypeSchema {
 export interface ApiNewsArticleNewsArticle extends Struct.CollectionTypeSchema {
   collectionName: 'news_articles';
   info: {
-    displayName: 'news-article';
+    displayName: 'News article';
     pluralName: 'news-articles';
     singularName: 'news-article';
   };

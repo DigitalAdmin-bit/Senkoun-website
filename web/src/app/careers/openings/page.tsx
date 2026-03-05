@@ -78,85 +78,79 @@ export default function Openings() {
         return () => clearTimeout(timeoutId);
     }, [keyword]);
 
-    // Fetch when filters change (non-keyword filters)
     useEffect(() => {
         fetchJobs(1, keyword);
     }, [homeFilter, jobTypeFilter, workTypeFilter]);
-
-    // // Initial fetch
-    // useEffect(() => {
-    //     fetchJobs(1);
-    // }, []);
 
     const handlePageChange = (newPage: number) => {
         fetchJobs(newPage, keyword);
     };
 
     return (
-        <div className="main-container py-10">
-            <div className="mb-6 space-y-4">
-                <div className="flex gap-4 items-end max-md:flex-col">
-                    <Input
-                        placeholder="Search Job"
-                        value={keyword}
-                        onChange={(e) => setKeyword(e.target.value)}
-                        className="flex-1 h-11 border-gray-400 rounded-md"
+        <div className="bg-white">
+            <div className="main-container py-10">
+                <div className="mb-6 space-y-4">
+                    <div className="flex gap-4 items-end max-md:flex-col">
+                        <Input
+                            placeholder="Search Job"
+                            value={keyword}
+                            onChange={(e) => setKeyword(e.target.value)}
+                            className="flex-1 h-11 border-gray-400 rounded-md"
+                        />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <Select
+                            value={homeFilter}
+                            onChange={(e) => setHomeFilter(e.target.value)}
+                            className="h-11 border-gray-400 rounded-md"
+                        >
+                            <option value="">Homes</option>
+                            {/* These would ideally come from an API */}
+                            <option value="emerald-lodge">Emerald Lodge</option>
+                            <option value="joseph-lodge">Joseph Lodge</option>
+                        </Select>
+
+                        <Select
+                            value={jobTypeFilter}
+                            onChange={(e) => setJobTypeFilter(e.target.value)}
+                            className="h-11 border-gray-400 rounded-md"
+                        >
+                            <option value="">Job type / Category</option>
+                            <option value="full time">Full Time</option>
+                            <option value="part time">Part Time</option>
+                            <option value="internship">Internship</option>
+                            <option value="contract">Contract</option>
+                            <option value="freelance">Freelance</option>
+                            <option value="temporary">Temporary</option>
+                        </Select>
+
+                        <Select
+                            value={workTypeFilter}
+                            onChange={(e) => setWorkTypeFilter(e.target.value)}
+                            className="h-11 border-gray-400 rounded-md"
+                        >
+                            <option value="">Work type</option>
+                            <option value="on site">On Site</option>
+                            <option value="remote">Remote</option>
+                            <option value="hybrid">Hybrid</option>
+                        </Select>
+                    </div>
+                </div>
+
+                {/* Job Listings and Details */}
+                <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-6 min-h-150">
+                    <LeftSide
+                        jobs={jobs}
+                        selectedJob={selectedJob}
+                        onSelectJob={setSelectedJob}
+                        loading={loading}
+                        pagination={pagination}
+                        onPageChange={handlePageChange}
                     />
+
+                    <RightSide selectedJob={selectedJob}/>
                 </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <Select
-                        value={homeFilter}
-                        onChange={(e) => setHomeFilter(e.target.value)}
-                        className="h-11 border-gray-400 rounded-md"
-                    >
-                        <option value="">Homes</option>
-                        {/* These would ideally come from an API */}
-                        <option value="emerald-lodge">Emerald Lodge</option>
-                        <option value="joseph-lodge">Joseph Lodge</option>
-                    </Select>
-
-                    <Select
-                        value={jobTypeFilter}
-                        onChange={(e) => setJobTypeFilter(e.target.value)}
-                        className="h-11 border-gray-400 rounded-md"
-                    >
-                        <option value="">Job type / Category</option>
-                        <option value="full time">Full Time</option>
-                        <option value="part time">Part Time</option>
-                        <option value="internship">Internship</option>
-                        <option value="contract">Contract</option>
-                        <option value="freelance">Freelance</option>
-                        <option value="temporary">Temporary</option>
-                    </Select>
-
-                    <Select
-                        value={workTypeFilter}
-                        onChange={(e) => setWorkTypeFilter(e.target.value)}
-                        className="h-11 border-gray-400 rounded-md"
-                    >
-                        <option value="">Work type</option>
-                        <option value="on site">On Site</option>
-                        <option value="remote">Remote</option>
-                        <option value="hybrid">Hybrid</option>
-                    </Select>
-                </div>
-            </div>
-
-            {/* Job Listings and Details */}
-            <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-6 min-h-150">
-                {/* Left Side - Job Listings (Scrollable) */}
-                <LeftSide
-                    jobs={jobs}
-                    selectedJob={selectedJob}
-                    onSelectJob={setSelectedJob}
-                    loading={loading}
-                    pagination={pagination}
-                    onPageChange={handlePageChange}
-                />
-
-                {/* Right Side - Job Details (Scrollable) */}
-                <RightSide selectedJob={selectedJob}/>
             </div>
         </div>
     );

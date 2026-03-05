@@ -12,6 +12,7 @@ import ALLOWED from "@/app/(homes)/[type]/allowed";
 import HOMES_LANGS from "@/app/(homes)/[type]/lang";
 import NoHomes from "@/components/no-homes";
 import {notFound} from "next/navigation";
+import ImageBricksGallery from "@/components/image-bricks-gallery";
 
 interface PageProps {
     params: Promise<{ type: typeof ALLOWED[number] }>;
@@ -56,6 +57,7 @@ export default async function HomesPage({params}: PageProps) {
     const data = await fetchHomes_SHORT({featuredOnly: true, limit: 3, type: path.ref});
 
     const homes = data?.data || [];
+
 
     return (
         <>
@@ -180,7 +182,7 @@ export default async function HomesPage({params}: PageProps) {
                 </div>
             </section>
 
-            <section className="main-container my-40">
+            {type === "care-home" && <section className="main-container my-40">
                 <SectionHeader
                     title={
                         <>
@@ -195,46 +197,13 @@ export default async function HomesPage({params}: PageProps) {
                     {refLangs.lifeAt}
                 </p>
 
-                <div className="w-full flex gap-1 max-w-7xl">
-                    <div className="flex-1">
-                        <img
-                            draggable={false}
-                            src="/pages/care-homes/1.webp"
-                            alt="Birthday celebration"
-                            className="w-full h-full object-cover"
-                        />
-                    </div>
-
-                    <div className="flex flex-col flex-1 gap-1 w-full">
-                        <div className="flex-1 flex gap-1 w-full">
-                            <div className="flex-1">
-                                <img
-                                    draggable={false}
-                                    src="/pages/care-homes/2.webp"
-                                    alt="Gardening"
-                                    className="flex-1 object-cover"
-                                />
-                            </div>
-                            <div className="flex-1">
-                                <img
-                                    draggable={false}
-                                    src="/pages/care-homes/3.webp"
-                                    alt="Exercise"
-                                    className="flex-1 object-cover"
-                                />
-                            </div>
-                        </div>
-                        <div className="flex-1">
-                            <img
-                                draggable={false}
-                                src="/pages/care-homes/4.webp"
-                                alt="Family time"
-                                className="w-full h-full object-cover"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </section>
+                <ImageBricksGallery gallery={homes.flatMap(item => item.gallery?.map(i => {
+                    return {
+                        ...i,
+                        url: getStrapiMediaUrl(i.url)
+                    }
+                }) ?? [])}/>
+            </section>}
 
             <section className="relative mt-60 mb-40">
                 <img

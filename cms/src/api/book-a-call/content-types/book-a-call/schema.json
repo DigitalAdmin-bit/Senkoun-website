@@ -4,7 +4,7 @@
   "info": {
     "singularName": "book-a-call",
     "pluralName": "book-a-calls",
-    "displayName": "book-a-call"
+    "displayName": "Book a call"
   },
   "options": {
     "draftAndPublish": true

@@ -124,6 +124,14 @@ export interface SharedHowItWorks extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedImage extends Struct.ComponentSchema {
+  collectionName: 'components_shared_images';
+  info: {
+    displayName: 'image';
+  };
+  attributes: {};
+}
+
 export interface SharedLocation extends Struct.ComponentSchema {
   collectionName: 'components_shared_locations';
   info: {
@@ -392,6 +400,7 @@ declare module '@strapi/strapi' {
       'shared.event': SharedEvent;
       'shared.facilities': SharedFacilities;
       'shared.how-it-works': SharedHowItWorks;
+      'shared.image': SharedImage;
       'shared.location': SharedLocation;
       'shared.media': SharedMedia;
       'shared.meet-our-team': SharedMeetOurTeam;

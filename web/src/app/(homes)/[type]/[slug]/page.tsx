@@ -18,6 +18,7 @@ import MeetTheTeam from "@/components/meet-the-team";
 import BrochureDownload from "@/components/brochure-download";
 import CareHomeQuickBtns from "@/components/care-homes-quick/care-home-quick-btns";
 import HomesSubHeader from "@/components/homes-sub-header";
+import ImageBricksGallery from "@/components/image-bricks-gallery";
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -159,53 +160,55 @@ export default async function CareHomeDetailPage({params}: PageProps) {
             <br/>
             <br/>
 
-            {data.type === "care-home" && (
-                <section className="main-container my-30 flex gap-2 flex-wrap">
-                    <div className="bg-white px-10 py-8 flex-1 min-w-50 flex flex-col text-[#64565A]">
-                        <div className="flex-1">
-                            <div
-                                className="mb-5 border-[#145099] border-3 text-white rounded-full size-20 flex items-center justify-center p-1">
+            {data.type === "care-home" && (<>
+                    <section className="main-container my-30 flex gap-2 flex-wrap">
+                        <div className="bg-white px-10 py-8 flex-1 min-w-50 flex flex-col text-[#64565A]">
+                            <div className="flex-1">
                                 <div
-                                    className="bg-[#145099] rounded-full text-2xl font-bold size-full flex items-center justify-center">
-                                    {data.carehome_review?.rating}
+                                    className="mb-5 border-[#145099] border-3 text-white rounded-full size-20 flex items-center justify-center p-1">
+                                    <div
+                                        className="bg-[#145099] rounded-full text-2xl font-bold size-full flex items-center justify-center">
+                                        {data.carehome_review?.rating}
+                                    </div>
                                 </div>
+                                <img src="/carehome-co-uk-logo.png" alt="Care home uk" className="h-7.5"/>
+                                <p className="max-w-[70%] mt-3 text-sm">
+                                    Read our fantastic reviews on the UK's leading care home review
+                                    website
+                                </p>
                             </div>
-                            <img src="/carehome-co-uk-logo.png" alt="Care home uk" className="h-7.5"/>
-                            <p className="max-w-[70%] mt-3 text-sm">
-                                Read our fantastic reviews on the UK's leading care home review
-                                website
-                            </p>
+                            <div>
+                                <a href={data.carehome_review?.review_link} className="flex gap-2 items-center text-sm">
+                                    Read Reviews <ChevronRight size={18}/>
+                                </a>
+                            </div>
                         </div>
-                        <div>
-                            <a href={data.carehome_review?.review_link} className="flex gap-2 items-center text-sm">
-                                Read Reviews <ChevronRight size={18}/>
-                            </a>
+                        <div className="bg-white px-10 py-8 flex-1 min-w-50 flex flex-col text-[#64565A]">
+                            <div className="flex-1">
+                                <div>CQC Rating</div>
+                                <div
+                                    className="mt-3 mb-5 rounded-lg bg-[#589245] text-white px-4 py-1 w-fit capitalize text-xl">{data.cqc_rating?.rating}</div>
+                                <img src="/cqc.png" alt="Care Quality Commision Logo" className="h-7.5"/>
+                                <p className="max-w-[70%] mt-3 text-sm">
+                                    {data.name} has a CQC rating of {data?.cqc_rating?.rating}. Click
+                                    below to view the full report.
+                                </p>
+                            </div>
+                            <div>
+                                <a href={data.cqc_rating?.report_link} className="flex gap-2 items-center text-sm">
+                                    Read The Report <ChevronRight size={18}/>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div className="bg-white px-10 py-8 flex-1 min-w-50 flex flex-col text-[#64565A]">
-                        <div className="flex-1">
-                            <div>CQC Rating</div>
-                            <div
-                                className="mt-3 mb-5 rounded-lg bg-[#589245] text-white px-4 py-1 w-fit capitalize text-xl">{data.cqc_rating?.rating}</div>
-                            <img src="/cqc.png" alt="Care Quality Commision Logo" className="h-7.5"/>
-                            <p className="max-w-[70%] mt-3 text-sm">
-                                {data.name} has a CQC rating of {data?.cqc_rating?.rating}. Click
-                                below to view the full report.
-                            </p>
+                        <div
+                            className="flex-1 min-w-50 from-[#83A1F7] to-[#5D7EF5] bg-linear-to-b p-5 text-white text-center flex flex-col items-center justify-center gap-5">
+                            <img src="/follow-on-fb.webp" alt="Follow us on Facebook" className="w-50"
+                                 draggable={false}/>
+                            <a href={data.facebook}
+                               className="w-fit mx-auto px-5 py-2 border-white border uppercase text-center">Follow</a>
                         </div>
-                        <div>
-                            <a href={data.cqc_rating?.report_link} className="flex gap-2 items-center text-sm">
-                                Read The Report <ChevronRight size={18}/>
-                            </a>
-                        </div>
-                    </div>
-                    <div
-                        className="flex-1 min-w-50 from-[#83A1F7] to-[#5D7EF5] bg-linear-to-b p-5 text-white text-center flex flex-col items-center justify-center gap-5">
-                        <img src="/follow-on-fb.webp" alt="Follow us on Facebook" className="w-50" draggable={false}/>
-                        <a href={data.facebook}
-                           className="w-fit mx-auto px-5 py-2 border-white border uppercase text-center">Follow</a>
-                    </div>
-                </section>
+                    </section>
+                </>
             )}
 
             <SectionContent
@@ -228,15 +231,26 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                 }
             />
 
-            {data.type === "care-home" && (
-                <section className="main-container my-30" id="life-with-us">
-                    <video
-                        className="w-full"
-                        src={getStrapiMediaUrl(data.video?.url!)}
-                        controls={true}
-                    />
-                </section>
-            )}
+            {data.type === "care-home" && <section className="main-container">
+                <ImageBricksGallery gallery={data.gallery?.map(i => {
+                    return {
+                        ...i,
+                        url: getStrapiMediaUrl(i.url)
+                    }
+                }) ?? []}/>
+            </section>}
+
+
+            {/*{data.type === "care-home" && (*/}
+            {/*    <section className="main-container my-30" id="life-with-us">*/}
+            {/*        <video*/}
+            {/*            className="w-full"*/}
+            {/*            src={getStrapiMediaUrl(data.video?.url!)}*/}
+            {/*            controls={true}*/}
+            {/*        />*/}
+            {/*    </section>*/}
+            {/*)}*/}
+
             <section className="main-container my-30 mt-40">
                 <SectionHeader title="Location" subtitle="Location" id="location"/>
                 <hr className="bg-[#CEC5C5] h-0.5 my-10"/>

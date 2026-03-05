@@ -19,6 +19,9 @@ export async function fetchHomes_SHORT(data: {
             thumbnails: {
                 fields: ["url", "width", "height", "alternativeText"],
             },
+            gallery: {
+                fields: ["url", "width", "height", "alternativeText"],
+            }
         },
         pagination: {
             limit: data?.limit || 3,
@@ -82,11 +85,14 @@ export async function fetchHomeBySlug(
                     }
                 }
             },
-            carehome_review: "*",
-            cqc_rating: "*",
-            video: {
+            gallery: {
                 fields: ["url", "width", "height", "alternativeText"],
             },
+            carehome_review: "*",
+            cqc_rating: "*",
+            // video: {
+            //     fields: ["url", "width", "height", "alternativeText"],
+            // },
             location: "*",
             why_choose_us: "*",
             what_we_offer: {

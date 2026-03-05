@@ -109,7 +109,7 @@ export default function Header() {
             </div>
 
             <nav className="max-w-[80%] mx-auto flex items-center justify-between py-5">
-                <div className="flex items-center gap-10">
+                <div className="flex items-center gap-10 w-full">
                     <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
                         <SheetTrigger>
                             <svg
@@ -127,7 +127,7 @@ export default function Header() {
                         <SheetContent
                             side="left"
                             showCloseButton={false}
-                            className="flex flex-col gap-8 pt-20 items-center justify-between"
+                            className="z-99999 flex flex-col gap-8 pt-20 items-center justify-between"
                         >
                             <div className="w-[70%]">
                                 <SheetHeader className="sr-only">
@@ -209,6 +209,11 @@ export default function Header() {
                     <Link href="/" className="flex items-center cursor-pointer">
                         <img src="/logo.webp" alt="Senkoun Logo" className="h-12"/>
                     </Link>
+
+                    <div className="flex-1 flex justify-end items-center gap-8 max-md:hidden">
+                        <Link href="/care-home">OUR HOMES</Link>
+                        <Link href="/enquire" className="main-button border-[#64565A]">ENQUIRE</Link>
+                    </div>
                 </div>
 
                 {/* Desktop Right Section */}

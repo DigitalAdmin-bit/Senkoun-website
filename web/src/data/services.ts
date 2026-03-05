@@ -31,7 +31,7 @@ const SERVICES = [
         title: "YOUR VISION\nOUR EXPERTISE",
         description: "Senkoun Group operates a trusted and flexible healthcare staffing agency, supplying skilled and compassionate professionals to care homes, nursing homes, supported living services, hospitals, and other healthcare settings across Essex. We provide fully trained and vetted Healthcare Assistants, Support Workers, Senior Carers, and Registered Nurses, ensuring every placement is reliable, safe, and aligned with the highest standards of person‑centred care. Whether providers require emergency cover, temporary staff, or long‑term support, our responsive recruitment team delivers dependable, high‑quality personnel who help maintain continuity of care and support positive outcomes for service users.",
         imagePosition: "right",
-        link: '/healthcare-agency'
+        link: '/coming-soon'
     },
 ];
 

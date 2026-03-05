@@ -140,7 +140,7 @@ export default function Home() {
                     ))}
                 </StaggerAnimation>
             </section>
-            <section className="mt-30 main-container space-y-30" id="our-services">
+            <section className="mt-30 main-container space-y-30 overflow-hidden" id="our-services">
                 {SERVICES.map((service, index) => (
                     <ScrollAnimation
                         key={index}

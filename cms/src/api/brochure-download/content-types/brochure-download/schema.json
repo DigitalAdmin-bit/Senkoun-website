@@ -4,7 +4,7 @@
   "info": {
     "singularName": "brochure-download",
     "pluralName": "brochure-downloads",
-    "displayName": "brochure_download"
+    "displayName": "Brochure download"
   },
   "options": {
     "draftAndPublish": true

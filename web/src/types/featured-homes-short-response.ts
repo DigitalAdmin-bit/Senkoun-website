@@ -19,4 +19,14 @@ export interface FeaturedHomesShortResponse {
         width: number;
         height: number;
     }[];
+
+
+    gallery?: {
+        id: number;
+        documentId: string;
+        alternativeText: string;
+        url: string;
+        width: number;
+        height: number;
+    }[];
 }

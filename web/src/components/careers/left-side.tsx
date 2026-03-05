@@ -3,6 +3,7 @@
 import {IJobResponse} from "@/lib/apis/jobs";
 import {Button} from "@/components/ui/button";
 import {formatDistanceToNow} from "date-fns";
+import {cn} from "@/lib/utils";
 
 interface LeftSideProps {
     jobs: IJobResponse[];
@@ -19,15 +20,15 @@ interface LeftSideProps {
 }
 
 export default function LeftSide({
-    jobs,
-    selectedJob,
-    onSelectJob,
-    loading,
-    pagination,
-    onPageChange,
-}: LeftSideProps) {
+                                     jobs,
+                                     selectedJob,
+                                     onSelectJob,
+                                     loading,
+                                     pagination,
+                                     onPageChange,
+                                 }: LeftSideProps) {
     return (
-        <div className="flex flex-col border border-gray-200 rounded-lg overflow-hidden">
+        <div className="flex flex-col overflow-hidden">
             <div className="flex-1 overflow-y-auto">
                 {loading ? (
                     <div className="flex items-center justify-center h-full text-gray-500">
@@ -54,16 +55,13 @@ export default function LeftSide({
                         </p>
                     </div>
                 ) : (
-                    <div className="divide-y divide-gray-200">
+                    <div className="space-y-2">
                         {jobs.map((job) => (
                             <button
                                 key={job.documentId}
                                 onClick={() => onSelectJob(job)}
-                                className={`w-full text-left p-4 hover:bg-gray-50 transition-colors ${
-                                    selectedJob?.documentId === job.documentId
-                                        ? "bg-gray-100 border-l-4 border-[#B8853A]"
-                                        : ""
-                                }`}
+                                className={cn("border-2 border-[#CAC7C4] rounded-lg cursor-pointer w-full text-left p-4 hover:bg-gray-50 transition-colors",
+                                    (selectedJob?.documentId === job.documentId) && "border-[#3D7B52]")}
                             >
                                 <div className="space-y-2">
                                     <p className="text-xs text-gray-500">
@@ -71,7 +69,7 @@ export default function LeftSide({
                                             addSuffix: true,
                                         })}
                                     </p>
-                                    <h3 className="font-semibold text-[#64565A]">
+                                    <h3 className="font-semibold text-[#3D7B52]">
                                         {job.title}
                                     </h3>
                                     <p className="text-sm text-gray-600">
@@ -81,10 +79,12 @@ export default function LeftSide({
                                         {job.home.address}
                                     </p>
                                     <div className="flex gap-2 flex-wrap">
-                                        <span className="text-xs px-2 py-1 bg-gray-100 rounded border border-gray-300 capitalize">
+                                        <span
+                                            className="text-xs px-2 py-1 bg-gray-100 rounded border border-gray-300 capitalize">
                                             {job.job_type}
                                         </span>
-                                        <span className="text-xs px-2 py-1 bg-gray-100 rounded border border-gray-300 capitalize">
+                                        <span
+                                            className="text-xs px-2 py-1 bg-gray-100 rounded border border-gray-300 capitalize">
                                             {job.work_type}
                                         </span>
                                     </div>

@@ -24,14 +24,14 @@ export interface HomeSlugResponse {
         rating: string;
         report_link: string;
     };
-    video?: {
-        id: number;
-        documentId: string;
-        url: string;
-        width: number | null;
-        height: number | null;
-        alternativeText: string | null;
-    };
+    // video?: {
+    //     id: number;
+    //     documentId: string;
+    //     url: string;
+    //     width: number | null;
+    //     height: number | null;
+    //     alternativeText: string | null;
+    // };
     location: {
         lat: number;
         log: number;
@@ -113,7 +113,12 @@ export interface HomeSlugResponse {
         documentId: string;
         url: string;
     };
-
+    gallery: {
+        url: string
+        width: number;
+        height: number;
+        alternativeText: string;
+    }[],
     meet_our_team: {
         id: number;
         description: string;
