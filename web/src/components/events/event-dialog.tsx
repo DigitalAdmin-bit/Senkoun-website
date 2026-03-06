@@ -13,8 +13,8 @@ import {getStrapiMediaUrl} from "@/lib/utils";
 
 
 export default function EventDialog(data: IEventsResponse) {
-    const start_time = data.date.start_time && parse(data.date.start_time, "HH:mm:ss.SSS", new Date());
-    const end_time = data.date.end_time && parse(data.date.end_time, "HH:mm:ss.SSS", new Date());
+    const start_time = data.date.start_time && parse(data.date.start_time, "HH:mm:ss", new Date());
+    const end_time = data.date.end_time && parse(data.date.end_time, "HH:mm:ss", new Date());
 
     return <Dialog>
         <DialogTrigger asChild>
