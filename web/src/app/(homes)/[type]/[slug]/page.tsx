@@ -162,44 +162,51 @@ export default async function CareHomeDetailPage({params}: PageProps) {
 
             {data.type === "care-home" && (<>
                     <section className="main-container my-30 flex gap-2 flex-wrap">
-                        <div className="bg-white px-10 py-8 flex-1 min-w-50 flex flex-col text-[#64565A]">
-                            <div className="flex-1">
-                                <div
-                                    className="mb-5 border-[#145099] border-3 text-white rounded-full size-20 flex items-center justify-center p-1">
+                        {data.carehome_review?.rating && (
+                            <div className="bg-white px-10 py-8 flex-1 min-w-50 flex flex-col text-[#64565A]">
+                                <div className="flex-1">
                                     <div
-                                        className="bg-[#145099] rounded-full text-2xl font-bold size-full flex items-center justify-center">
-                                        {data.carehome_review?.rating}
+                                        className="mb-5 border-[#145099] border-3 text-white rounded-full size-20 flex items-center justify-center p-1">
+                                        <div
+                                            className="bg-[#145099] rounded-full text-2xl font-bold size-full flex items-center justify-center">
+                                            {data.carehome_review.rating}
+                                        </div>
                                     </div>
+                                    <img src="/carehome-co-uk-logo.png" alt="Care home uk" className="h-7.5"/>
+                                    <p className="max-w-[70%] mt-3 text-sm">
+                                        Read our fantastic reviews on the UK's leading care home review
+                                        website
+                                    </p>
                                 </div>
-                                <img src="/carehome-co-uk-logo.png" alt="Care home uk" className="h-7.5"/>
-                                <p className="max-w-[70%] mt-3 text-sm">
-                                    Read our fantastic reviews on the UK's leading care home review
-                                    website
-                                </p>
+                                <div>
+                                    <a href={data.carehome_review.review_link} className="flex gap-2 items-center text-sm">
+                                        Read Reviews <ChevronRight size={18}/>
+                                    </a>
+                                </div>
                             </div>
-                            <div>
-                                <a href={data.carehome_review?.review_link} className="flex gap-2 items-center text-sm">
-                                    Read Reviews <ChevronRight size={18}/>
-                                </a>
+                        )}
+                        {data.cqc_rating?.rating && (
+                            <div className="bg-white px-10 py-8 flex-1 min-w-50 flex flex-col text-[#64565A]">
+                                <div className="flex-1">
+                                    <div>CQC Rating</div>
+                                    <div
+                                        className="mt-3 mb-5 rounded-lg bg-[#589245] text-white px-4 py-1 w-fit capitalize text-xl"
+                                    >
+                                        {data.cqc_rating.rating}
+                                    </div>
+                                    <img src="/cqc.png" alt="Care Quality Commision Logo" className="h-7.5"/>
+                                    <p className="max-w-[70%] mt-3 text-sm">
+                                        {data.name} has a CQC rating of {data.cqc_rating.rating}. Click
+                                        below to view the full report.
+                                    </p>
+                                </div>
+                                <div>
+                                    <a href={data.cqc_rating.report_link} className="flex gap-2 items-center text-sm">
+                                        Read The Report <ChevronRight size={18}/>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        <div className="bg-white px-10 py-8 flex-1 min-w-50 flex flex-col text-[#64565A]">
-                            <div className="flex-1">
-                                <div>CQC Rating</div>
-                                <div
-                                    className="mt-3 mb-5 rounded-lg bg-[#589245] text-white px-4 py-1 w-fit capitalize text-xl">{data.cqc_rating?.rating}</div>
-                                <img src="/cqc.png" alt="Care Quality Commision Logo" className="h-7.5"/>
-                                <p className="max-w-[70%] mt-3 text-sm">
-                                    {data.name} has a CQC rating of {data?.cqc_rating?.rating}. Click
-                                    below to view the full report.
-                                </p>
-                            </div>
-                            <div>
-                                <a href={data.cqc_rating?.report_link} className="flex gap-2 items-center text-sm">
-                                    Read The Report <ChevronRight size={18}/>
-                                </a>
-                            </div>
-                        </div>
+                        )}
                         <div
                             className="flex-1 min-w-50 from-[#83A1F7] to-[#5D7EF5] bg-linear-to-b p-5 text-white text-center flex flex-col items-center justify-center gap-5">
                             <img src="/follow-on-fb.webp" alt="Follow us on Facebook" className="w-50"

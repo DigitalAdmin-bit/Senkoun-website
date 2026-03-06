@@ -122,14 +122,30 @@ export default function Footer() {
                         ))}
                     </div>
                     <div className="flex max-sm:flex-col max-sm:gap-3 items-center gap-10">
-                        <Link
-                            href="/privacy-policy"
-                            className="font-light text-white text-base tracking-[0] leading-6 underline hover:opacity-80"
-                        >
-                            Privacy Policy
-                        </Link>
+                        <div className="flex items-center gap-4 max-sm:gap-2 flex-wrap max-sm:justify-center">
+                            <Link
+                                href="/privacy-policy"
+                                className="font-light text-white text-base tracking-[0] leading-6 underline hover:opacity-80 max-sm:text-sm"
+                            >
+                                Privacy Policy
+                            </Link>
+                            <span className="text-white/50">|</span>
+                            <Link
+                                href="/terms-and-conditions"
+                                className="font-light text-white text-base tracking-[0] leading-6 underline hover:opacity-80 max-sm:text-sm"
+                            >
+                                Terms & Conditions
+                            </Link>
+                            <span className="text-white/50">|</span>
+                            <Link
+                                href="/cookies-policy"
+                                className="font-light text-white text-base tracking-[0] leading-6 underline hover:opacity-80 max-sm:text-sm"
+                            >
+                                Cookie Policy
+                            </Link>
+                        </div>
                         <p className="max-sm:text-xs font-light text-white text-base tracking-[0] leading-6">
-                            @ 2025 senkoun. All rights reserved
+                            @ 2026 senkoun. All rights reserved
                         </p>
                     </div>
                 </div>

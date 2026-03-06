@@ -58,6 +58,7 @@ export default async function HomesPage({params}: PageProps) {
 
     const homes = data?.data || [];
 
+    console.log("Fetched homes data:", homes);
 
     return (
         <>
