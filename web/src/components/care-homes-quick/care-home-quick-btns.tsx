@@ -30,7 +30,7 @@ export default function CareHomeQuickBtns({homeId}: { homeId: string }) {
                     BOOK TOUR
                 </div>
             </BookCallBack>
-            <Link href="" className="care-home-quick-btns">
+            <Link href="/careers/openings" className="care-home-quick-btns">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="10.33" cy="10.33" r="7.04" stroke="white" strokeWidth="1.3"/>
                     <circle cx="10.3299" cy="10.33" r="9.68" stroke="white" strokeWidth="1.3"/>

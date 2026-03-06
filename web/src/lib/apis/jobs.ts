@@ -5,6 +5,7 @@ import {BlocksContent} from "@strapi/blocks-react-renderer";
 import qs from "qs";
 import axiosApi from "@/lib/axios-api";
 import {uploadFileToStrapi} from "@/lib/apis/upload";
+import {sendMail} from "@/lib/apis/mail";
 
 
 export interface IJobResponse {
@@ -171,6 +172,16 @@ export async function applyForJob(jobId: string, data: {
                     connect: [jobId]
                 },
             }
+        });
+
+        sendMail({
+            subject: "We have received your application",
+            content: `
+                <p>Dear ${data.first_name},</p>
+                <p>Thank you for applying for the position. We have received your application and our team will review it shortly.</p>
+                <p>Best regards,<br/>SENKOUN Team</p>
+            `,
+            to: data.email,
         });
     } catch (error) {
         console.error("Error applying for job:", error);

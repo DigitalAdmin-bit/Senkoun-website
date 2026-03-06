@@ -26,7 +26,7 @@ export async function createBrochureDownload(data: {
 
 
     sendMailToAdmin({
-        subject: "New brochure download request",
+        subject: `New brochure download request by ${data.first_name}`,
         content: formatString(brochureHTML, {
             first_name: data.first_name,
             last_name: data.last_name,

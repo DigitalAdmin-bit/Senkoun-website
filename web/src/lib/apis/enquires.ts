@@ -30,7 +30,7 @@ export async function createEnquiry(data: {
     });
 
     sendMailToAdmin({
-        subject: "New General Enquiry",
+        subject: `${data.first_name} has made an enquiry`,
         content: formatString(enquiryHTML, {
             type: data.type,
             home: data.home,
@@ -68,7 +68,7 @@ export async function createBookACall(data: {
     });
 
     sendMailToAdmin({
-        subject: "New Book A Call Request",
+        subject: `${data.first_name} made a new book a call Request`,
         content: formatString(bookACallHTML, {
             home: data.home,
             first_name: data.first_name,
@@ -105,7 +105,7 @@ export async function createBookATour(data: {
     });
 
     sendMailToAdmin({
-        subject: "New Book A Tour Request",
+        subject: `${data.first_name} made a new book a tour request`,
         content: formatString(bookATourHTML, {
             home: data.home,
             first_name: data.first_name,
@@ -164,7 +164,7 @@ export async function createCareerEnquiry(data: {
     });
 
     sendMailToAdmin({
-        subject: "New Career Application",
+        subject: `${data.first_name} made a new career application`,
         content: formatString(careerEnquiryHTML, {
             first_name: data.first_name,
             last_name: data.last_name,
