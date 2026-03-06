@@ -11,8 +11,6 @@ export default function MeetTheTeam({
     id: string,
     teamPageUrl: string
 }) {
-    console.log("Meet the team data:", data);
-
     if (!data) {
         return null; // or a loading state, or an error message
     }
