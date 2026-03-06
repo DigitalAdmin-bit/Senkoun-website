@@ -52,3 +52,14 @@ export function blocksToPlainText(blocks: Block[]): string {
 
     return blocks.map(extractText).join("\n").trim();
 }
+
+
+/**
+ * Format a string by replacing placeholders with corresponding values from a data object.
+ * Placeholders in the template should be in the format `{key}`, where `key` corresponds to a property in the `data` object.
+ * @param template
+ * @param data
+ */
+export function formatString(template: string, data: Record<string, string>): string {
+    return template.replace(/{(\w+)}/g, (_, key) => data[key] ?? "");
+}

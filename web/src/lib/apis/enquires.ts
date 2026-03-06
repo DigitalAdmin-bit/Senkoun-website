@@ -1,4 +1,10 @@
 import axiosApi from "@/lib/axios-api";
+import {sendMailToAdmin} from "@/lib/apis/mail";
+import {formatString} from "@/lib/utils";
+import enquiryHTML from "@/views/enquiry-html";
+import bookACallHTML from "@/views/book-a-call-html";
+import bookATourHTML from "@/views/book-a-tour-html";
+import careerEnquiryHTML from "@/views/career-enquiry-html";
 
 export async function createEnquiry(data: {
     type: string;
@@ -22,6 +28,19 @@ export async function createEnquiry(data: {
             message: data.message,
         }
     });
+
+    sendMailToAdmin({
+        subject: "New General Enquiry",
+        content: formatString(enquiryHTML, {
+            type: data.type,
+            home: data.home,
+            first_name: data.first_name,
+            last_name: data.last_name,
+            email: data.email,
+            phone: data.phone,
+            message: data.message,
+        })
+    })
 }
 
 
@@ -47,6 +66,19 @@ export async function createBookACall(data: {
             },
         }
     });
+
+    sendMailToAdmin({
+        subject: "New Book A Call Request",
+        content: formatString(bookACallHTML, {
+            home: data.home,
+            first_name: data.first_name,
+            last_name: data.last_name,
+            email: data.email,
+            phone: data.phone,
+            preferred_date: data.preferred_date,
+            preferred_time: data.preferred_time,
+        })
+    })
 }
 
 export async function createBookATour(data: {
@@ -71,6 +103,19 @@ export async function createBookATour(data: {
             },
         }
     });
+
+    sendMailToAdmin({
+        subject: "New Book A Tour Request",
+        content: formatString(bookATourHTML, {
+            home: data.home,
+            first_name: data.first_name,
+            last_name: data.last_name,
+            email: data.email,
+            phone: data.phone,
+            preferred_date: data.preferred_date,
+            preferred_time: data.preferred_time,
+        })
+    })
 }
 
 export async function createCareerEnquiry(data: {
@@ -117,4 +162,15 @@ export async function createCareerEnquiry(data: {
             cover_letter: uploadedCoverLetter.id,
         }
     });
+
+    sendMailToAdmin({
+        subject: "New Career Application",
+        content: formatString(careerEnquiryHTML, {
+            first_name: data.first_name,
+            last_name: data.last_name,
+            email: data.email,
+            phone: data.phone,
+            message: data.message,
+        })
+    })
 }
