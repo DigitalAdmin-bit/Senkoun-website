@@ -104,7 +104,7 @@ export default async function HomesPage({params}: PageProps) {
                              className="relative max-w-75 max-sm:max-w-full min-w-75 flex-1 overflow-hidden max-sm:border-b max-sm:pb-20 max-sm:mb-20 last:max-sm:mb-0 last:max-sm:border-b-0 last:max-sm:pb-0">
                             <div className="relative group">
                                 <img
-                                    className="w-full h-auto object-cover hover:scale-105 transition-transform duration-300"
+                                    className="w-full h-[400px] object-cover hover:scale-105 transition-transform duration-300"
                                     src={getStrapiMediaUrl(home.thumbnails[0].url)}
                                     alt={home.thumbnails[0].alternativeText}
                                 />

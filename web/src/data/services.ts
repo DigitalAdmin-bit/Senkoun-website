@@ -1,6 +1,6 @@
 const SERVICES = [
     {
-        image: "/home/services/care-homes.webp",
+        image: "/home/services/care-home.webp",
         category: "CARE HOMES",
         title: "COMPASSIONATE\nLIVING",
         description: "Senkoun Group proudly operates two welcoming and well‑established care homes across Essex. Our 39‑bedded residential home, Joseph Lodge in Great Wakering near Southend‑on‑Sea, offers compassionate dementia care, personal care, respite stays, and support for residents with mental health needs in a warm, homely environment. Along the beautiful coastline of Clacton‑on‑Sea, our Joseph Nursing Care Home provides specialised nursing care, residential care, and dignified end‑of‑life support for those with more complex health needs. Together, our homes reflect Senkoun Group’s commitment to delivering personalised, respectful, and high‑quality care that helps every resident feel valued, supported, and truly at home.",
