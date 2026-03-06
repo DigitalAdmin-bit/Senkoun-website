@@ -140,7 +140,7 @@ export default async function HomesPage({params}: PageProps) {
                                     </div>
                                     {type === "care-home" && <div
                                         className="flex items-center border-t-2 border-white/30 w-full justify-center py-3">
-                                        CQC RATING: {home?.cqc_rating?.rating.toUpperCase()}
+                                        CQC RATING: {home?.cqc_rating?.rating?.toUpperCase() || "Not Yet Rated" }
                                     </div>}
                                 </div>
                             </div>
