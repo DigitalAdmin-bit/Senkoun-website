@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
 import localFont from "next/font/local";
+import { GoogleTagManager } from '@next/third-parties/google'
 
 const zcoolFont = ZCOOL_XiaoWei({
     variable: "--font-zcool",
@@ -57,6 +58,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
+        <GoogleTagManager gtmId="G-HN7PN9WLG6" />
         <body
             className={`${zcoolFont.variable} ${buenosAires.variable} antialiased font-body bg-[#fbf5f3]`}
         >
