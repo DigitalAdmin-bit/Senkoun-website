@@ -238,7 +238,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                 }
             />
 
-            {data.type === "care-home" && <section className="main-container">
+            {data.type === "care-home" && <section className="main-container" id="life-with-u">
                 <ImageBricksGallery gallery={data.gallery?.map(i => {
                     return {
                         ...i,
