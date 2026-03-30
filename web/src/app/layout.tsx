@@ -1,5 +1,5 @@
 import type {Metadata} from "next";
-import {ZCOOL_XiaoWei} from "next/font/google";
+import {ZCOOL_XiaoWei, Montserrat} from "next/font/google";
 import "./globals.css";
 import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
@@ -13,26 +13,33 @@ const zcoolFont = ZCOOL_XiaoWei({
     display: "swap",
 });
 
-const buenosAires = localFont({
-    src: [
-        {
-            path: "../../fonts/BuenosAires-Light.ttf",
-            weight: "300",
-            style: "normal",
-        },
-        {
-            path: "../../fonts/BuenosAires-Regular.ttf",
-            weight: "400",
-            style: "normal",
-        },
-        {
-            path: "../../fonts/BuenosAires-Bold.ttf",
-            weight: "700",
-            style: "normal",
-        },
-    ],
+// const buenosAires = localFont({
+//     src: [
+//         {
+//             path: "../../fonts/BuenosAires-Light.ttf",
+//             weight: "300",
+//             style: "normal",
+//         },
+//         {
+//             path: "../../fonts/BuenosAires-Regular.ttf",
+//             weight: "400",
+//             style: "normal",
+//         },
+//         {
+//             path: "../../fonts/BuenosAires-Bold.ttf",
+//             weight: "700",
+//             style: "normal",
+//         },
+//     ],
+//     variable: "--font-buenos-aires",
+//     display: "swap",
+// });
+
+const buenosAires = Montserrat({
     variable: "--font-buenos-aires",
     display: "swap",
+    weight: ['300', '400', '700'],
+    subsets: ['latin']
 });
 
 export const metadata: Metadata = {
