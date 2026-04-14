@@ -1,0 +1,71 @@
+{
+  "kind": "collectionType",
+  "collectionName": "job_applications",
+  "info": {
+    "singularName": "job-application",
+    "pluralName": "job-applications",
+    "displayName": "Job Application"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "job": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::job.job"
+    },
+    "first_name": {
+      "type": "string",
+      "required": true
+    },
+    "last_name": {
+      "type": "string",
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "required": true
+    },
+    "hear_about_vacancy": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "SENKOUN Employe Referral",
+        "Social Media",
+        "LinkedIn",
+        "News Articles",
+        "Blogs",
+        "Websites",
+        "Friend Suggested",
+        "Other"
+      ]
+    },
+    "email": {
+      "type": "string",
+      "required": true
+    },
+    "responses": {
+      "type": "component",
+      "component": "shared.responses",
+      "repeatable": true
+    },
+    "resume": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "cover_letter": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "files"
+      ]
+    }
+  }
+}

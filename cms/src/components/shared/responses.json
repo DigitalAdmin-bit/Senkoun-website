@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_shared_responses",
+  "info": {
+    "displayName": "responses"
+  },
+  "options": {},
+  "attributes": {
+    "question": {
+      "type": "text",
+      "required": true
+    },
+    "answer": {
+      "type": "text",
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "short_text",
+        "long_text",
+        "select",
+        "checkbox",
+        "date"
+      ]
+    }
+  },
+  "config": {}
+}

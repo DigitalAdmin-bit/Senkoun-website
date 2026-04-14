@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_shared_supports",
+  "info": {
+    "displayName": "supports"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Supporting Your Loved Ones",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "default": "At SENKOUN Care Home, we offer two types of home care: hourly care, with visits at agreed times, and live-in care, where a dedicated carer stays in your home. Both services are managed by our experienced care management team and delivered by compassionate Care Professionals.  Every care package is carefully tailored, combining the right mix of services to meet your individual needs and preferences.",
+      "required": true
+    },
+    "cards": {
+      "type": "component",
+      "component": "shared.support-cards",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

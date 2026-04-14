@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "teams",
+  "info": {
+    "singularName": "team",
+    "pluralName": "teams",
+    "displayName": "Team"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "home": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::home.home",
+      "inversedBy": "team"
+    },
+    "description": {
+      "type": "text"
+    },
+    "teams": {
+      "type": "component",
+      "component": "shared.team-card",
+      "repeatable": true
+    }
+  }
+}
