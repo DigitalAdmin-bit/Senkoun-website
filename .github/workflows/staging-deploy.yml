@@ -1,0 +1,77 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches: [staging]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: staging
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install rsync
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rsync
+
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/zynact_deploy_key
+          chmod 600 ~/.ssh/zynact_deploy_key
+          ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Copy code to server
+        run: |
+          rsync -avz --delete -e "ssh -i ~/.ssh/zynact_deploy_key" \
+            --exclude='.git' \
+            --exclude='node_modules' \
+            --exclude='.env' \
+            ./ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/development/pharmasave/backend/
+
+      - name: Updating environment variables
+        run: |
+          ssh -i ~/.ssh/zynact_deploy_key ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << EOSSH
+          cd /home/development/pharmasave/backend
+
+            echo "Creating .env file"
+                    cat > .env << EOENV
+          ENVIRONMENT=${{ vars.ENVIRONMENT }}
+          PRIVATE_KEY=${{ secrets.PRIVATE_KEY }}
+          BACKEND_URL=${{ vars.BACKEND_URL }}
+          FRONTEND_URL=${{ vars.FRONTEND_URL }}
+          FRONTEND_DOMAIN=${{ vars.FRONTEND_DOMAIN }}
+          
+          EMAIL_HOST=${{ vars.EMAIL_HOST }}
+          EMAIL_PORT=${{ vars.EMAIL_PORT }}
+          EMAIL_USER=${{ vars.EMAIL_USER }}
+          EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME }}
+          EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}
+                    
+          MONGODB_URI=${{ vars.MONGODB_URI }}
+          MONGODB_NAME=${{ vars.MONGODB_NAME }}
+          MONGODB_PORT=${{ vars.MONGODB_PORT }}
+          MONGODB_MACHINE_PORT=${{ vars.MONGODB_MACHINE_PORT }}
+          
+          NODE_PORT=${{ vars.NODE_PORT }}
+          NODE_MACHINE_PORT=${{ vars.NODE_MACHINE_PORT }}
+          
+          STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_WEBHOOK_SECRET=${{ secrets.STRIPE_WEBHOOK_SECRET }}
+          
+          EOENV
+          EOSSH
+
+      - name: Deploying with docker
+        run: |
+          ssh -i ~/.ssh/zynact_deploy_key ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+            cd /home/development/pharmasave/backend
+            docker compose down
+            docker system prune -f
+            docker compose up -d --build
+            docker compose ps
+          EOF
