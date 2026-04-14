@@ -6,14 +6,10 @@ npm-debug.log
 .env.local
 .env.*.local
 .DS_Store
-dist
 .next
 out
-build
 *.tsbuildinfo
-.strapi
 .tmp
 .cache
 .turbo
 pnpm-lock.yaml
-
