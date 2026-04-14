@@ -37,14 +37,15 @@ COPY --from=builder --chown=strapi:nodejs /app/package.json ./package.json
 COPY --from=builder --chown=strapi:nodejs /app/dist/config ./config
 
 # Create necessary directories with proper permissions
-RUN mkdir -p /app/data /app/.cache /app/.tmp \
-    && chown -R strapi:nodejs /app/data /app/.cache /app/.tmp /app/database
+RUN mkdir -p /app/data /app/.cache /app/.tmp /.tmp \
+    && chown -R strapi:nodejs /app/data /app/.cache /app/.tmp /app/database /.tmp \
+    && chmod 1777 /.tmp
 
 # Set environment
 ENV NODE_ENV=production
 
-# Switch to non-root user
-USER strapi
+## Switch to non-root user
+#USER strapi
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
