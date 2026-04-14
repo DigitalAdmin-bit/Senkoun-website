@@ -3,7 +3,6 @@ import {ZCOOL_XiaoWei, Montserrat} from "next/font/google";
 import "./globals.css";
 import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
-import localFont from "next/font/local";
 import { GoogleTagManager } from '@next/third-parties/google'
 
 const zcoolFont = ZCOOL_XiaoWei({
