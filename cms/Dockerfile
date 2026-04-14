@@ -32,7 +32,6 @@ COPY --from=builder --chown=strapi:nodejs /app/dist ./dist
 COPY --from=builder --chown=strapi:nodejs /app/public ./public
 COPY --from=builder --chown=strapi:nodejs /app/database ./database
 COPY --from=builder --chown=strapi:nodejs /app/package.json ./package.json
-COPY --chown=strapi:nodejs .env .env
 
 # Copy compiled config files to expected location
 COPY --from=builder --chown=strapi:nodejs /app/dist/config ./config
