@@ -54,18 +54,23 @@ export async function fetchHomes_SHORT(data: {
         encodeValuesOnly: true,
     });
 
-    const res = await fetch(
-        `${process.env.STRAPI_URL}/api/homes?${featuredHomesQuery}`,
-        {
-            next: {
-                revalidate: 100,
-                tags: ['homes']
+    try {
+        const res = await fetch(
+            `${process.env.STRAPI_URL}/api/homes?${featuredHomesQuery}`,
+            {
+                next: {
+                    revalidate: 100,
+                    tags: ['homes']
+                },
+
             },
-
-        },
-    );
-
-    return res.json();
+        );
+        if (!res.ok) return {data: [], meta: {}};
+        const json = await res.json();
+        return {data: json.data || [], meta: json.meta || {}};
+    } catch {
+        return {data: [], meta: {}};
+    }
 }
 
 export async function fetchHomeBySlug(
@@ -121,17 +126,22 @@ export async function fetchHomeBySlug(
         encodeValuesOnly: true,
     });
 
-    const res = await fetch(
-        `${process.env.STRAPI_URL}/api/homes?${homeBySlugQuery}`,
-        {
-            next: {
-                revalidate: 100,
-                tags: ['homes']
+    try {
+        const res = await fetch(
+            `${process.env.STRAPI_URL}/api/homes?${homeBySlugQuery}`,
+            {
+                next: {
+                    revalidate: 100,
+                    tags: ['homes']
+                },
             },
-        },
-    );
-
-    return res.json();
+        );
+        if (!res.ok) return { data: [], meta: {} };
+        const json = await res.json();
+        return { data: json.data || [], meta: json.meta || {} };
+    } catch {
+        return { data: [], meta: {} };
+    }
 }
 
 const homeNamesFilters = {
@@ -155,12 +165,18 @@ export async function getHomesWithOnlyName(): Promise<
     }[]>
 > {
 
-    const res = await fetch(`${process.env.STRAPI_URL}/api/homes?${homesQuery}`, {
-        next: {
-            revalidate: 600,
-            tags: ['homes']
-        },
-    });
-
-    return res.json();
+    try {
+        const res = await fetch(`${process.env.STRAPI_URL}/api/homes?${homesQuery}`, {
+            next: {
+                revalidate: 600,
+                tags: ['homes']
+            },
+        });
+        if (!res.ok) return { data: [], meta: {} };
+        const json = await res.json();
+        return { data: json.data || [], meta: json.meta || {} };
+    } catch {
+        return { data: [], meta: {} };
+    }
 }
+

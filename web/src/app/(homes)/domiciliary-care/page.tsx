@@ -12,8 +12,19 @@ import ServicesCarousel from "@/components/services-carousel";
 export default async function DomiciliaryCare() {
     const data = await getDomiciliaryCare();
 
+    if (!data) {
+        return (
+            <div className="py-20">
+                <section className="main-container text-center">
+                    <h1 className="font-body text-4xl text-[#B8853A] mb-8">Domiciliary Care</h1>
+                    <p className="text-[#64565A]">Content is not available at the moment. Please check back later.</p>
+                </section>
+            </div>
+        );
+    }
+
     return <>
-        <HeroSection bg={getStrapiMediaUrl(data.cover.url)}/>
+        <HeroSection bg={data.cover ? getStrapiMediaUrl(data.cover.url) : ""}/>
         <SectionContent
             subtitle="DOMICILIARY CARE"
             title={data.tagline}
@@ -24,18 +35,18 @@ export default async function DomiciliaryCare() {
             <div className="flex-1">
                 <SectionHeader title="What we will Offer" subtitle="HOW WE CARE" id="our-services"/>
                 <p className="text-[#64565A] text-sm mt-10 max-w-[80%] max-sm:max-w-full leading-relaxed tracking-wide">
-                    {data.what_we_offer.description}
+                    {data.what_we_offer?.description}
                 </p>
             </div>
             <div className="flex-1">
-                <AccordionComponent items={data.what_we_offer.accordions}/>
+                <AccordionComponent items={data.what_we_offer?.accordions || []}/>
             </div>
         </section>
 
-        <section className="bg-[#57946C] my-50 max-sm:mt-20 flex gap-5 max-sm:flex-col text-white">
+        {data.how_it_works && <section className="bg-[#57946C] my-50 max-sm:mt-20 flex gap-5 max-sm:flex-col text-white">
             <div className="flex-1">
-                <img src={getStrapiMediaUrl(data.how_it_works.cover_image.url)}
-                     alt={data.how_it_works.cover_image.alternativeText || "How it works"}
+                <img src={data.how_it_works.cover_image ? getStrapiMediaUrl(data.how_it_works.cover_image.url) : ""}
+                     alt={data.how_it_works.cover_image?.alternativeText || "How it works"}
                      className="h-125"/>
             </div>
             <div className="flex-1 flex flex-col justify-center max-sm:px-5 max-sm:pb-10">
@@ -48,22 +59,22 @@ export default async function DomiciliaryCare() {
                     Explore Services
                 </Link>
             </div>
-        </section>
+        </section>}
 
-        <TestimonialCarousel
+        {data.reviews && data.reviews.length > 0 && <TestimonialCarousel
             className="my-30 mt-40"
             testimonials={data.reviews.map((i) => ({
                 quote: i.content,
                 role: i.by,
                 author: i.by,
             }))}
-        />
+        />}
 
-        <ServicesCarousel
+        {data.supports && <ServicesCarousel
             title={data.supports.title}
             description={data.supports.description}
             services={data.supports.cards || []}
-        />
+        />}
 
         <section className="bg-[#B8853A] mt-30 w-full flex items-center justify-center flex-col gap-10 py-20">
             <h1 className="text-white text-4xl">

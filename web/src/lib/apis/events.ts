@@ -56,12 +56,17 @@ const eventsQuery = qs.stringify(eventsFilters, {
 });
 
 export async function getLatestEvents(): Promise<IStrapiResponse<IEventsResponse[]>> {
-    const res = await fetch(`${process.env.STRAPI_URL}/api/events?${eventsQuery}`, {
-        next: {
-            revalidate: 600,
-            tags: ['events']
-        }
-    });
-
-    return res.json();
+    try {
+        const res = await fetch(`${process.env.STRAPI_URL}/api/events?${eventsQuery}`, {
+            next: {
+                revalidate: 600,
+                tags: ['events']
+            }
+        });
+        if (!res.ok) return { data: [], meta: {} };
+        const data = await res.json();
+        return { data: data.data || [], meta: data.meta || {} };
+    } catch {
+        return { data: [], meta: {} };
+    }
 }

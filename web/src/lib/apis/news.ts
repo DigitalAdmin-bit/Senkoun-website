@@ -33,14 +33,19 @@ export async function getLatestNews(data?: {
         encodeValuesOnly: true,
     });
 
-    const res = await fetch(`${process.env.STRAPI_URL}/api/news-articles?${query}`, {
-        next: {
-            revalidate: 600,
-            tags: ['news']
-        }
-    });
-
-    return res.json();
+    try {
+        const res = await fetch(`${process.env.STRAPI_URL}/api/news-articles?${query}`, {
+            next: {
+                revalidate: 600,
+                tags: ['news']
+            }
+        });
+        if (!res.ok) return { data: [], meta: {} };
+        const json = await res.json();
+        return { data: json.data || [], meta: json.meta || {} };
+    } catch {
+        return { data: [], meta: {} };
+    }
 }
 
 const newsFilters = {
@@ -55,14 +60,19 @@ const newsQuery = qs.stringify(newsFilters, {
 });
 
 export async function getNews(): Promise<IStrapiResponse<INewsResponse[]>> {
-    const res = await fetch(`${process.env.STRAPI_URL}/api/news-articles?${newsQuery}`, {
-        next: {
-            revalidate: 600,
-            tags: ['news']
-        }
-    });
-
-    return res.json();
+    try {
+        const res = await fetch(`${process.env.STRAPI_URL}/api/news-articles?${newsQuery}`, {
+            next: {
+                revalidate: 600,
+                tags: ['news']
+            }
+        });
+        if (!res.ok) return { data: [], meta: {} };
+        const json = await res.json();
+        return { data: json.data || [], meta: json.meta || {} };
+    } catch {
+        return { data: [], meta: {} };
+    }
 }
 
 export async function getNewsBySlug(slug: string): Promise<IStrapiResponse<INewsResponse[]>> {
@@ -77,12 +87,17 @@ export async function getNewsBySlug(slug: string): Promise<IStrapiResponse<INews
         encodeValuesOnly: true,
     });
 
-    const res = await fetch(`${process.env.STRAPI_URL}/api/news-articles?${query}`, {
-        next: {
-            revalidate: 600,
-            tags: ['news']
-        }
-    });
-
-    return res.json();
+    try {
+        const res = await fetch(`${process.env.STRAPI_URL}/api/news-articles?${query}`, {
+            next: {
+                revalidate: 600,
+                tags: ['news']
+            }
+        });
+        if (!res.ok) return { data: [], meta: {} };
+        const json = await res.json();
+        return { data: json.data || [], meta: json.meta || {} };
+    } catch {
+        return { data: [], meta: {} };
+    }
 }

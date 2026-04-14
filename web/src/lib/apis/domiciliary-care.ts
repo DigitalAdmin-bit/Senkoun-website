@@ -65,10 +65,14 @@ const query = qs.stringify(filter, {
 });
 
 
-export async function getDomiciliaryCare(): Promise<IDomiciliaryCare> {
+export async function getDomiciliaryCare(): Promise<IDomiciliaryCare | null> {
     "use server";
-    const res = await fetch(`${process.env.STRAPI_URL}/api/domiciliary-care?${query}`);
-    const data = await res.json();
-
-    return data.data;
+    try {
+        const res = await fetch(`${process.env.STRAPI_URL}/api/domiciliary-care?${query}`);
+        if (!res.ok) return null;
+        const data = await res.json();
+        return data.data ?? null;
+    } catch {
+        return null;
+    }
 }
