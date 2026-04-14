@@ -30,12 +30,19 @@ RUN addgroup -g 1001 -S nodejs && adduser -S strapi -u 1001
 COPY --from=builder --chown=strapi:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=strapi:nodejs /app/dist ./dist
 COPY --from=builder --chown=strapi:nodejs /app/public ./public
-COPY --from=builder --chown=strapi:nodejs /app/config ./config
-COPY --from=builder --chown=strapi:nodejs /app/src ./src
+COPY --from=builder --chown=strapi:nodejs /app/database ./database
 COPY --from=builder --chown=strapi:nodejs /app/package.json ./package.json
+COPY --chown=strapi:nodejs .env .env
+
+# Copy compiled config files to expected location
+COPY --from=builder --chown=strapi:nodejs /app/dist/config ./config
 
 # Create necessary directories with proper permissions
-RUN mkdir -p /app/data /app/.cache && chown -R strapi:nodejs /app
+RUN mkdir -p /app/data /app/.cache /app/.tmp \
+    && chown -R strapi:nodejs /app/data /app/.cache /app/.tmp /app/database
+
+# Set environment
+ENV NODE_ENV=production
 
 # Switch to non-root user
 USER strapi

@@ -34,6 +34,7 @@ jobs:
             --exclude='dist' \
             --exclude='.next' \
             --exclude='.cache' \
+            --exclude='.tmp' \
             --exclude='pnpm-lock.yaml' \
             ./ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/development/senkuon-web/
 
@@ -50,6 +51,9 @@ jobs:
           TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}
           JWT_SECRET=${{ secrets.JWT_SECRET }}
           ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
+          DATABASE_CLIENT=sqlite
+          DATABASE_FILENAME=.tmp/data.db
+          
           EOENV
           EOF
 
