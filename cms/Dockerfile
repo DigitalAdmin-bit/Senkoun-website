@@ -47,9 +47,6 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
 # Expose port
 EXPOSE 1337
 
-# Use dumb-init to properly handle signals
-ENTRYPOINT ["/sbin/dumb-init", "--"]
-
 # Start Strapi
 CMD ["npm", "start"]
 
