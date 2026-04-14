@@ -29,9 +29,11 @@ RUN addgroup -g 1001 -S nodejs && adduser -S strapi -u 1001
 # Copy node_modules and built app from builder
 COPY --from=builder --chown=strapi:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=strapi:nodejs /app/dist ./dist
+COPY --from=builder --chown=strapi:nodejs /app/build ./build
 COPY --from=builder --chown=strapi:nodejs /app/public ./public
 COPY --from=builder --chown=strapi:nodejs /app/database ./database
 COPY --from=builder --chown=strapi:nodejs /app/package.json ./package.json
+COPY --from=builder --chown=strapi:nodejs /app/favicon.png ./favicon.png
 
 # Copy compiled config files to expected location
 COPY --from=builder --chown=strapi:nodejs /app/dist/config ./config
