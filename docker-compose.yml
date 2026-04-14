@@ -1,37 +1,56 @@
-
 services:
   cms:
+    container_name: senkuon-cms
     build:
       context: ./cms
       dockerfile: Dockerfile
-    container_name: senkuon-cms
+    image: senkuon-cms:latest
     restart: unless-stopped
-    ports:
-      - "1337:1337"
+    env_file: .env
     environment:
-      HOST: 0.0.0.0
-      PORT: 1337
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_HOST: senkuon-db
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
       APP_KEYS: ${APP_KEYS}
       API_TOKEN_SALT: ${API_TOKEN_SALT}
-      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
       TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
-      JWT_SECRET: ${JWT_SECRET}
       ENCRYPTION_KEY: ${ENCRYPTION_KEY}
       NODE_ENV: ${NODE_ENV:-production}
     volumes:
-      - ./cms/public/uploads:/app/public/uploads
-      - ./cms/data:/app/data
-      - ./cms/.cache:/app/.cache
-      - ./cms/.tmp:/app/.tmp
-      - ./cms/database:/app/database
+      - ./cms/config:/opt/app/config
+      - ./cms/src:/opt/app/src
+      - ./cms/package.json:/opt/package.json
+      - ./cms/package-lock.json:/opt/package-lock.json
+      - ./.env:/opt/app/.env
+      - ./cms/public/uploads:/opt/app/public/uploads
+    ports:
+      - "1337:1337"
     networks:
       - senkuon-network
-    healthcheck:
-      test: ["CMD", "node", "-e", "require('http').get('http://localhost:1337/admin', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+    depends_on:
+      - senkuon-db
+
+  senkuon-db:
+    container_name: senkuon-db
+    platform: linux/amd64
+    restart: unless-stopped
+    env_file: .env
+    image: postgres:16.0-alpine
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    volumes:
+      - senkuon-data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    networks:
+      - senkuon-network
 
   # Placeholder for web service (Next.js) - can be enabled later
   # web:
@@ -50,12 +69,10 @@ services:
   #     cms:
   #       condition: service_healthy
 
+volumes:
+  senkuon-data:
+
 networks:
   senkuon-network:
+    name: senkuon-network
     driver: bridge
-
-volumes:
-  cms_uploads:
-  cms_data:
-  cms_cache:
-
