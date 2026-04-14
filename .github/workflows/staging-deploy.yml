@@ -31,47 +31,44 @@ jobs:
             --exclude='.git' \
             --exclude='node_modules' \
             --exclude='.env' \
-            ./ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/development/pharmasave/backend/
+            --exclude='dist' \
+            --exclude='.next' \
+            --exclude='.cache' \
+            --exclude='pnpm-lock.yaml' \
+            ./ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/development/senkuon-web/
 
-      - name: Updating environment variables
-        run: |
-          ssh -i ~/.ssh/zynact_deploy_key ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << EOSSH
-          cd /home/development/pharmasave/backend
-
-            echo "Creating .env file"
-                    cat > .env << EOENV
-          ENVIRONMENT=${{ vars.ENVIRONMENT }}
-          PRIVATE_KEY=${{ secrets.PRIVATE_KEY }}
-          BACKEND_URL=${{ vars.BACKEND_URL }}
-          FRONTEND_URL=${{ vars.FRONTEND_URL }}
-          FRONTEND_DOMAIN=${{ vars.FRONTEND_DOMAIN }}
-          
-          EMAIL_HOST=${{ vars.EMAIL_HOST }}
-          EMAIL_PORT=${{ vars.EMAIL_PORT }}
-          EMAIL_USER=${{ vars.EMAIL_USER }}
-          EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME }}
-          EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}
-                    
-          MONGODB_URI=${{ vars.MONGODB_URI }}
-          MONGODB_NAME=${{ vars.MONGODB_NAME }}
-          MONGODB_PORT=${{ vars.MONGODB_PORT }}
-          MONGODB_MACHINE_PORT=${{ vars.MONGODB_MACHINE_PORT }}
-          
-          NODE_PORT=${{ vars.NODE_PORT }}
-          NODE_MACHINE_PORT=${{ vars.NODE_MACHINE_PORT }}
-          
-          STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}
-          STRIPE_WEBHOOK_SECRET=${{ secrets.STRIPE_WEBHOOK_SECRET }}
-          
-          EOENV
-          EOSSH
-
-      - name: Deploying with docker
+      - name: Create environment file
         run: |
           ssh -i ~/.ssh/zynact_deploy_key ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
-            cd /home/development/pharmasave/backend
-            docker compose down
-            docker system prune -f
-            docker compose up -d --build
-            docker compose ps
+          cd /home/development/senkuon-web
+          
+          cat > .env << EOENV
+          NODE_ENV=${{ vars.ENVIRONMENT }}
+          APP_KEYS=${{ secrets.APP_KEYS }}
+          API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}
+          ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}
+          TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}
+          JWT_SECRET=${{ secrets.JWT_SECRET }}
+          ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
+          EOENV
+          EOF
+
+      - name: Deploy with Docker Compose
+        run: |
+          ssh -i ~/.ssh/zynact_deploy_key ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+          cd /home/development/senkuon-web
+          
+          echo "Stopping existing containers..."
+          docker compose down
+          
+          echo "Pruning unused Docker resources..."
+          docker system prune -f --volumes
+          
+          echo "Building and starting services..."
+          docker compose up -d --build
+          
+          echo "Checking container status..."
+          docker compose ps
+          
+          echo "Deployment complete!"
           EOF
