@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_shared_support_cards",
+  "info": {
+    "displayName": "support-cards"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    }
+  },
+  "config": {}
+}

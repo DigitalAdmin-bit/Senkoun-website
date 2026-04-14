@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_shared_how_it_works",
+  "info": {
+    "displayName": "how-it-works"
+  },
+  "options": {},
+  "attributes": {
+    "description": {
+      "type": "text",
+      "default": "We can work quickly to find a solution that helps you get started on your care journey without delay, but don't worry, the decisions you make now can be adapted as your loved one's needs change. Reach out to learn how our flexible care could help make things easier straight away.",
+      "required": true
+    },
+    "cover_image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  },
+  "config": {}
+}

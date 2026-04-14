@@ -1,0 +1,53 @@
+{
+  "kind": "singleType",
+  "collectionName": "domiciliary_cares",
+  "info": {
+    "singularName": "domiciliary-care",
+    "pluralName": "domiciliary-cares",
+    "displayName": "Domiciliary care"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "cover": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "tagline": {
+      "type": "string",
+      "default": "DOMICILIARY CARE YOUR WAY",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "default": "At SENKOUN, we understand that there’s no place like home. Our domiciliary care and home visits can help your older loved one retain independence and stay in their familiar surroundings.",
+      "required": true
+    },
+    "what_we_offer": {
+      "type": "component",
+      "component": "shared.what-we-offer",
+      "repeatable": false
+    },
+    "how_it_works": {
+      "type": "component",
+      "component": "shared.how-it-works",
+      "repeatable": false
+    },
+    "reviews": {
+      "type": "component",
+      "component": "shared.reviews",
+      "repeatable": true
+    },
+    "supports": {
+      "type": "component",
+      "component": "shared.supports",
+      "repeatable": false
+    }
+  }
+}

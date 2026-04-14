@@ -1,0 +1,47 @@
+{
+  "collectionName": "components_shared_questions",
+  "info": {
+    "displayName": "questions",
+    "icon": "question"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "question_type": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "short_text",
+        "long_text",
+        "select",
+        "checkbox",
+        "date"
+      ]
+    },
+    "options": {
+      "type": "text",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "question_type"
+            },
+            "select"
+          ]
+        }
+      }
+    },
+    "required": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    }
+  },
+  "config": {}
+}
