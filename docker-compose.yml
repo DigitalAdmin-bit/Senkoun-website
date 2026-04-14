@@ -23,6 +23,8 @@ services:
       - ./cms/public/uploads:/app/public/uploads
       - ./cms/data:/app/data
       - ./cms/.cache:/app/.cache
+      - ./cms/.tmp:/app/.tmp
+      - ./cms/database:/app/database
     networks:
       - senkuon-network
     healthcheck:
