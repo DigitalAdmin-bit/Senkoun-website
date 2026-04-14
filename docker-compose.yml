@@ -22,12 +22,7 @@ services:
       ENCRYPTION_KEY: ${ENCRYPTION_KEY}
       NODE_ENV: ${NODE_ENV:-production}
     volumes:
-      - ./cms/config:/opt/app/config
-      - ./cms/src:/opt/app/src
-      - ./cms/package.json:/opt/package.json
-      - ./cms/package-lock.json:/opt/package-lock.json
-      - ./.env:/opt/app/.env
-      - ./cms/public/uploads:/opt/app/public/uploads
+      - cms_uploads:/opt/app/public/uploads
     ports:
       - "1337:1337"
     networks:
@@ -71,6 +66,7 @@ services:
 
 volumes:
   senkuon-data:
+  cms_uploads:
 
 networks:
   senkuon-network:
