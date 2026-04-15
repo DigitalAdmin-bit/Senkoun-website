@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function getStrapiMediaUrl(url: string) {
-    if (url.startsWith("http") || url.startsWith("https")) {
+    if ((url || "").startsWith("http") || (url || "").startsWith("https")) {
         return url;
     }
     return `${process.env.STRAPI_URL}${url}`;

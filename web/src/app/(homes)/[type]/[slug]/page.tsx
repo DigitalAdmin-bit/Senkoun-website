@@ -82,7 +82,6 @@ export default async function CareHomeDetailPage({params}: PageProps) {
 
     const data = responseData.data[0];
 
-    // @ts-ignore
     return (
         <>
             <section className="overflow-visible bg-white border-t pt-5 text-[#64565A]">
@@ -152,7 +151,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
 
             <HomesSubHeader data={data.type === "care-home" ? CARE_HOME_TAB_LINKS : SUPPORTED_LIVING_TAB_LINKS}/>
 
-            <HeroSection bg={getStrapiMediaUrl(data.cover.url)}>
+            <HeroSection bg={getStrapiMediaUrl(data?.cover?.url)}>
                 <CareHomeQuickBtns homeId={data.documentId}/>
             </HeroSection>
 
@@ -239,12 +238,12 @@ export default async function CareHomeDetailPage({params}: PageProps) {
             />
 
             {data.type === "care-home" && <section className="main-container" id="life-with-u">
-                <ImageBricksGallery gallery={data.gallery?.map(i => {
+                <ImageBricksGallery gallery={data.gallery ? (data.gallery?.map(i => {
                     return {
                         ...i,
-                        url: getStrapiMediaUrl(i.url)
+                        url: getStrapiMediaUrl(i?.url)
                     }
-                }) ?? []}/>
+                })) : []}/>
             </section>}
 
 
@@ -426,9 +425,9 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                 <SpaceCarousel
                     spaces={data.spaces.map((i) => ({
                         ...i,
-                        images: i.images.map((image) => ({
+                        images: i?.images?.map((image) => ({
                             ...image,
-                            url: getStrapiMediaUrl(image.url),
+                            url: getStrapiMediaUrl(image?.url),
                         })),
                     }))}
                 />
@@ -533,7 +532,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
             <section className="main-container mt-30 max-sm:mt-20">
                 <SectionHeader title={`${data.name} Brochure`} subtitle="Download Brochure" id="download-brochure"/>
                 <br/><br/>
-                <BrochureDownload homeID={data.documentId} url={getStrapiMediaUrl(data.brochure.url)}/>
+                <BrochureDownload homeID={data.documentId} url={getStrapiMediaUrl(data?.brochure?.url)}/>
             </section>
 
             <br/><br/><br/>

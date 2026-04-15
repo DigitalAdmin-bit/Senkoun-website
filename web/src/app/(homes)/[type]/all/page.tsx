@@ -49,6 +49,8 @@ export default async function AllCareHomes({params}: PageProps) {
         limit: 50,
     });
 
+    const homes = data?.data || [];
+
     return (
         <>
             <SectionContent
@@ -84,7 +86,7 @@ export default async function AllCareHomes({params}: PageProps) {
 
             <section className="main-container">
                 <div className="my-20">
-                    {data.data.map((home) => (
+                    {homes.map((home) => (
                         <div
                             key={home.id}
                             className={cn(
@@ -94,10 +96,10 @@ export default async function AllCareHomes({params}: PageProps) {
                         >
                             <div className="flex flex-1 w-full h-full">
                                 <ImageCarousel
-                                    images={home.thumbnails.map((t) => ({
+                                    images={home.thumbnails ? home.thumbnails.map((t) => ({
                                         ...t,
                                         url: getStrapiMediaUrl(t.url),
-                                    }))}
+                                    })) : []}
                                 />
                             </div>
                             <div className="flex-1">
