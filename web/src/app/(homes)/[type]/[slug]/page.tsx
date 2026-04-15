@@ -525,7 +525,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
             <br/><br/><br/><br/><br/>
 
             <MeetTheTeam
-                teamPageUrl={`/${data.type === "care-home" ? "care-homes" : "supported-living"}/${data.slug}/team`}
+                teamPageUrl={`/${data.type === "care-home" ? "care-home" : "supported-living"}/${data.slug}/team`}
                 id="meet-the-team"
                 data={data.meet_our_team}
             />

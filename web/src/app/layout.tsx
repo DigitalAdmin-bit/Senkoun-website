@@ -1,5 +1,5 @@
 import type {Metadata} from "next";
-import {ZCOOL_XiaoWei, Montserrat} from "next/font/google";
+import {Montserrat, ZCOOL_XiaoWei} from "next/font/google";
 import "./globals.css";
 import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
@@ -65,7 +65,8 @@ export default function RootLayout({
     return (
         <html lang="en">
         <GoogleAnalytics gaId="G-HN7PN9WLG6"/>
-        {/*<GoogleTagManager gtmId="G-HN7PN9WLG6"  />*/}
+        {/*<GoogleTagManager gtmId="G-HN7PN9WLG6"/>*/}
+
         <body
             className={`${zcoolFont.variable} ${buenosAires.variable} antialiased font-body bg-[#fbf5f3]`}
         >

@@ -27,7 +27,7 @@ export default function MeetTheTeam({
                     <div className="border-b border-[#DADADA] w-[80%] mt-3"/>
                 </h1>
                 <p className="line-clamp-6 w-125 text-sm mt-10 max-w-[80%] max-sm:max-w-full leading-relaxed tracking-wide">
-                    {data.description}
+                    {data.description.trim() ?? "Coming soon :)"}
                 </p>
                 <Link href={teamPageUrl}
                       className="main-button bg-white text-black mt-10 inline-block">

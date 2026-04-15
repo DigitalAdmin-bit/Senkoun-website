@@ -12,9 +12,12 @@ export default async function TeamPage({params}: PageProps) {
 
     const teamsRes = await getTeamsForHomeBySlug(slug);
 
-    if (!teamsRes.data) {
-        return notFound();
-    }
+    console.log(teamsRes.data, !teamsRes.data)
+
+    // if (!teamsRes.data) {
+    //     console.log("Not found.");
+    //     return notFound();
+    // }
 
     return <section className="main-container my-30">
         <SectionHeader title={`The ${teamsRes.data.home.name} Team`} subtitle="MEET OUR TEAM"

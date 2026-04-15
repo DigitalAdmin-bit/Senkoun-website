@@ -48,7 +48,11 @@ export async function getTeamsForHomeBySlug(slug: string): Promise<IStrapiRespon
         encodeValuesOnly: true,
     });
 
-    const res = await fetch(`${process.env.STRAPI_URL}/api/teams?${teamsQuery}`);
+    const res = await fetch(`${process.env.STRAPI_URL}/api/teams?${teamsQuery}`, {
+        next: {
+            tags: ['teams']
+        }
+    });
     const data = await res.json();
 
     if (data.data) {

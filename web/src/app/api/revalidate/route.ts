@@ -10,8 +10,14 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ message: "Invalid token" }, { status: 401 });
         }
 
+        revalidateTag('domiciliary-care', 'max');
         revalidateTag('news', 'max');
         revalidateTag('homes', 'max');
+        revalidateTag('events', 'max');
+        revalidateTag('jobs', 'max');
+        revalidateTag('legal', 'max');
+        revalidateTag('teams', 'max');
+
 
         return NextResponse.json({
             revalidated: true,

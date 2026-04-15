@@ -121,7 +121,11 @@ export async function getOpenJobs({home, job_type, work_type, keyword, limit = 1
     });
 
 
-    const res = await fetch(`${process.env.STRAPI_URL}/api/jobs?${query}`);
+    const res = await fetch(`${process.env.STRAPI_URL}/api/jobs?${query}`, {
+        next: {
+            tags: ['jobs']
+        }
+    });
     const data = await res.json();
 
     return data

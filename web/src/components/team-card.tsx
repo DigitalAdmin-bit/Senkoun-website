@@ -18,7 +18,7 @@ export default function TeamCard({name, position, image, text}: {
             <div className={cn("absolute inset-0 line-clamp-10 bg-black/70 text-white p-4 cursor-pointer translate-y-[-100%] transition-all opacity-0",
                     descVisible && "opacity-100 translate-y-0",
                 )}>
-                {text}
+                {text || "Coming soon :)"}
             </div>
             <button
                 className={cn("absolute bottom-5 right-5 transition-transform rounded-full p-2 border border-white bg-black/10 hover:bg-black/20 cursor-pointer",
