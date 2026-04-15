@@ -3,7 +3,7 @@ import {ZCOOL_XiaoWei, Montserrat} from "next/font/google";
 import "./globals.css";
 import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
-import { GoogleTagManager } from '@next/third-parties/google'
+import {GoogleAnalytics} from '@next/third-parties/google'
 
 const zcoolFont = ZCOOL_XiaoWei({
     variable: "--font-zcool",
@@ -64,7 +64,8 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-        <GoogleTagManager gtmId="G-HN7PN9WLG6" />
+        <GoogleAnalytics gaId="G-HN7PN9WLG6"/>
+        {/*<GoogleTagManager gtmId="G-HN7PN9WLG6"  />*/}
         <body
             className={`${zcoolFont.variable} ${buenosAires.variable} antialiased font-body bg-[#fbf5f3]`}
         >
