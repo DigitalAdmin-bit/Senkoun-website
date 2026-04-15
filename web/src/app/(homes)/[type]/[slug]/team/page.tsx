@@ -1,7 +1,6 @@
 import SectionHeader from "@/components/common/section-header";
 import TeamCard from "@/components/team-card";
 import {getTeamsForHomeBySlug} from "@/lib/apis/teams";
-import {notFound} from "next/navigation";
 
 interface PageProps {
     params: Promise<{ slug: string }>;
