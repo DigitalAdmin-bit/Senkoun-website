@@ -63,3 +63,16 @@ export function blocksToPlainText(blocks: Block[]): string {
 export function formatString(template: string, data: Record<string, string>): string {
     return template.replace(/{(\w+)}/g, (_, key) => data[key] ?? "");
 }
+
+export function openMap(lat: number, lng: number) {
+    const url = `https://www.google.com/maps?q=${lat},${lng}`;
+    window?.open(url, '_blank');
+}
+
+export function getMapUrl(lat: number, lng: number) {
+    return `https://www.google.com/maps?q=${lat},${lng}`;
+}
+
+// export function getMapUrlByAddress(address) {
+//
+// }

@@ -2,7 +2,7 @@ import {notFound} from "next/navigation";
 import {Metadata} from "next";
 import {fetchHomeBySlug, getHomesWithOnlyName} from "@/lib/apis/homes";
 import HeroSection from "@/components/hero-section";
-import {getStrapiMediaUrl} from "@/lib/utils";
+import {getMapUrl, getStrapiMediaUrl} from "@/lib/utils";
 import {ChevronRight, MapPin} from "lucide-react";
 import SectionContent from "@/components/common/section-content";
 import Link from "next/link";
@@ -178,7 +178,8 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                                     </p>
                                 </div>
                                 <div>
-                                    <a href={data.carehome_review.review_link} className="flex gap-2 items-center text-sm">
+                                    <a href={data.carehome_review.review_link}
+                                       className="flex gap-2 items-center text-sm">
                                         Read Reviews <ChevronRight size={18}/>
                                     </a>
                                 </div>
@@ -302,7 +303,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                                 />
                             </svg>
 
-                            <p className="truncate">{data.address}</p>
+                            <a href={getMapUrl(data.location.lat, data.location.log)} target="_blank" rel="noopener noreferrer" className="truncate">{data.address}</a>
                         </div>
 
                         <div className="max-lg:hidden w-0.5 h-full bg-[#CEC5C5]"/>
@@ -368,7 +369,9 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                                 latitude={Number(data.location.lat)}
                             >
                                 <MarkerContent>
-                                    <MapPin fill="red" stroke="rgb(150, 0, 0)"/>
+                                    <a href={getMapUrl(data.location.lat, data.location.log)} target="_blank" rel="noopener noreferrer">
+                                        <MapPin fill="red" stroke="rgb(150, 0, 0)"/>
+                                    </a>
                                 </MarkerContent>
                             </MapMarker>
                         </Map>
