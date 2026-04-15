@@ -1,3 +1,5 @@
+"use server";
+
 import qs from "qs";
 import {IStrapiResponse} from "@/types/types";
 import {HomeSlugResponse} from "@/types/home-slug-response";
@@ -180,3 +182,23 @@ export async function getHomesWithOnlyName(): Promise<
     }
 }
 
+
+export async function getHomeWithNameByID(id: string): Promise<IStrapiResponse<{
+    id: number;
+    name: string;
+}> | null> {
+    "use server"
+
+    try {
+        const res = await fetch(`${process.env.STRAPI_URL}/api/homes/${id}?fields[0]=name`, {
+            next: {
+                revalidate: 600,
+                tags: ['homes']
+            }
+        })
+
+        return await res.json();
+    } catch (error) {
+        return null
+    }
+}

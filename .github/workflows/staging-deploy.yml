@@ -67,8 +67,8 @@ jobs:
           echo "Stopping existing containers..."
           docker compose down
           
-          echo "Pruning unused Docker resources..."
-          docker system prune -f --volumes
+#          echo "Pruning unused Docker resources..."
+#          docker system prune -f --volumes
           
           echo "Building and starting services..."
           docker compose up -d --build

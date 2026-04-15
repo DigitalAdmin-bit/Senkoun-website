@@ -5,6 +5,7 @@ import enquiryHTML from "@/views/enquiry-html";
 import bookACallHTML from "@/views/book-a-call-html";
 import bookATourHTML from "@/views/book-a-tour-html";
 import careerEnquiryHTML from "@/views/career-enquiry-html";
+import {getHomeWithNameByID} from "@/lib/apis/homes";
 
 export async function createEnquiry(data: {
     type: string;
@@ -29,11 +30,15 @@ export async function createEnquiry(data: {
         }
     });
 
+    const homeName = await getHomeWithNameByID(data.home);
+
+    console.log("homeName", homeName);
+
     sendMailToAdmin({
         subject: `${data.first_name} has made an enquiry`,
         content: formatString(enquiryHTML, {
             type: data.type,
-            home: data.home,
+            home: homeName?.data?.name || data.home,
             first_name: data.first_name,
             last_name: data.last_name,
             email: data.email,
@@ -67,10 +72,12 @@ export async function createBookACall(data: {
         }
     });
 
+    const homeName = await getHomeWithNameByID(data.home);
+
     sendMailToAdmin({
         subject: `${data.first_name} made a new book a call Request`,
         content: formatString(bookACallHTML, {
-            home: data.home,
+            home: homeName?.data?.name || data.home,
             first_name: data.first_name,
             last_name: data.last_name,
             email: data.email,
@@ -104,10 +111,12 @@ export async function createBookATour(data: {
         }
     });
 
+    const homeName = await getHomeWithNameByID(data.home);
+
     sendMailToAdmin({
         subject: `${data.first_name} made a new book a tour request`,
         content: formatString(bookATourHTML, {
-            home: data.home,
+            home: homeName?.data?.name || data.home,
             first_name: data.first_name,
             last_name: data.last_name,
             email: data.email,
