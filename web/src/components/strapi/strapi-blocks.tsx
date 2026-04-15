@@ -1,7 +1,6 @@
 "use client"
 
 import { BlocksRenderer } from "@strapi/blocks-react-renderer"
-import Image from "next/image"
 import Link from "next/link"
 import {getStrapiMediaUrl} from "@/lib/utils";
 
