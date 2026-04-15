@@ -12,12 +12,17 @@ export default async function TeamPage({params}: PageProps) {
 
     const teamsRes = await getTeamsForHomeBySlug(slug);
 
-    console.log(teamsRes.data, !teamsRes.data)
-
-    // if (!teamsRes.data) {
-    //     console.log("Not found.");
-    //     return notFound();
-    // }
+    if (!teamsRes.data) {
+        return <div className="main-container my-30 text-center">
+            <h1 className="text-4xl">
+                Team not found for this home.
+            </h1>
+            <br/>
+            <p className="max-w-100 mx-auto">
+                The team you are looking for hasn't been added, once added it will be displayed here.
+            </p>
+        </div>
+    }
 
     return <section className="main-container my-30">
         <SectionHeader title={`The ${teamsRes.data.home.name} Team`} subtitle="MEET OUR TEAM"
