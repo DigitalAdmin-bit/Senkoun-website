@@ -105,8 +105,8 @@ export default async function HomesPage({params}: PageProps) {
                             <div className="relative group">
                                 <img
                                     className="w-full h-[400px] object-cover hover:scale-105 transition-transform duration-300"
-                                    src={getStrapiMediaUrl(home.thumbnails[0].url)}
-                                    alt={home.thumbnails[0].alternativeText}
+                                    src={home.thumbnails && getStrapiMediaUrl(home.thumbnails[0].url)}
+                                    alt={home.thumbnails && home.thumbnails[0].alternativeText}
                                 />
                                 <div
                                     className="bg-[#b8853a]/80 text-white absolute inset-0 z-10 group-hover:opacity-100 opacity-0 transition-opacity flex flex-col">
