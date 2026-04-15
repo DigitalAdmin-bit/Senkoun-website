@@ -3,6 +3,7 @@
 import { BlocksRenderer } from "@strapi/blocks-react-renderer"
 import Image from "next/image"
 import Link from "next/link"
+import {getStrapiMediaUrl} from "@/lib/utils";
 
 export default function StrapiBlocks({ content }: { content: any }) {
     return (
@@ -48,8 +49,8 @@ export default function StrapiBlocks({ content }: { content: any }) {
                 ),
                 image: ({ image }) => (
                     <div className="my-6">
-                        <Image
-                            src={image.url}
+                        <img
+                            src={getStrapiMediaUrl(image.url)}
                             alt={image.alternativeText || ""}
                             width={image.width}
                             height={image.height}
