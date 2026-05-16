@@ -9,7 +9,7 @@ import Link from "next/link";
 import AccordionComponent from "@/components/group-accordions";
 import SectionHeader from "@/components/common/section-header";
 import WantToExploreMore from "@/components/want-to-explore-more";
-import {Map, MapMarker, MarkerContent} from "@/components/ui/map";
+// import {Map, MapMarker, MarkerContent} from "@/components/ui/map";
 import WeatherAsync from "@/components/weather/weather-async";
 import SpaceCarousel from "@/components/spaces-carousel";
 import Facilities from "@/components/facilities";
@@ -334,47 +334,54 @@ export default async function CareHomeDetailPage({params}: PageProps) {
 
                 <div className="flex h-112.5 max-sm:h-200 mt-10 max-sm:flex-col">
                     <div className="flex-2">
-                        <Map
-                            theme="light"
-                            styles={{
-                                light: {
-                                    version: 8,
-                                    sources: {
-                                        "raster-tiles": {
-                                            type: "raster",
-                                            tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
-                                            tileSize: 256,
-                                        },
-                                    },
-                                    layers: [
-                                        {
-                                            id: "simple-tiles",
-                                            type: "raster",
-                                            source: "raster-tiles",
-                                            minzoom: 0,
-                                            maxzoom: 22,
-                                        },
-                                    ],
-                                    // @ts-ignore
-                                    paint: {
-                                        "background-color": "#a8e6a1",
-                                    },
-                                },
-                            }}
-                            center={[Number(data.location.log), Number(data.location.lat)]}
-                            zoom={11}
-                        >
-                            <MapMarker
-                                longitude={Number(data.location.log)}
-                                latitude={Number(data.location.lat)}
-                            >
-                                <MarkerContent>
-                                    <a href={getMapUrl(data.location.lat, data.location.log)} target="_blank" rel="noopener noreferrer">
-                                        <MapPin fill="red" stroke="rgb(150, 0, 0)"/>
-                                    </a>
-                                </MarkerContent>
-                            </MapMarker>
-                        </Map>
+                        <iframe
+                            width="100%"
+                            height="100%"
+                            loading="lazy"
+                            allowFullScreen
+                            src={`https://www.google.com/maps?q=${data.location.lat},${data.location.log}&z=11&output=embed`}
+                        />
+                        {/*<Map*/}
+                        {/*    theme="light"*/}
+                        {/*    styles={{*/}
+                        {/*        light: {*/}
+                        {/*            version: 8,*/}
+                        {/*            sources: {*/}
+                        {/*                "raster-tiles": {*/}
+                        {/*                    type: "raster",*/}
+                        {/*                    tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],*/}
+                        {/*                    tileSize: 256,*/}
+                        {/*                },*/}
+                        {/*            },*/}
+                        {/*            layers: [*/}
+                        {/*                {*/}
+                        {/*                    id: "simple-tiles",*/}
+                        {/*                    type: "raster",*/}
+                        {/*                    source: "raster-tiles",*/}
+                        {/*                    minzoom: 0,*/}
+                        {/*                    maxzoom: 22,*/}
+                        {/*                },*/}
+                        {/*            ],*/}
+                        {/*            // @ts-ignore*/}
+                        {/*            paint: {*/}
+                        {/*                "background-color": "#a8e6a1",*/}
+                        {/*            },*/}
+                        {/*        },*/}
+                        {/*    }}*/}
+                        {/*    center={[Number(data.location.log), Number(data.location.lat)]}*/}
+                        {/*    zoom={11}*/}
+                        {/*>*/}
+                        {/*    <MapMarker*/}
+                        {/*        longitude={Number(data.location.log)}*/}
+                        {/*        latitude={Number(data.location.lat)}*/}
+                        {/*    >*/}
+                        {/*        <MarkerContent>*/}
+                        {/*            <a href={getMapUrl(data.location.lat, data.location.log)} target="_blank" rel="noopener noreferrer">*/}
+                        {/*                <MapPin fill="red" stroke="rgb(150, 0, 0)"/>*/}
+                        {/*            </a>*/}
+                        {/*        </MarkerContent>*/}
+                        {/*    </MapMarker>*/}
+                        {/*</Map>*/}
                     </div>
                     <div className="flex-1 bg-[#57946c]">
                         <WeatherAsync
