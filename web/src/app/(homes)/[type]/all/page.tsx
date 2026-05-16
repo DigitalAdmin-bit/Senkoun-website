@@ -87,7 +87,8 @@ export default async function AllCareHomes({params}: PageProps) {
             <section className="main-container">
                 <div className="my-20">
                     {homes.map((home) => (
-                        <div
+                        <Link
+                            href={`/${path.actual}/${home.slug}`}
                             key={home.id}
                             className={cn(
                                 "flex overflow-hidden gap-10 mt-20 pb-20",
@@ -141,7 +142,7 @@ export default async function AllCareHomes({params}: PageProps) {
                                     </Link>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </section>

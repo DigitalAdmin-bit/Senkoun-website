@@ -90,7 +90,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                 >
                     <div className="flex-1">
                         <h1 className="text-[#B8853A] text-2xl">{data.name}</h1>
-                        <div className="mt-2 text-sm flex gap-2 items-center max-sm:wrap-break-word sm:truncate">
+                        <a href={getMapUrl(data.location.lat, data.location.log)} className="mt-2 text-sm flex gap-2 items-center max-sm:wrap-break-word sm:truncate">
                             <svg
                                 width="15"
                                 height="20"
@@ -111,10 +111,10 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                                 />
                             </svg>
                             <p>{data.address}</p>
-                        </div>
+                        </a>
                     </div>
                     <div className="flex flex-col justify-between text-sm max-sm:gap-1">
-                        <div className="flex items-center gap-2">
+                        <a href={`tel:${data.phone}`} className="flex items-center gap-2">
                             <svg
                                 width="17"
                                 height="17"
@@ -128,8 +128,8 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                                 />
                             </svg>
                             {data.phone}
-                        </div>
-                        <div className="flex items-center gap-2">
+                        </a>
+                        <a href={`mailto:${data.email}`} className="flex items-center gap-2">
                             <svg
                                 width="16"
                                 height="12"
@@ -144,7 +144,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                             </svg>
 
                             {data.email}
-                        </div>
+                        </a>
                     </div>
                 </div>
             </section>
