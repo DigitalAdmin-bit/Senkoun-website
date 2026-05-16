@@ -15,7 +15,7 @@ export default function TeamCard({name, position, image, text}: {
         <div className="flex-1 w-full h-full relative overflow-hidden">
             <img alt={name} className="w-full aspect-square object-cover" src={getStrapiMediaUrl(image)}/>
 
-            <div className={cn("absolute inset-0 line-clamp-10 bg-black/70 text-white p-4 cursor-pointer translate-y-[-100%] transition-all opacity-0",
+            <div className={cn("absolute inset-0 line-clamp-10 bg-black/70 text-white p-4 cursor-pointer -translate-y-full transition-all opacity-0",
                     descVisible && "opacity-100 translate-y-0",
                 )}>
                 {text || "Coming soon :)"}

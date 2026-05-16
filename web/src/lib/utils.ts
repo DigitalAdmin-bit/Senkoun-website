@@ -10,7 +10,10 @@ export function getStrapiMediaUrl(url: string) {
     if ((url || "").startsWith("http") || (url || "").startsWith("https")) {
         return url;
     }
-    return `${process.env.STRAPI_URL}${url}`;
+
+    const baseURL = process.env.STRAPI_URL || process.env.NEXT_PUBLIC_STRAPI_URL;
+
+    return new URL(url, baseURL)?.href;
 }
 
 export async function delay(ms: number) {
