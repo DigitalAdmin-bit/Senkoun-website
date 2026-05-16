@@ -339,7 +339,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                             height="100%"
                             loading="lazy"
                             allowFullScreen
-                            src={`https://www.google.com/maps?q=${data.location.lat},${data.location.log}&z=11&output=embed`}
+                            src={`https://www.google.com/maps?q=${data.location.lat},${data.location.log}&zoom=18&output=embed`}
                         />
                         {/*<Map*/}
                         {/*    theme="light"*/}
