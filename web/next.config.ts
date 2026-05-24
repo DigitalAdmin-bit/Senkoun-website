@@ -1,20 +1,33 @@
 import type {NextConfig} from "next";
 
 
-const isDev = process.env.NODE_ENV === "development";
-
 const csp = `
   default-src 'self';
 
-  script-src 'self' ${isDev ? "'unsafe-eval'" : ""};
+  script-src
+    'self'
+    'unsafe-inline'
+    https://www.googletagmanager.com
+    https://static.cloudflareinsights.com;
 
-  style-src 'self' 'unsafe-inline';
+  style-src
+    'self'
+    'unsafe-inline';
 
-  img-src 'self' data: blob: https://cms.senkoun.co.uk;
+  img-src
+    'self'
+    data:
+    blob:
+    https://cms.senkoun.co.uk;
 
-  font-src 'self' data:;
+  font-src
+    'self'
+    data:;
 
-  connect-src 'self' https://cms.senkoun.co.uk;
+  connect-src
+    'self'
+    https://cms.senkoun.co.uk
+    https://www.google-analytics.com;
 
   frame-ancestors 'none';
 
