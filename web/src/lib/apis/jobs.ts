@@ -160,7 +160,10 @@ export async function applyForJob(jobId: string, data: {
     try {
         const uploadedResume = await uploadFileToStrapi(data.resume);
 
-        const uploadedCoverLetter = await uploadFileToStrapi(data.cover_letter);
+        let uploadedCoverLetter;
+        if (data.cover_letter) {
+            uploadedCoverLetter = await uploadFileToStrapi(data.cover_letter);
+        }
 
         await axiosApi.post("/job-applications", {
             data: {
@@ -171,7 +174,7 @@ export async function applyForJob(jobId: string, data: {
                 email: data.email,
                 responses: data.responses,
                 resume: uploadedResume.id,
-                cover_letter: uploadedCoverLetter.id,
+                cover_letter: uploadedCoverLetter ? uploadedCoverLetter.id : undefined,
                 job: {
                     connect: [jobId]
                 },
