@@ -3,13 +3,12 @@ import {CheckCircle} from "lucide-react";
 import {Button} from "@/components/ui/button";
 
 interface PageProps {
-    searchParams: {
+    searchParams: Promise<{
         email?: string;
-    };
+    }>;
 }
-
-export default function ApplicationSuccess({searchParams}: PageProps) {
-    const email = searchParams.email || "your email";
+export default async function ApplicationSuccess({searchParams}: PageProps) {
+    const email = (await searchParams).email || "your email";
 
     return (
         <div className="min-h-screen flex items-center justify-center py-12 px-4">
