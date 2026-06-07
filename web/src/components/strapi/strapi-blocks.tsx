@@ -51,9 +51,9 @@ export default function StrapiBlocks({ content }: { content: any }) {
                         <img
                             src={getStrapiMediaUrl(image.url)}
                             alt={image.alternativeText || ""}
-                            width={image.width}
-                            height={image.height}
-                            className="rounded-lg w-full h-auto"
+                            // width={image.width}
+                            // height={image.height}
+                            className="rounded-lg w-auto h-auto max-h-125 object-cover"
                         />
                         {image.caption && (
                             <p className="text-sm text-gray-500 text-center mt-2">{image.caption}</p>

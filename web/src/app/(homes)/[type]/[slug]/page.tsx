@@ -264,7 +264,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                 <div className="flex ">
                     <div
                         className="flex gap-10 max-lg:gap-3 justify-between w-full text-[#64565A] text-sm max-lg:flex-col">
-                        <div className="flex-1 flex gap-2">
+                        <a href={`tel:${data.phone}`} className="flex-1 flex gap-2">
                             <svg
                                 width="17"
                                 height="17"
@@ -279,7 +279,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                                 />
                             </svg>
                             {data.phone}
-                        </div>
+                        </a>
                         <div className="max-lg:hidden w-0.5 h-full bg-[#CEC5C5]"/>
 
                         <div className="flex-1 flex gap-2">
@@ -308,7 +308,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
 
                         <div className="max-lg:hidden w-0.5 h-full bg-[#CEC5C5]"/>
 
-                        <div className="flex-1 flex  gap-2">
+                        <a href={`mailto:${data.email}`} className="flex-1 flex  gap-2">
                             <svg
                                 width="20"
                                 height="14"
@@ -328,7 +328,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                                 />
                             </svg>
                             {data.email}
-                        </div>
+                        </a>
                     </div>
                 </div>
 

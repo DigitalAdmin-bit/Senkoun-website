@@ -180,16 +180,55 @@ export async function applyForJob(jobId: string, data: {
                 },
             }
         });
-
-        sendMail({
-            subject: "We have received your application",
-            content: `
+        try {
+            const candidateMail = sendMail({
+                subject: "We have received your application",
+                content: `
                 <p>Dear ${data.first_name},</p>
                 <p>Thank you for applying for the position. We have received your application and our team will review it shortly.</p>
                 <p>Best regards,<br/>SENKOUN Team</p>
             `,
-            to: data.email,
-        });
+                to: data.email,
+            });
+
+            const adminMail = sendMail({
+                subject: `New Job Application - ${data.first_name.substring(0, 50)} ${data.last_name.substring(0, 50)}`,
+                content: `
+        <h2>New Job Application Received</h2>
+        
+        <p><strong>Name:</strong> ${data.first_name} ${data.last_name}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Phone:</strong> ${data.phone}</p>
+        <p><strong>Heard About Vacancy:</strong> ${data.hear_about_vacancy}</p>
+
+        <h3>Responses</h3>
+        <ul>
+            ${data.responses.map(r => `
+                <li>
+                    <strong>${r.question}</strong><br/>
+                    ${r.answer}
+                </li>
+            `).join("")}
+        </ul>
+
+        <p><strong>Resume ID:</strong> ${uploadedResume.id}</p>
+        ${
+                    uploadedCoverLetter
+                        ? `<p><strong>Cover Letter ID:</strong> ${uploadedCoverLetter.id}</p>`
+                        : `<p><strong>Cover Letter:</strong> Not provided</p>`
+                }
+
+        <hr/>
+        <p>This is an automated notification from SENKOUN Hiring System.</p>
+    `,
+                to: "digitaladmin@senkoun.co.uk",
+            });
+
+            await Promise.all([candidateMail, adminMail]);
+
+        } catch (emailError) {
+            console.error("Error sending confirmation email:", emailError);
+        }
     } catch (error) {
         console.error("Error applying for job:", error);
         throw error;

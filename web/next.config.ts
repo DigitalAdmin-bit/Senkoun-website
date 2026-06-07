@@ -29,6 +29,11 @@ const csp = `
     https://cms.senkoun.co.uk
     https://www.google-analytics.com;
 
+
+  frame-src
+    https://www.google.com
+    https://maps.google.com;
+
   frame-ancestors 'none';
 
   base-uri 'self';
