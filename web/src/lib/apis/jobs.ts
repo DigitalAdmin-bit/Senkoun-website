@@ -41,6 +41,7 @@ export interface IJobResponse {
 
     updatedAt: string,
     createdAt: string,
+    publishedAt?: string,
 }
 
 
@@ -94,7 +95,7 @@ export async function getOpenJobs({home, job_type, work_type, keyword, limit = 1
             } : {})
         },
 
-        fields: ["documentId", "title", "description", "job_type", "work_type", "open", "updatedAt", "createdAt"],
+        fields: ["documentId", "title", "description", "job_type", "work_type", "open", "updatedAt", "createdAt", "publishedAt"],
 
         populate: {
             questions: {
@@ -126,9 +127,7 @@ export async function getOpenJobs({home, job_type, work_type, keyword, limit = 1
             tags: ['jobs']
         }
     });
-    const data = await res.json();
-
-    return data
+    return await res.json()
 }
 
 

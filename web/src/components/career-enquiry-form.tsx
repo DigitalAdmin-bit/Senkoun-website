@@ -288,7 +288,7 @@ export default function CareerEnquiryForm() {
                         htmlFor="cover_letter"
                         className="block text-[10px] font-medium uppercase tracking-widest"
                     >
-                        Upload Cover Letter *
+                        Upload Cover Letter
                     </label>
                     <div className="relative border-2 border-dashed border-[#9E9094] bg-[#F5F1ED] p-8 text-center hover:border-[#B8853A] transition-colors">
                         <input
