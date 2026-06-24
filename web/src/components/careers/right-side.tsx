@@ -23,7 +23,7 @@ const ACCEPTED_FILE_TYPES = [
 ];
 
 const hearAboutOptions: THearAboutVacancyOption[] = [
-    'SENKOUN Employe Referral',
+    'SENKOUN Employee Referral',
     'Social Media',
     'LinkedIn',
     'News Articles',

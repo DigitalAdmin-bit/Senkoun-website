@@ -132,7 +132,7 @@ export async function getOpenJobs({home, job_type, work_type, keyword, limit = 1
 
 
 export type THearAboutVacancyOption =
-    'SENKOUN Employe Referral'
+    'SENKOUN Employee Referral'
     | 'Social Media'
     | 'LinkedIn'
     | 'News Articles'
