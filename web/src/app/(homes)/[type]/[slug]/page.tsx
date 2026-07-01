@@ -3,7 +3,7 @@ import {Metadata} from "next";
 import {fetchHomeBySlug, getHomesWithOnlyName} from "@/lib/apis/homes";
 import HeroSection from "@/components/hero-section";
 import {getMapUrl, getStrapiMediaUrl} from "@/lib/utils";
-import {ChevronRight, MapPin} from "lucide-react";
+import {ChevronRight} from "lucide-react";
 import SectionContent from "@/components/common/section-content";
 import Link from "next/link";
 import AccordionComponent from "@/components/group-accordions";
@@ -19,6 +19,16 @@ import BrochureDownload from "@/components/brochure-download";
 import CareHomeQuickBtns from "@/components/care-homes-quick/care-home-quick-btns";
 import HomesSubHeader from "@/components/homes-sub-header";
 import ImageBricksGallery from "@/components/image-bricks-gallery";
+import {
+    FadeInSection,
+    FadeInDiv,
+    FadeSection,
+    StaggerContainer,
+    StaggerItem,
+    StaggerList,
+    StaggerListItem,
+    ScaleInDiv,
+} from "@/components/motion-component"
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -84,7 +94,10 @@ export default async function CareHomeDetailPage({params}: PageProps) {
 
     return (
         <>
-            <section className="overflow-visible bg-white border-t pt-5 text-[#64565A]">
+            <FadeInSection
+                duration={0.5}
+                className="overflow-visible bg-white border-t pt-5 text-[#64565A]"
+            >
                 <div
                     className="flex max-w-[80%] mx-auto justify-between max-sm:flex-col max-sm:max-w-[90%] max-sm:gap-3"
                 >
@@ -147,22 +160,27 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                         </a>
                     </div>
                 </div>
-            </section>
+            </FadeInSection>
 
             <HomesSubHeader data={data.type === "care-home" ? CARE_HOME_TAB_LINKS : SUPPORTED_LIVING_TAB_LINKS}/>
 
-            <HeroSection bg={getStrapiMediaUrl(data?.cover?.url)}>
-                <CareHomeQuickBtns homeId={data.documentId}/>
-            </HeroSection>
+            <FadeSection>
+                <HeroSection bg={getStrapiMediaUrl(data?.cover?.url)}>
+                    <CareHomeQuickBtns homeId={data.documentId}/>
+                </HeroSection>
+            </FadeSection>
 
             <br/>
             <br/>
             <br/>
 
             {data.type === "care-home" && (<>
-                    <section className="main-container my-30 flex gap-2 flex-wrap">
+                    <StaggerContainer
+                        className="main-container my-30 flex gap-2 flex-wrap"
+                        staggerDelay={0.15}
+                    >
                         {data.carehome_review?.rating && (
-                            <div className="bg-white px-10 py-8 flex-1 min-w-50 flex flex-col text-[#64565A]">
+                            <StaggerItem className="bg-white px-10 py-8 flex-1 min-w-50 flex flex-col text-[#64565A]">
                                 <div className="flex-1">
                                     <div
                                         className="mb-5 border-[#145099] border-3 text-white rounded-full size-20 flex items-center justify-center p-1">
@@ -183,10 +201,10 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                                         Read Reviews <ChevronRight size={18}/>
                                     </a>
                                 </div>
-                            </div>
+                            </StaggerItem>
                         )}
                         {data.cqc_rating?.rating && (
-                            <div className="bg-white px-10 py-8 flex-1 min-w-50 flex flex-col text-[#64565A]">
+                            <StaggerItem className="bg-white px-10 py-8 flex-1 min-w-50 flex flex-col text-[#64565A]">
                                 <div className="flex-1">
                                     <div>CQC Rating</div>
                                     <div
@@ -205,47 +223,49 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                                         Read The Report <ChevronRight size={18}/>
                                     </a>
                                 </div>
-                            </div>
+                            </StaggerItem>
                         )}
-                        <div
+                        <StaggerItem
                             className="flex-1 min-w-50 from-[#83A1F7] to-[#5D7EF5] bg-linear-to-b p-5 text-white text-center flex flex-col items-center justify-center gap-5">
                             <img src="/follow-on-fb.webp" alt="Follow us on Facebook" className="w-50"
                                  draggable={false}/>
                             <a href={data.facebook}
                                className="w-fit mx-auto px-5 py-2 border-white border uppercase text-center">Follow</a>
-                        </div>
-                    </section>
+                        </StaggerItem>
+                    </StaggerContainer>
                 </>
             )}
 
-            <SectionContent
-                id="about-us"
-                subtitle=""
-                title={data.tagline}
-                description={
-                    <>
-                        {data.description}
-                        <br/>
-                        <br/>
-                        <br/>
-                        <Link
-                            href="#"
-                            className="border-[#64565A] border px-5 py-3 text-[#64565A]"
-                        >
-                            BOOK A TOUR
-                        </Link>
-                    </>
-                }
-            />
+            <FadeInDiv>
+                <SectionContent
+                    id="about-us"
+                    subtitle=""
+                    title={data.tagline}
+                    description={
+                        <>
+                            {data.description}
+                            <br/>
+                            <br/>
+                            <br/>
+                            <Link
+                                href="#"
+                                className="border-[#64565A] border px-5 py-3 text-[#64565A]"
+                            >
+                                BOOK A TOUR
+                            </Link>
+                        </>
+                    }
+                />
+            </FadeInDiv>
 
-            {data.type === "care-home" && <section className="main-container" id="life-with-u">
+            {data.type === "care-home" && <FadeInSection className="main-container" id="life-with-u">
                 <ImageBricksGallery gallery={data.gallery ? (data.gallery?.map(i => {
                     return {
                         ...i,
                         url: getStrapiMediaUrl(i?.url)
                     }
                 })) : []}/>
-            </section>}
+            </FadeInSection>}
 
 
             {/*{data.type === "care-home" && (*/}
@@ -258,7 +278,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
             {/*    </section>*/}
             {/*)}*/}
 
-            <section className="main-container my-30 mt-40">
+            <FadeInSection className="main-container my-30 mt-40">
                 <SectionHeader title="Location" subtitle="Location" id="location"/>
                 <hr className="bg-[#CEC5C5] h-0.5 my-10"/>
                 <div className="flex ">
@@ -332,7 +352,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                     </div>
                 </div>
 
-                <div className="flex h-112.5 max-sm:h-200 mt-10 max-sm:flex-col">
+                <FadeInDiv delay={0.15} className="flex h-112.5 max-sm:h-200 mt-10 max-sm:flex-col">
                     <div className="flex-2">
                         <iframe
                             width="100%"
@@ -341,47 +361,6 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                             allowFullScreen
                             src={`https://www.google.com/maps?q=${data.location.lat},${data.location.log}&zoom=18&output=embed`}
                         />
-                        {/*<Map*/}
-                        {/*    theme="light"*/}
-                        {/*    styles={{*/}
-                        {/*        light: {*/}
-                        {/*            version: 8,*/}
-                        {/*            sources: {*/}
-                        {/*                "raster-tiles": {*/}
-                        {/*                    type: "raster",*/}
-                        {/*                    tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],*/}
-                        {/*                    tileSize: 256,*/}
-                        {/*                },*/}
-                        {/*            },*/}
-                        {/*            layers: [*/}
-                        {/*                {*/}
-                        {/*                    id: "simple-tiles",*/}
-                        {/*                    type: "raster",*/}
-                        {/*                    source: "raster-tiles",*/}
-                        {/*                    minzoom: 0,*/}
-                        {/*                    maxzoom: 22,*/}
-                        {/*                },*/}
-                        {/*            ],*/}
-                        {/*            // @ts-ignore*/}
-                        {/*            paint: {*/}
-                        {/*                "background-color": "#a8e6a1",*/}
-                        {/*            },*/}
-                        {/*        },*/}
-                        {/*    }}*/}
-                        {/*    center={[Number(data.location.log), Number(data.location.lat)]}*/}
-                        {/*    zoom={11}*/}
-                        {/*>*/}
-                        {/*    <MapMarker*/}
-                        {/*        longitude={Number(data.location.log)}*/}
-                        {/*        latitude={Number(data.location.lat)}*/}
-                        {/*    >*/}
-                        {/*        <MarkerContent>*/}
-                        {/*            <a href={getMapUrl(data.location.lat, data.location.log)} target="_blank" rel="noopener noreferrer">*/}
-                        {/*                <MapPin fill="red" stroke="rgb(150, 0, 0)"/>*/}
-                        {/*            </a>*/}
-                        {/*        </MarkerContent>*/}
-                        {/*    </MapMarker>*/}
-                        {/*</Map>*/}
                     </div>
                     <div className="flex-1 bg-[#57946c]">
                         <WeatherAsync
@@ -389,17 +368,20 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                             lon={Number(data.location.log)}
                         />
                     </div>
-                </div>
-            </section>
+                </FadeInDiv>
+            </FadeInSection>
             <br/>
             {data.type === "care-home" && (
-                <section className="main-container my-40">
+                <FadeInSection className="main-container my-40">
                     <h2 className="font-heading font-normal text-[#b8853a] text-6xl max-sm:text-5xl" id="why-choose-us">
                         Why Choose Us?
                     </h2>
-                    <div className="max-sm:my-10 my-20 text-[#64565A] flex gap-3 justify-center flex-wrap">
+                    <StaggerContainer
+                        className="max-sm:my-10 my-20 text-[#64565A] flex gap-3 justify-center flex-wrap"
+                        staggerDelay={0.12}
+                    >
                         {data.why_choose_us.map((item, index) => (
-                            <div className="flex-1 bg-white p-10" key={index}>
+                            <StaggerItem className="flex-1 bg-white p-10" key={index}>
                                 <div className="w-full flex flex-col items-center mb-5">
                                     <img
                                         src="/home/trust.webp"
@@ -411,27 +393,27 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                                 <p className="text-center text-sm text-pretty">
                                     {item.description}
                                 </p>
-                            </div>
+                            </StaggerItem>
                         ))}
-                    </div>
-                </section>
+                    </StaggerContainer>
+                </FadeInSection>
             )}
 
             {data.type === "care-home" && (
-                <section className="my-50 max-sm:mt-20 flex main-container gap-5 max-sm:flex-col">
+                <FadeInSection className="my-50 max-sm:mt-20 flex main-container gap-5 max-sm:flex-col">
                     <div className="flex-1">
                         <SectionHeader title="What we will Offer" subtitle="HOW WE CARE" id="our-services"/>
                         <p className="text-[#64565A] text-sm mt-10 max-w-[80%] max-sm:max-w-full leading-relaxed tracking-wide">
                             {data.what_we_offer.description}
                         </p>
                     </div>
-                    <div className="flex-1">
+                    <FadeInDiv delay={0.15} className="flex-1">
                         <AccordionComponent items={data.what_we_offer.accordions}/>
-                    </div>
-                </section>
+                    </FadeInDiv>
+                </FadeInSection>
             )}
 
-            <section className="w-full bg-[#B8853A] my-30">
+            <FadeSection className="w-full bg-[#B8853A] my-30">
                 <SpaceCarousel
                     spaces={data.spaces.map((i) => ({
                         ...i,
@@ -441,9 +423,9 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                         })),
                     }))}
                 />
-            </section>
+            </FadeSection>
 
-            <section className="main-container my-30 mt-50 flex gap-10 max-sm:flex-col">
+            <FadeInSection className="main-container my-30 mt-50 flex gap-10 max-sm:flex-col">
                 <div className="flex-1">
                     <SectionHeader
                         title={
@@ -460,19 +442,22 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                         {data.facilities.description}
                     </p>
                 </div>
-                <div className="flex-2 grid grid-cols-4 max-sm:grid-cols-3 gap-5 text-[#64565A] text-xs text-center">
+                <StaggerContainer
+                    className="flex-2 grid grid-cols-4 max-sm:grid-cols-3 gap-5 text-[#64565A] text-xs text-center"
+                    staggerDelay={0.06}
+                >
                     <Facilities data={data.facilities}/>
-                </div>
-            </section>
+                </StaggerContainer>
+            </FadeInSection>
 
             {data.type === "supported-home" && <div className="">
-                <section className="bg-[#57946C] mt-30 mb-20 max-sm:mt-20 flex gap-20 max-sm:flex-col text-white">
-                    <div className="flex-1">
+                <FadeInSection className="bg-[#57946C] mt-30 mb-20 max-sm:mt-20 flex gap-20 max-sm:flex-col text-white">
+                    <ScaleInDiv className="flex-1">
                         <img src="/pages/care-homes/how-we-care.webp"
                              alt="How we care"
                              className="w-full h-100 object-cover object-center"/>
-                    </div>
-                    <div className="flex-1 flex flex-col justify-center">
+                    </ScaleInDiv>
+                    <FadeInDiv delay={0.15} className="flex-1 flex flex-col justify-center">
                         <h1 className="text-4xl">Eligibility for This Service</h1>
                         <p className="line-clamp-6 w-125 text-sm mt-10 max-w-[80%] max-sm:max-w-full leading-relaxed tracking-wide">
                             Eligibility for supported living services involves a “social care assistance” needs
@@ -483,10 +468,10 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                             affect
                             their ability to live independently are also eligible for this service.
                         </p>
-                    </div>
-                </section>
+                    </FadeInDiv>
+                </FadeInSection>
 
-                <section className="main-container">
+                <FadeInSection className="main-container">
                     <h1 className="text-5xl text-[#B8853A] mb-16">Financial Help for This Service</h1>
                     <div className="text-pretty">
                         <p>
@@ -496,54 +481,58 @@ export default async function CareHomeDetailPage({params}: PageProps) {
                         </p>
                         <br/>
 
-                        <ul className="space-y-4 pl-4">
-                            <li className="list-disc">Local Authority Assistance: If you’re eligible for our services, a
+                        <StaggerList className="space-y-4 pl-4" staggerDelay={0.1}>
+                            <StaggerListItem className="list-disc">Local Authority Assistance: If you’re eligible for our services, a
                                 financial assessment
                                 will determine how much the individual can contribute towards the cost of their care.
                                 This assessment considers income, savings, and assets.
-                            </li>
+                            </StaggerListItem>
 
-                            <li className="list-disc">Benefits and Allowances: Benefits such as Personal Independence
+                            <StaggerListItem className="list-disc">Benefits and Allowances: Benefits such as Personal Independence
                                 Payment (PIP) are
                                 available to individuals aged 16-64 with a long-term health condition or disability.
                                 Alternatively, Attendance Allowance is for individuals over 65 who need help with
                                 personal care due to a physical or mental disability.
-                            </li>
+                            </StaggerListItem>
 
-                            <li className="list-disc">Charitable Support and Grants: Various charities provide financial
+                            <StaggerListItem className="list-disc">Charitable Support and Grants: Various charities provide financial
                                 assistance for people
                                 with disabilities or long-term health conditions. Examples include Living Made Easy and
                                 Sense.
-                            </li>
-                        </ul>
+                            </StaggerListItem>
+                        </StaggerList>
                     </div>
-                </section>
+                </FadeInSection>
             </div>}
 
-            <TestimonialCarousel
-                className="my-30 mt-40"
-                testimonials={data.reviews.map((i) => ({
-                    quote: i.content,
-                    role: i.by,
-                    author: i.by,
-                }))}
-            />
+            <FadeInDiv>
+                <TestimonialCarousel
+                    className="my-30 mt-40"
+                    testimonials={data.reviews.map((i) => ({
+                        quote: i.content,
+                        role: i.by,
+                        author: i.by,
+                    }))}
+                />
+            </FadeInDiv>
 
             <br/><br/><br/><br/><br/>
 
-            <MeetTheTeam
-                teamPageUrl={`/${data.type === "care-home" ? "care-home" : "supported-living"}/${data.slug}/team`}
-                id="meet-the-team"
-                data={data.meet_our_team}
-            />
+            <FadeInDiv>
+                <MeetTheTeam
+                    teamPageUrl={`/${data.type === "care-home" ? "care-home" : "supported-living"}/${data.slug}/team`}
+                    id="meet-the-team"
+                    data={data.meet_our_team}
+                />
+            </FadeInDiv>
 
             <WantToExploreMore/>
 
-            <section className="main-container mt-30 max-sm:mt-20">
+            <FadeInSection className="main-container mt-30 max-sm:mt-20">
                 <SectionHeader title={`${data.name} Brochure`} subtitle="Download Brochure" id="download-brochure"/>
                 <br/><br/>
                 <BrochureDownload homeID={data.documentId} url={getStrapiMediaUrl(data?.brochure?.url)}/>
-            </section>
+            </FadeInSection>
 
             <br/><br/><br/>
         </>
