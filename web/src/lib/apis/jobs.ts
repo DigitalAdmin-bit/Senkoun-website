@@ -188,9 +188,11 @@ export async function applyForJob(jobId: string, data: {
                 <p>Best regards,<br/>SENKOUN Team</p>
             `,
                 to: data.email,
+                recruitMail: true
             });
 
             const adminMail = sendMail({
+                recruitMail: true,
                 subject: `New Job Application - ${data.first_name.substring(0, 50)} ${data.last_name.substring(0, 50)}`,
                 content: `
         <h2>New Job Application Received</h2>

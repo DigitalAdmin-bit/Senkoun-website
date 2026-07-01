@@ -20,9 +20,12 @@ const client = Client.initWithMiddleware({
     }
 });
 
-export async function sendMail({subject, content, to}: {subject: string, content: string, to: string}) {
+export async function sendMail({subject, content, to, recruitMail = false}: {subject: string, content: string, to: string, recruitMail?: boolean}) {
     try {
-        await client.api("/users/WebsiteEnquiries@Senkoun.co.uk/sendMail").post({
+        let mail = recruitMail ? "Recruitment@senkoun.co.uk" : "WebsiteEnquiries@Senkoun.co.uk"
+
+
+        await client.api(`/users/${mail}/sendMail`).post({
             message: {
                 subject: subject,
                 body: {
