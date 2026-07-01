@@ -65,6 +65,11 @@ const nextConfig: NextConfig = {
         ],
         dangerouslyAllowLocalIP: true,
     },
+    experimental: {
+        serverActions: {
+            bodySizeLimit: "3mb"
+        }
+    },
 
     async headers() {
         return [

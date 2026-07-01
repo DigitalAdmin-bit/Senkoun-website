@@ -15,7 +15,7 @@ interface RightSideProps {
     selectedJob: IJobResponse | null;
 }
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB
 const ACCEPTED_FILE_TYPES = [
     "application/pdf",
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -52,7 +52,7 @@ export default function RightSide({selectedJob}: RightSideProps) {
                 .refine((files) => files?.length > 0, "Resume is required")
                 .refine(
                     (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-                    "File size must be less than 5MB"
+                    "File size must be less than 1MB"
                 )
                 .refine(
                     (files) => ACCEPTED_FILE_TYPES.includes(files?.[0]?.type),
@@ -68,7 +68,7 @@ export default function RightSide({selectedJob}: RightSideProps) {
 
                         return files?.[0]?.size <= MAX_FILE_SIZE
                     },
-                    "File size must be less than 5MB"
+                    "File size must be less than 1MB"
                 )
                 .refine(
                     (files) => {
@@ -454,7 +454,7 @@ export default function RightSide({selectedJob}: RightSideProps) {
                                         {/* Resume Upload */}
                                         <div className="space-y-2">
                                             <label htmlFor="resume" className="block text-[10px] font-medium uppercase tracking-widest">
-                                                Upload Resume *
+                                                Upload Resume * (Max 1MB)
                                             </label>
                                             <div className="relative border-2 border-dashed border-[#9E9094] bg-[#F5F1ED] p-8 text-center hover:border-[#B8853A] transition-colors">
                                                 <input
@@ -494,7 +494,7 @@ export default function RightSide({selectedJob}: RightSideProps) {
                                         {/* Cover Letter Upload */}
                                         <div className="space-y-2">
                                             <label htmlFor="cover_letter" className="block text-[10px] font-medium uppercase tracking-widest">
-                                                Upload Cover Letter
+                                                Upload Cover Letter (Max 1MB)
                                             </label>
                                             <div className="relative border-2 border-dashed border-[#9E9094] bg-[#F5F1ED] p-8 text-center hover:border-[#B8853A] transition-colors">
                                                 <input

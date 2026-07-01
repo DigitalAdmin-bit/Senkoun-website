@@ -8,7 +8,7 @@ import {createCareerEnquiry} from "@/lib/apis/enquires";
 import {useRouter} from "next/navigation";
 import {Upload} from "lucide-react";
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB
 const ACCEPTED_FILE_TYPES = [
     "application/pdf",
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -26,7 +26,7 @@ const careerEnquirySchema = z.object({
         .refine((files) => files?.length > 0, "Resume is required")
         .refine(
             (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-            "Resume must be less than 5MB"
+            "Resume must be less than 1MB"
         )
         .refine(
             (files) => ACCEPTED_FILE_TYPES.includes(files?.[0]?.type),
@@ -37,7 +37,7 @@ const careerEnquirySchema = z.object({
         .refine((files) => files?.length > 0, "Cover letter is required")
         .refine(
             (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-            "Cover letter must be less than 5MB"
+            "Cover letter must be less than 1MB"
         )
         .refine(
             (files) => ACCEPTED_FILE_TYPES.includes(files?.[0]?.type),

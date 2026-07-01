@@ -6,6 +6,7 @@ import qs from "qs";
 import axiosApi from "@/lib/axios-api";
 import {uploadFileToStrapi} from "@/lib/apis/upload";
 import {sendMail} from "@/lib/apis/mail";
+import {getStrapiMediaUrl} from "@/lib/utils";
 
 
 export interface IJobResponse {
@@ -212,10 +213,10 @@ export async function applyForJob(jobId: string, data: {
             `).join("")}
         </ul>
 
-        <p><strong>Resume ID:</strong> ${uploadedResume.id}</p>
+        <p><strong>Resume ID:</strong> ${getStrapiMediaUrl(uploadedResume.url)}</p>
         ${
                     uploadedCoverLetter
-                        ? `<p><strong>Cover Letter ID:</strong> ${uploadedCoverLetter.id}</p>`
+                        ? `<p><strong>Cover Letter:</strong> ${getStrapiMediaUrl(uploadedCoverLetter.url)}</p>`
                         : `<p><strong>Cover Letter:</strong> Not provided</p>`
                 }
 
