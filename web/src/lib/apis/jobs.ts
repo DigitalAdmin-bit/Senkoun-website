@@ -193,7 +193,7 @@ export async function applyForJob(jobId: string, data: {
             });
 
             const adminMail = sendMail({
-                recruitMail: true,
+                // recruitMail: true,
                 subject: `New Job Application - ${data.first_name.substring(0, 50)} ${data.last_name.substring(0, 50)}`,
                 content: `
         <h2>New Job Application Received</h2>
@@ -223,7 +223,7 @@ export async function applyForJob(jobId: string, data: {
         <hr/>
         <p>This is an automated notification from SENKOUN Hiring System.</p>
     `,
-                to: "digitaladmin@senkoun.co.uk",
+                to: "Recruitment@senkoun.co.uk",
             });
 
             await Promise.all([candidateMail, adminMail]);
