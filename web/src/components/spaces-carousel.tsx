@@ -1,6 +1,6 @@
 "use client";
 
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {motion, AnimatePresence} from "framer-motion";
 import ImageCarousel from "@/components/image-carousel";
 
@@ -26,16 +26,34 @@ interface SpaceCarouselProps {
 
 export default function SpaceCarousel({spaces}: SpaceCarouselProps) {
     const [activeIndex, setActiveIndex] = useState(0);
+    const [isHovered, setIsHovered] = useState(false);
 
     if (!spaces || spaces.length === 0) {
         return <div>No spaces available</div>;
     }
 
+    // Auto-scroll effect for parent carousel
+    useEffect(() => {
+        if (isHovered) {
+            return;
+        }
+
+        const interval = setInterval(() => {
+            setActiveIndex((prevIndex) => (prevIndex + 1) % spaces.length);
+        }, 5000); // Auto-scroll every 5 seconds
+
+        return () => clearInterval(interval);
+    }, [isHovered, spaces.length]);
+
     const currentSpace = spaces[activeIndex];
 
     return (
         <div className="flex main-container h-125 max-md:h-auto max-md:flex-col-reverse">
-            <div className="flex-1 text-white p-12 px-0 flex flex-col max-md:px-0 max-md:-mt-10">
+            <div
+                className="flex-1 text-white p-12 px-0 flex flex-col max-md:px-0 max-md:-mt-10"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+            >
                 <h1 className="text-5xl mb-8">Our Space</h1>
                 <nav className="space-y-4 font-heading max-md:flex max-md:flex-wrap max-md:space-y-0 max-md:gap-5">
                     {spaces.map((space, index) => (
@@ -54,7 +72,11 @@ export default function SpaceCarousel({spaces}: SpaceCarouselProps) {
                 </nav>
             </div>
 
-            <div className="flex-3 p-12 flex flex-col justify-center -translate-y-12.5 max-md:p-0">
+            <div
+                className="flex-3 p-12 flex flex-col justify-center -translate-y-12.5 max-md:p-0"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+            >
                 {/* Carousel */}
                 <div className="mb-8 max-md:mb-0">
                     <AnimatePresence mode="wait">

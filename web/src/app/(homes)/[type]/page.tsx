@@ -100,20 +100,29 @@ export default async function HomesPage({params}: PageProps) {
                 />
                 <div className="flex flex-wrap gap-20 max-sm:gap-0 my-20 max-sm:mb-0">
                     {homes.length === 0 ? <NoHomes/> : homes.map((home) => (
-                        <Link key={home.id}
-                              href={`/${path.actual}/${home.slug}`}
-                              className="relative max-w-75 max-sm:max-w-full min-w-75 flex-1 overflow-hidden max-sm:border-b max-sm:pb-20 max-sm:mb-20 last:max-sm:mb-0 last:max-sm:border-b-0 last:max-sm:pb-0">
+                        <div key={home.id}
+                              // href={`/${path.actual}/${home.slug}`}
+                              className="relative max-w-75 max-sm:max-w-full min-w-75 flex-1 overflow-hidden max-sm:border-b max-sm:pb-20 max-sm:mb-20 last:max-sm:mb-0 last:max-sm:border-b-0 last:max-sm:pb-0"
+                        >
                             <div className="relative group">
                                 <img
                                     className="w-full h-[400px] object-cover hover:scale-105 transition-transform duration-300"
                                     src={home.thumbnails && getStrapiMediaUrl(home.thumbnails[0].url)}
                                     alt={home.thumbnails && home.thumbnails[0].alternativeText}
                                 />
+                                <Link
+                                    href={`/${path.actual}/${home.slug}`}
+                                    className="top-0 absolute inset-0"
+                                />
                                 <div
                                     className="bg-[#b8853a]/80 text-white absolute inset-0 z-10 group-hover:opacity-100 opacity-0 transition-opacity flex flex-col">
                                     <div className="flex-1 flex items-center justify-center flex-col gap-4">
+                                        <Link
+                                            href={`/${path.actual}/${home.slug}`}
+                                            className="top-0 absolute inset-0 z-0"
+                                        />
                                         <a href={`tel:${home.phone}`}
-                                           className="flex items-center gap-2 px-4 py-2 justify-center border-2 border-white w-43">
+                                           className="z-1 flex items-center gap-2 px-4 py-2 justify-center border-2 border-white w-43">
                                             <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
                                                  xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -124,7 +133,7 @@ export default async function HomesPage({params}: PageProps) {
                                         </a>
                                         <Link
                                             href={`/${path.actual}/${home.slug}?bookTour=true`}
-                                            className="flex items-center gap-2 px-4 py-2 justify-center border-2 border-white w-43 text-nowrap">
+                                            className="z-1 flex items-center gap-2 px-4 py-2 justify-center border-2 border-white w-43 text-nowrap">
                                             <svg width="22" height="19" viewBox="0 0 22 19" fill="none"
                                                  xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M3.31665 10H7.31665" stroke="white" strokeWidth="1.3"/>
@@ -177,7 +186,7 @@ export default async function HomesPage({params}: PageProps) {
                             >
                                 VIEW DETAILS
                             </Link>
-                        </Link>
+                        </div>
                     ))}
                 </div>
             </section>

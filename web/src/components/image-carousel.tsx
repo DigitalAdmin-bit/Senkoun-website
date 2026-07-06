@@ -3,6 +3,7 @@
 import {Carousel, CarouselApi, CarouselContent, CarouselItem,} from "@/components/ui/carousel";
 import {useEffect, useState} from "react";
 import {cn} from "@/lib/utils";
+import "./image-carousel.css"
 
 interface IProps {
     images: {
@@ -28,6 +29,7 @@ export default function ImageCarousel({
                                       }: IProps) {
     const [api, setApi] = useState<CarouselApi>();
     const [current, setCurrent] = useState(0);
+    const [isHovered, setIsHovered] = useState(false);
 
     useEffect(() => {
         if (!api) {
@@ -41,14 +43,31 @@ export default function ImageCarousel({
         });
     }, [api]);
 
+    // Auto-scroll effect
+    useEffect(() => {
+        if (!api || isHovered) {
+            return;
+        }
+
+        const interval = setInterval(() => {
+            api.scrollNext();
+        }, 4000); // Auto-scroll every 4 seconds
+
+        return () => clearInterval(interval);
+    }, [api, isHovered]);
+
     return (
-        <div className="relative w-full h-full">
+        <div
+            className="relative w-full h-full"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+        >
             <Carousel setApi={setApi}>
                 <CarouselContent className="flex-1 w-full h-full">
                     {images.map((image) => (
                         <CarouselItem
                             key={image.id}
-                            className="flex items-center justify-center w-full h-full"
+                            className="flex items-center justify-center w-full h-full placeholder-pattern"
                         >
                             <img
                                 className="object-cover w-full h-100"
