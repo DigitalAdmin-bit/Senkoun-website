@@ -21,8 +21,6 @@ import {
     Link as LinkIcon
 } from "lucide-react";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
 type SortOrder = "desc" | "asc";
 
 interface FetchState {
@@ -32,15 +30,11 @@ interface FetchState {
     error: string | null;
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "https://cms.senkoun.co.uk";
 
 function resolveUrl(url: string) {
     return url.startsWith("http") ? url : `${STRAPI_URL}${url}`;
 }
-
-// ─── Sub-components ───────────────────────────────────────────────────────────
 
 function FileLink({ file, label }: { file: IFile | null; label: string }) {
     if (!file) return <span style={{ color: "#9ca3af", fontSize: "0.8rem" }}>—</span>;
