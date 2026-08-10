@@ -11,6 +11,13 @@ const axiosApi: AxiosInstance = axios.create({
     },
 });
 
+export const internalApi = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_INTERNAL_API_ENDPOINT,
+    headers: {
+        "Content-Type": "application/json",
+    }
+})
+
 // Types for Strapi API responses
 export interface StrapiMeta {
     pagination?: {

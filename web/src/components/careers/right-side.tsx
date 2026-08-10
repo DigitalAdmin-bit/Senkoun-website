@@ -1,6 +1,6 @@
 "use client";
 
-import {IJobResponse, applyForJob, THearAboutVacancyOption} from "@/lib/apis/jobs";
+import {IJobResponse, THearAboutVacancyOption} from "@/lib/apis/jobs";
 import {Button} from "@/components/ui/button";
 import StrapiBlocks from "@/components/strapi/strapi-blocks";
 import {useState} from "react";
@@ -10,6 +10,7 @@ import {z} from "zod";
 import {Upload} from "lucide-react";
 import {Select} from "@/components/ui/select";
 import {useRouter} from "next/navigation";
+import {internalApi} from "@/lib/axios-api";
 
 interface RightSideProps {
     selectedJob: IJobResponse | null;
@@ -139,15 +140,30 @@ export default function RightSide({selectedJob}: RightSideProps) {
                 type: question.question_type,
             })) || [];
 
-            await applyForJob(selectedJob.documentId, {
-                first_name: data.first_name,
-                last_name: data.last_name,
-                hear_about_vacancy: data.hear_about_vacancy,
-                phone: data.phone,
-                email: data.email,
-                responses,
-                resume: resumeFile,
-                cover_letter: coverLetterFile,
+            const formData = new FormData();
+
+            // Required fields
+            formData.append('jobId', selectedJob.documentId);
+            formData.append('first_name', data.first_name);
+            formData.append('last_name', data.last_name);
+            formData.append('email', data.email);
+            formData.append('phone', data.phone);
+            formData.append('hear_about_vacancy', data.hear_about_vacancy);
+
+            // responses (array → stringify since multipart)
+            formData.append('responses', JSON.stringify(responses ?? []));
+
+            // Files
+            formData.append('resume', resumeFile); // REQUIRED
+            if (coverLetterFile) {
+                formData.append('cover_letter', coverLetterFile);
+            }
+
+            // API call
+            await internalApi.post('/job/apply', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
             });
 
             // Redirect to success page with email
@@ -208,14 +224,17 @@ export default function RightSide({selectedJob}: RightSideProps) {
                             </div>
 
                             <div className="flex gap-2 flex-wrap mb-4">
-                                <span className="px-3 py-1 bg-gray-100 rounded text-sm border border-gray-300 capitalize">
+                                <span
+                                    className="px-3 py-1 bg-gray-100 rounded text-sm border border-gray-300 capitalize">
                                     {selectedJob.job_type}
                                 </span>
-                                <span className="px-3 py-1 bg-gray-100 rounded text-sm border border-gray-300 capitalize">
+                                <span
+                                    className="px-3 py-1 bg-gray-100 rounded text-sm border border-gray-300 capitalize">
                                     {selectedJob.work_type}
                                 </span>
                                 {selectedJob.salary && (
-                                    <span className="px-3 py-1 bg-[#B8853A]/10 text-[#B8853A] rounded text-sm border border-[#B8853A]/30 font-medium">
+                                    <span
+                                        className="px-3 py-1 bg-[#B8853A]/10 text-[#B8853A] rounded text-sm border border-[#B8853A]/30 font-medium">
                                         £{selectedJob.salary.amount}/{selectedJob.salary.period}
                                     </span>
                                 )}
@@ -285,7 +304,8 @@ export default function RightSide({selectedJob}: RightSideProps) {
 
                                     <div className="grid gap-4 md:grid-cols-2">
                                         <div className="space-y-2">
-                                            <label htmlFor="first_name" className="block text-[10px] font-medium uppercase tracking-widest">
+                                            <label htmlFor="first_name"
+                                                   className="block text-[10px] font-medium uppercase tracking-widest">
                                                 First Name *
                                             </label>
                                             <input
@@ -301,7 +321,8 @@ export default function RightSide({selectedJob}: RightSideProps) {
                                         </div>
 
                                         <div className="space-y-2">
-                                            <label htmlFor="last_name" className="block text-[10px] font-medium uppercase tracking-widest">
+                                            <label htmlFor="last_name"
+                                                   className="block text-[10px] font-medium uppercase tracking-widest">
                                                 Last Name *
                                             </label>
                                             <input
@@ -319,7 +340,8 @@ export default function RightSide({selectedJob}: RightSideProps) {
 
                                     <div className="grid gap-4 md:grid-cols-2">
                                         <div className="space-y-2">
-                                            <label htmlFor="email" className="block text-[10px] font-medium uppercase tracking-widest">
+                                            <label htmlFor="email"
+                                                   className="block text-[10px] font-medium uppercase tracking-widest">
                                                 Email Address *
                                             </label>
                                             <input
@@ -335,7 +357,8 @@ export default function RightSide({selectedJob}: RightSideProps) {
                                         </div>
 
                                         <div className="space-y-2">
-                                            <label htmlFor="phone" className="block text-[10px] font-medium uppercase tracking-widest">
+                                            <label htmlFor="phone"
+                                                   className="block text-[10px] font-medium uppercase tracking-widest">
                                                 Phone Number *
                                             </label>
                                             <input
@@ -352,7 +375,8 @@ export default function RightSide({selectedJob}: RightSideProps) {
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label htmlFor="hear_about_vacancy" className="block text-[10px] font-medium uppercase tracking-widest">
+                                        <label htmlFor="hear_about_vacancy"
+                                               className="block text-[10px] font-medium uppercase tracking-widest">
                                             How did you hear about this vacancy? *
                                         </label>
                                         <Select
@@ -379,7 +403,8 @@ export default function RightSide({selectedJob}: RightSideProps) {
                                         <h3 className="text-lg font-semibold text-[#64565A]">Additional Questions</h3>
                                         {selectedJob.questions.map((question, index) => (
                                             <div key={index} className="space-y-2">
-                                                <label htmlFor={`question_${index}`} className="block text-sm font-medium text-[#64565A]">
+                                                <label htmlFor={`question_${index}`}
+                                                       className="block text-sm font-medium text-[#64565A]">
                                                     {question.title} {question.required && '*'}
                                                 </label>
                                                 {question.description && (
@@ -431,7 +456,8 @@ export default function RightSide({selectedJob}: RightSideProps) {
                                                             {...register(`question_${index}` as any)}
                                                             className="h-4 w-4 rounded border-gray-400 text-[#B8853A] focus:ring-2 focus:ring-[#B8853A]"
                                                         />
-                                                        <label htmlFor={`question_${index}`} className="text-sm text-gray-600">
+                                                        <label htmlFor={`question_${index}`}
+                                                               className="text-sm text-gray-600">
                                                             Yes
                                                         </label>
                                                     </div>
@@ -453,10 +479,12 @@ export default function RightSide({selectedJob}: RightSideProps) {
                                     <div className="grid gap-6 md:grid-cols-2">
                                         {/* Resume Upload */}
                                         <div className="space-y-2">
-                                            <label htmlFor="resume" className="block text-[10px] font-medium uppercase tracking-widest">
+                                            <label htmlFor="resume"
+                                                   className="block text-[10px] font-medium uppercase tracking-widest">
                                                 Upload Resume * (Max 1MB)
                                             </label>
-                                            <div className="relative border-2 border-dashed border-[#9E9094] bg-[#F5F1ED] p-8 text-center hover:border-[#B8853A] transition-colors">
+                                            <div
+                                                className="relative border-2 border-dashed border-[#9E9094] bg-[#F5F1ED] p-8 text-center hover:border-[#B8853A] transition-colors">
                                                 <input
                                                     id="resume"
                                                     type="file"
@@ -469,18 +497,22 @@ export default function RightSide({selectedJob}: RightSideProps) {
                                                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                                                 />
                                                 <div className="flex flex-col items-center gap-3">
-                                                    <div className="w-12 h-12 rounded-full bg-[#B8853A] flex items-center justify-center">
-                                                        <Upload className="w-5 h-5 text-white" />
+                                                    <div
+                                                        className="w-12 h-12 rounded-full bg-[#B8853A] flex items-center justify-center">
+                                                        <Upload className="w-5 h-5 text-white"/>
                                                     </div>
                                                     <div className="text-sm">
                                                         {resumeFileName ? (
-                                                            <span className="text-[#B8853A] font-medium">{resumeFileName}</span>
+                                                            <span
+                                                                className="text-[#B8853A] font-medium">{resumeFileName}</span>
                                                         ) : (
                                                             <>
-                                                                <span className="text-[#B8853A] font-medium cursor-pointer">
+                                                                <span
+                                                                    className="text-[#B8853A] font-medium cursor-pointer">
                                                                     Choose file
                                                                 </span>
-                                                                <span className="text-[#64565A]"> or drag and drop here</span>
+                                                                <span
+                                                                    className="text-[#64565A]"> or drag and drop here</span>
                                                             </>
                                                         )}
                                                     </div>
@@ -493,10 +525,12 @@ export default function RightSide({selectedJob}: RightSideProps) {
 
                                         {/* Cover Letter Upload */}
                                         <div className="space-y-2">
-                                            <label htmlFor="cover_letter" className="block text-[10px] font-medium uppercase tracking-widest">
+                                            <label htmlFor="cover_letter"
+                                                   className="block text-[10px] font-medium uppercase tracking-widest">
                                                 Upload Cover Letter (Max 1MB)
                                             </label>
-                                            <div className="relative border-2 border-dashed border-[#9E9094] bg-[#F5F1ED] p-8 text-center hover:border-[#B8853A] transition-colors">
+                                            <div
+                                                className="relative border-2 border-dashed border-[#9E9094] bg-[#F5F1ED] p-8 text-center hover:border-[#B8853A] transition-colors">
                                                 <input
                                                     required={false}
                                                     id="cover_letter"
@@ -510,18 +544,22 @@ export default function RightSide({selectedJob}: RightSideProps) {
                                                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                                                 />
                                                 <div className="flex flex-col items-center gap-3">
-                                                    <div className="w-12 h-12 rounded-full bg-[#B8853A] flex items-center justify-center">
-                                                        <Upload className="w-5 h-5 text-white" />
+                                                    <div
+                                                        className="w-12 h-12 rounded-full bg-[#B8853A] flex items-center justify-center">
+                                                        <Upload className="w-5 h-5 text-white"/>
                                                     </div>
                                                     <div className="text-sm">
                                                         {coverLetterFileName ? (
-                                                            <span className="text-[#B8853A] font-medium">{coverLetterFileName}</span>
+                                                            <span
+                                                                className="text-[#B8853A] font-medium">{coverLetterFileName}</span>
                                                         ) : (
                                                             <>
-                                                                <span className="text-[#B8853A] font-medium cursor-pointer">
+                                                                <span
+                                                                    className="text-[#B8853A] font-medium cursor-pointer">
                                                                     Choose file
                                                                 </span>
-                                                                <span className="text-[#64565A]"> or drag and drop here</span>
+                                                                <span
+                                                                    className="text-[#64565A]"> or drag and drop here</span>
                                                             </>
                                                         )}
                                                     </div>

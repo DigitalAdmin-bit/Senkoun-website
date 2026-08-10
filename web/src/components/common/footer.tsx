@@ -12,7 +12,7 @@ const footerLinks = [
     {href: "/gallery", title: "Gallery"},
     {href: "/news", title: "News and Events"},
     {href: "/careers", title: "Careers"},
-    {href: "/internal/login", title: "Internal Login"},
+    {href: "https://internal.senkoun.co.uk/", title: "Internal Login"},
 ];
 
 const companies = [

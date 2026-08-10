@@ -3,10 +3,6 @@
 import {IStrapiResponse} from "@/types/types";
 import {BlocksContent} from "@strapi/blocks-react-renderer";
 import qs from "qs";
-import axiosApi from "@/lib/axios-api";
-import {uploadFileToStrapi} from "@/lib/apis/upload";
-import {sendMail} from "@/lib/apis/mail";
-import {getStrapiMediaUrl} from "@/lib/utils";
 
 
 export interface IJobResponse {
@@ -142,97 +138,97 @@ export type THearAboutVacancyOption =
     | 'Friend Suggested'
     | 'Other';
 
-export async function applyForJob(jobId: string, data: {
-    first_name: string;
-    last_name: string;
-    hear_about_vacancy: THearAboutVacancyOption;
-    phone: string;
-    email: string;
-    responses: {
-        question: string;
-        answer: string;
-        type?: 'short_text' | 'long_text' | 'select' | 'checkbox' | 'date';
-    }[];
-    resume: File;
-    cover_letter: File;
-}) {
-    "use server";
-    try {
-        const uploadedResume = await uploadFileToStrapi(data.resume);
-
-        let uploadedCoverLetter;
-        if (data.cover_letter) {
-            uploadedCoverLetter = await uploadFileToStrapi(data.cover_letter);
-        }
-
-        await axiosApi.post("/job-applications", {
-            data: {
-                first_name: data.first_name,
-                last_name: data.last_name,
-                hear_about_vacancy: data.hear_about_vacancy,
-                phone: data.phone,
-                email: data.email,
-                responses: data.responses,
-                resume: uploadedResume.id,
-                cover_letter: uploadedCoverLetter ? uploadedCoverLetter.id : undefined,
-                job: {
-                    connect: [jobId]
-                },
-            }
-        });
-        try {
-            const candidateMail = sendMail({
-                subject: "We have received your application",
-                content: `
-                <p>Dear ${data.first_name},</p>
-                <p>Thank you for applying for the position. We have received your application and our team will review it shortly.</p>
-                <p>Best regards,<br/>SENKOUN Team</p>
-            `,
-                to: data.email,
-                recruitMail: true
-            });
-
-            const adminMail = sendMail({
-                // recruitMail: true,
-                subject: `New Job Application - ${data.first_name.substring(0, 50)} ${data.last_name.substring(0, 50)}`,
-                content: `
-        <h2>New Job Application Received</h2>
-        
-        <p><strong>Name:</strong> ${data.first_name} ${data.last_name}</p>
-        <p><strong>Email:</strong> ${data.email}</p>
-        <p><strong>Phone:</strong> ${data.phone}</p>
-        <p><strong>Heard About Vacancy:</strong> ${data.hear_about_vacancy}</p>
-
-        <h3>Responses</h3>
-        <ul>
-            ${data.responses.map(r => `
-                <li>
-                    <strong>${r.question}</strong><br/>
-                    ${r.answer}
-                </li>
-            `).join("")}
-        </ul>
-
-        <p><strong>Resume ID:</strong> ${getStrapiMediaUrl(uploadedResume.url)}</p>
-        ${
-                    uploadedCoverLetter
-                        ? `<p><strong>Cover Letter:</strong> ${getStrapiMediaUrl(uploadedCoverLetter.url)}</p>`
-                        : `<p><strong>Cover Letter:</strong> Not provided</p>`
-                }
-
-        <hr/>
-        <p>This is an automated notification from SENKOUN Hiring System.</p>
-    `,
-                to: "Recruitment@senkoun.co.uk",
-            });
-
-            await Promise.all([candidateMail, adminMail]);
-
-        } catch (emailError) {
-            console.error("Error sending confirmation email:", emailError);
-        }
-    } catch (error) {
-        console.error("Error applying for job:", error);
-        throw error;
-    }
-}
+// export async function applyForJob(jobId: string, data: {
+//     first_name: string;
+//     last_name: string;
+//     hear_about_vacancy: THearAboutVacancyOption;
+//     phone: string;
+//     email: string;
+//     responses: {
+//         question: string;
+//         answer: string;
+//         type?: 'short_text' | 'long_text' | 'select' | 'checkbox' | 'date';
+//     }[];
+//     resume: File;
+//     cover_letter: File;
+// }) {
+//     "use server";
+//     try {
+//         const uploadedResume = await uploadFileToStrapi(data.resume);
+//
+//         let uploadedCoverLetter;
+//         if (data.cover_letter) {
+//             uploadedCoverLetter = await uploadFileToStrapi(data.cover_letter);
+//         }
+//
+//         await axiosApi.post("/job-applications", {
+//             data: {
+//                 first_name: data.first_name,
+//                 last_name: data.last_name,
+//                 hear_about_vacancy: data.hear_about_vacancy,
+//                 phone: data.phone,
+//                 email: data.email,
+//                 responses: data.responses,
+//                 resume: uploadedResume.id,
+//                 cover_letter: uploadedCoverLetter ? uploadedCoverLetter.id : undefined,
+//                 job: {
+//                     connect: [jobId]
+//                 },
+//             }
+//         });
+//         try {
+//             const candidateMail = sendMail({
+//                 subject: "We have received your application",
+//                 content: `
+//                 <p>Dear ${data.first_name},</p>
+//                 <p>Thank you for applying for the position. We have received your application and our team will review it shortly.</p>
+//                 <p>Best regards,<br/>SENKOUN Team</p>
+//             `,
+//                 to: data.email,
+//                 recruitMail: true
+//             });
+//
+//             const adminMail = sendMail({
+//                 // recruitMail: true,
+//                 subject: `New Job Application - ${data.first_name.substring(0, 50)} ${data.last_name.substring(0, 50)}`,
+//                 content: `
+//         <h2>New Job Application Received</h2>
+//
+//         <p><strong>Name:</strong> ${data.first_name} ${data.last_name}</p>
+//         <p><strong>Email:</strong> ${data.email}</p>
+//         <p><strong>Phone:</strong> ${data.phone}</p>
+//         <p><strong>Heard About Vacancy:</strong> ${data.hear_about_vacancy}</p>
+//
+//         <h3>Responses</h3>
+//         <ul>
+//             ${data.responses.map(r => `
+//                 <li>
+//                     <strong>${r.question}</strong><br/>
+//                     ${r.answer}
+//                 </li>
+//             `).join("")}
+//         </ul>
+//
+//         <p><strong>Resume ID:</strong> ${getStrapiMediaUrl(uploadedResume.url)}</p>
+//         ${
+//                     uploadedCoverLetter
+//                         ? `<p><strong>Cover Letter:</strong> ${getStrapiMediaUrl(uploadedCoverLetter.url)}</p>`
+//                         : `<p><strong>Cover Letter:</strong> Not provided</p>`
+//                 }
+//
+//         <hr/>
+//         <p>This is an automated notification from SENKOUN Hiring System.</p>
+//     `,
+//                 to: "Recruitment@senkoun.co.uk",
+//             });
+//
+//             await Promise.all([candidateMail, adminMail]);
+//
+//         } catch (emailError) {
+//             console.error("Error sending confirmation email:", emailError);
+//         }
+//     } catch (error) {
+//         console.error("Error applying for job:", error);
+//         throw error;
+//     }
+// }
