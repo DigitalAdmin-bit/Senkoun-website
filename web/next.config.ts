@@ -28,6 +28,7 @@ const csp = `
     'self'
     https://cms.senkoun.co.uk
     https://internal.senkoun.co.uk
+    https://management.senkoun.co.uk
     https://www.google-analytics.com
     http://localhost:5000
     https://analytics.google.com/g/collect;
