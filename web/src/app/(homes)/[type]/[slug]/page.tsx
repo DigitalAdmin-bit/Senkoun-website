@@ -166,7 +166,7 @@ export default async function CareHomeDetailPage({params}: PageProps) {
 
             <FadeSection>
                 <HeroSection bg={getStrapiMediaUrl(data?.cover?.url)}>
-                    <CareHomeQuickBtns homeId={data.documentId}/>
+                    <CareHomeQuickBtns data={data}/>
                 </HeroSection>
             </FadeSection>
 
