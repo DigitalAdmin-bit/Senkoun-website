@@ -66,7 +66,7 @@ export default function LeftSide({
                 <div className="space-y-2">
                   <p className="text-xs text-gray-500">
                     {formatDistanceToNow(
-                      new Date(job.publishedAt || job.createdAt),
+                      new Date(job.updatedAt || job.createdAt),
                       {
                         addSuffix: true,
                       },
