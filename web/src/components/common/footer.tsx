@@ -18,12 +18,12 @@ const footerLinks = [
 const companies = [
     {
         name: "Senkoun Healthcare Wakering Ltd",
-        address: "72A Boscombe Road Southend-on-Sea\nEssex - SS2 4JP",
+        address: "Suite 12, 8 Madeira Avenue, Leigh-On-Sea\nEssex, England, SS9 3EB",
         companyNumber: "15148446",
     },
     {
         name: "Senkoun Integrated Healthcare Solutions Ltd",
-        address: "72A Boscombe Road Southend-on-Sea\nEssex - SS2 4JP",
+        address: "Suite 17, 8 Madeira Avenue, Leigh-On-Sea\nEssex, England, SS9 3EB",
         companyNumber: "14789856",
     },
 ];
